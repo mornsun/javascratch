@@ -1,0 +1,32 @@
+/* Hello.java - MBean implementation for the Hello World MBean. 
+   因篇幅所限，把examples带的注释去掉了，自己可以下载看  */  
+  
+package test;
+  
+public class Hello implements HelloMBean {  
+    public void sayHello() {  
+    System.out.println("hello, world");  
+    }  
+  
+    public int add(int x, int y) {  
+    return x + y;  
+    }  
+  
+    public String getName() {  
+    return this.name;  
+    }  
+  
+     public int getCacheSize() {  
+    return this.cacheSize;  
+    }  
+  
+    public synchronized void setCacheSize(int size) {  
+    this.cacheSize = size;  
+  
+    System.out.println("Cache size now " + this.cacheSize);  
+    }  
+  
+    private final String name = "Reginald";  
+    private int cacheSize = DEFAULT_CACHE_SIZE;  
+    private static final int DEFAULT_CACHE_SIZE = 200;  
+}
