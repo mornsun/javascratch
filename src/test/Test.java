@@ -16,7 +16,7 @@ import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.DESedeKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+//import com.sun.org.apache.xml.internal.security.utils.Base64;
 
 /**
  * @author Chauncey
@@ -177,9 +177,11 @@ public class Test
         Short v4 = new Short(v1);
         System.out.println(v1+":"+v2+":"+v3+":"+v4);
         System.out.println(v1 == v2);
+        System.out.println(v1 == v3);
         System.out.println(v2 == v3);
         System.out.println(v3.equals(v1));
         System.out.println(v3.equals(v4));
+        System.out.println(v3.equals(v2));
 
 	    /*try {
 	       byte[] arrayDecoded = Base64.decode("8Wr/3r+L27YCkxcb4rLcNGKcIGoLylXnX0+sSFAthetepiVfSvVwEA==");

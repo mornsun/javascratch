@@ -5,15 +5,6 @@ package test;
 
 import java.util.*;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.DESKeySpec;
-import javax.crypto.spec.DESedeKeySpec;
-import javax.crypto.spec.IvParameterSpec;
-
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-
 /**
  * @author Chauncey
  *

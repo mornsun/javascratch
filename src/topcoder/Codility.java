@@ -11,6 +11,27 @@ import java.util.*;
  */
 public class Codility
 {
+	public static int countPath(int[][] check)
+	{
+	  if (null == check || check.length == 0 || check[check.length-1][check.length-1] == 1) return 0;
+	  
+	  int[] dp = new int[check.length];
+	  for(int i=0; i<check.length; ++i) {
+	    if (check[0][i] == 1) break;
+	    else dp[i] = 1;
+	  }
+      for (int i=1; i<check.length; ++i) {
+        if (check[i][0] == 1) dp[0] = 0;
+        else dp[0] = 1;
+        for (int j=1; j<check.length; ++j) {
+          if (check[i][j] == 1) dp[j] = 0;
+          else dp[j] += dp[j-1];
+        }
+      }
+	  return dp[check.length-1];
+	}
+	
+	
     public static int solution1(int[] A) {
     	if (null == A || A.length < 2) return 0;
     	Arrays.sort(A);
@@ -79,8 +100,13 @@ public class Codility
 	 */
 	public static void main(String[] args)
 	{
-		int[] nums = new int[]{4,5,1,1,1,1,4,3,1};
-		System.out.println(solution(nums));
+		//int[] nums = new int[]{4,5,1,1,1,1,4,3,1};
+		//System.out.println(solution(nums));
+		//1,2,6,20,70
+		int[][] check = new int[5][5];
+		//2^(n-1)+2*(n-2)
+		//check[1][1] = 1;
+		System.out.println(countPath(check));
 		//
 		/*System.out.println(solution(0,0));
 		System.out.println(solution(0,1));
