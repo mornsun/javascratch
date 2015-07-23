@@ -170,12 +170,23 @@ public class Test
 	    //int a[] = {0,2,1,0,1,4,2,0,1,3,1,4,1,0};
 	    //int res = Test.trapRainingWater(a);
 	    //System.out.println(res);
-	    try {
+
+        short v1 = 18;
+        Long v2 = new Long("18");
+        Long v3 = new Long(18);
+        Short v4 = new Short(v1);
+        System.out.println(v1+":"+v2+":"+v3+":"+v4);
+        System.out.println(v1 == v2);
+        System.out.println(v2 == v3);
+        System.out.println(v3.equals(v1));
+        System.out.println(v3.equals(v4));
+
+	    /*try {
 	       byte[] arrayDecoded = Base64.decode("8Wr/3r+L27YCkxcb4rLcNGKcIGoLylXnX0+sSFAthetepiVfSvVwEA==");
 	        decode("43248742", arrayDecoded);
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    }*/
 
 	    /*CLinkedList head = new CLinkedList(1);
         CLinkedList p = head;
