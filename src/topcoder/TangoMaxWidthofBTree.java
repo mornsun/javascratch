@@ -48,7 +48,7 @@ public class TangoMaxWidthofBTree
     }
     
 
-    public static int sumApproximate(int[] nums) {
+    /*public static int sumApproximate(int[] nums) {
         if (null != nums && nums.length != 0) return 0;
         int l = 0;
         int r = nums.length-1;
@@ -57,7 +57,7 @@ public class TangoMaxWidthofBTree
             sumL += nums[l];
             
         }
-    }
+    }*/
     
 	/**
 	 * @param args
