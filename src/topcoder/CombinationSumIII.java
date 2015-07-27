@@ -13,8 +13,6 @@ public class CombinationSumIII
 {
 	private final static void dfs(int[] candidates, int gap, int k, int start, LinkedList<Integer> one_res, List<List<Integer>> res)
 	{
-		if (k == 0)
-			return;
 		for (int i = start; i<candidates.length; ++i) {
 			int ngap = gap - candidates[i];
 			if (ngap == 0) {
