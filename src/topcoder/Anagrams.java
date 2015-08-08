@@ -11,30 +11,34 @@ import java.util.*;
  */
 public class Anagrams
 {
-    // dp[j] = dp[i-1] && (s[i-1,j] is in dict)
-    public static boolean wordBreak(String s, Set<String> wordDict) {
-        if (null == wordDict || wordDict.isEmpty()) {
-        	return (null == s || s.isEmpty());
-        }
-        if (null == s || s.isEmpty()) return true;
-        int len = s.length();
-        boolean[] dp = new boolean[len];
-        dp[0] = true;
-        for (int i=1; i<=len; ++i) {
-        	if (!dp[i-1])
-        		continue;
-    		String word = s.substring(i-1, len);
-    		if (wordDict.contains(word)) {
-        		return true;
-    		}
-        	for (int j=len-1; j>=i; --j) {
-        		word = s.substring(i-1, j);
-        		if (wordDict.contains(word)) {
-        			dp[j] = true;
-        		}
+    public static List<String> anagrams(String[] strs) {
+    	List<String> res = new LinkedList<String>();
+        if (strs == null || strs.length == 0) return res;
+        HashMap<String, LinkedList<String>> map = new HashMap<String, LinkedList<String>>((int)(strs.length/0.75)+1);
+        for (String str : strs) {
+        	int len = str.length();
+        	char[] keych = new char[str.length()];
+        	for (int i=0; i<len; ++i) {
+        		keych[i] = str.charAt(i);
+        	}
+        	Arrays.sort(keych);
+        	String key = new String(keych);
+        	LinkedList<String> anagrams = map.get(key);
+        	if (anagrams == null) {
+        		anagrams = new LinkedList<String>();
+        		anagrams.add(str);
+        		map.put(key, anagrams);
+        	} else {
+        		anagrams.add(str);
         	}
         }
-        return false;
+        for (LinkedList<String> anagrams : map.values()) {
+        	if (anagrams.size() > 1) {
+        		for (String str : anagrams)
+        			res.add(str);
+        	}
+        }
+        return res;
     }
 	    
 	/**
@@ -42,10 +46,8 @@ public class Anagrams
 	 */
 	public static void main(String[] args)
 	{
-		String[] strs = new String[]{"leet","code"};
-		Set<String> wordDict = new HashSet<String>();
-		wordDict.add("a");
-		System.out.println(wordBreak("a",wordDict));
+		String[] strs = new String[]{"",""};
+		System.out.println(anagrams(strs));
 	}
 
 }
