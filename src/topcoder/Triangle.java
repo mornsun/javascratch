@@ -8,7 +8,7 @@ import java.util.*;
 import topcoder.MergeTwoSortedLists.ListNode;
 
 /**
- * @author cherry
+ * @author Chauncey
  *
  */
 public class Triangle

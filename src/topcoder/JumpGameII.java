@@ -10,7 +10,7 @@ to the last index.)
 package topcoder;
 
 /**
- * @author cherry
+ * @author Chauncey
  *
  */
 public class JumpGameII {

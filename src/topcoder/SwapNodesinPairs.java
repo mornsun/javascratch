@@ -6,7 +6,7 @@ package topcoder;
 import java.util.*;
 
 /**
- * @author cherry
+ * @author Chauncey
  *
  */
 public class SwapNodesinPairs

@@ -8,7 +8,7 @@ import java.util.*;
 import topcoder.BinaryTreePostorderTraversal.TreeNode;
 
 /**
- * @author cherry
+ * @author Chauncey
  *
  */
 public class BinaryTreeInorderTraversal
