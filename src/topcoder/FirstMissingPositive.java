@@ -35,11 +35,11 @@ public class FirstMissingPositive {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] nums = new int[]{3,4,-1,1};
+		System.out.println(firstMissingPositive(nums));
     	for (int num : nums) {
     		System.out.print(num+", ");
     	}
     	System.out.println();
-		System.out.println(firstMissingPositive(nums));
 	}
 
 }
