@@ -181,7 +181,9 @@ public class Test
         System.out.println(v2 == v3);
         System.out.println(v3.equals(v1));
         System.out.println(v3.equals(v4));
-        System.out.println(v3.equals(v2));
+        System.out.println(0x7fffffff);
+        System.out.println(-0x7fffffff-1);
+        System.out.println(0x80000000);
 
 	    /*try {
 	       byte[] arrayDecoded = Base64.decode("8Wr/3r+L27YCkxcb4rLcNGKcIGoLylXnX0+sSFAthetepiVfSvVwEA==");
