@@ -6,6 +6,12 @@ package topcoder;
 import java.util.*;
 
 /**
+ * Merge Two Sorted Lists Total Accepted: 72662 Total Submissions: 223577 My Submissions Question Solution 
+Merge two sorted linked lists and return it as a new list. The new list should be made by splicing together the nodes of the first two lists.
+
+Hide Tags Linked List
+Hide Similar Problems (H) Merge k Sorted Lists (E) Merge Sorted Array (M) Sort List (M) Shortest Word Distance II
+
  * @author Chauncey
  *
  */

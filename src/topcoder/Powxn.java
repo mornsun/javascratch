@@ -6,6 +6,11 @@ package topcoder;
 import java.util.*;
 
 /**
+ * Implement pow(x, n).
+
+Hide Tags Math Binary Search
+Hide Similar Problems (M) Sqrt(x)
+
  * @author Chauncey
  *
  */

@@ -4,6 +4,14 @@
 package topcoder;
 
 /**
+ * Given a string, find the length of the longest substring without repeating characters. For example, the longest substring without repeating letters for "abcabcbb" is "abc", which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+
+Hide Tags Hash Table Two Pointers String
+Hide Similar Problems (H) Longest Substring with At Most Two Distinct Characters
+
+从左往右扫描，当遇到重复字母时，以上一个重复字母的index+1，作为新的搜索起始位置，
+直到最后一个字母，复杂度是O(n)
+
  * @author Chauncey
  *
  */

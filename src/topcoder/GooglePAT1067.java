@@ -6,6 +6,10 @@ package topcoder;
 import java.util.*;
 
 /**
+ * 
+一个整数组里包含0-(n-1)的排列 (0到(n-1)恰好只出现一次），如果每次只允许把任意数和0交换，求排好顺序至少交换多少次。 （PAT 1067）
+分析： 组合数学里的圈。
+
  * @author Chauncey
  *
  */

@@ -1,4 +1,10 @@
 '''
+Implement int sqrt(int x).
+
+Compute and return the square root of x.
+
+Hide Tags Math Binary Search
+Hide Similar Problems (M) Pow(x, n)
 
 @author: Chauncey
 '''

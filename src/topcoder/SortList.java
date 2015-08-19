@@ -8,6 +8,13 @@ import java.util.*;
 import topcoder.MergeTwoSortedLists.ListNode;
 
 /**
+ * Sort a linked list in O(n log n) time using constant space complexity.
+
+Hide Tags Linked List Sort
+Hide Similar Problems (E) Merge Two Sorted Lists (M) Sort Colors (M) Insertion Sort List
+
+merge sort
+
  * @author Chauncey
  *
  */

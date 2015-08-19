@@ -1,14 +1,23 @@
-/**
- * Given an array of non-negative integers, you are initially positioned at the first index of the array.
- * Each element in the array represents your maximum jump length at that position.
- * Determine if you are able to reach the last index.
- * For example:
- * A = [2,3,1,1,4], return true.
- * A = [3,2,1,0,4], return false.
- */
 package topcoder;
 
 /**
+ * Rotate an array of n elements to the right by k steps.
+
+For example, with n = 7 and k = 3, the array [1,2,3,4,5,6,7] is rotated to [5,6,7,1,2,3,4].
+
+Note:
+Try to come up as many solutions as you can, there are at least 3 different ways to solve this problem.
+
+[show hint]
+
+Related problem: Reverse Words in a String II
+
+Credits:
+Special thanks to @Freezen for adding this problem and creating all test cases.
+
+Hide Tags Array
+Hide Similar Problems (M) Rotate List (M) Reverse Words in a String II
+
  * @author Chauncey
  *
  */

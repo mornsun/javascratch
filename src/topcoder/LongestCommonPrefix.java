@@ -10,8 +10,10 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
- * dp[i][j] denote s1[0,i] and s2[0,j] match s3[0, i+j].(i and j exclusive and begin with 1, i<=s1.length and j<=s2.length)
- * dp[i][j] = dp[i-1][j] && (s3[i+j-1]==s1[i-1]) || dp[i][j-1] && (s3[i+j-1]==s2[j-1])
+ * Write a function to find the longest common prefix string amongst an array of strings.
+
+Hide Tags String
+
  * 
  * @author Chauncey
  *

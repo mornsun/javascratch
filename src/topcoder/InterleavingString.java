@@ -10,6 +10,23 @@ import java.io.FileReader;
 import java.io.IOException;
 
 /**
+ * Given s1, s2, s3, find whether s3 is formed by the interleaving of s1 and s2.
+
+For example,
+Given:
+s1 = "aabcc",
+s2 = "dbbca",
+
+When s3 = "aadbbcbcac", return true.
+When s3 = "aadbbbaccc", return false.
+
+Hide Tags Dynamic Programming String
+
+设状态f[i][j]，表示s1[0,i] 和s2[0,j]，匹配s3[0, i+j]。如果s1 的最后一个字符等
+于s3 的最后一个字符，则f[i][j]=f[i-1][j]；如果s2 的最后一个字符等于s3 的最后一个字符，
+则f[i][j]=f[i][j-1]。因此状态转移方程如下：
+f[i][j] = (s1[i - 1] == s3 [i + j - 1] && f[i - 1][j]) || (s2[j - 1] == s3 [i + j - 1] && f[i][j - 1]);
+
  * dp[i][j] denote s1[0,i] and s2[0,j] match s3[0, i+j].(i and j exclusive and begin with 1, i<=s1.length and j<=s2.length)
  * dp[i][j] = dp[i-1][j] && (s3[i+j-1]==s1[i-1]) || dp[i][j-1] && (s3[i+j-1]==s2[j-1])
  * 

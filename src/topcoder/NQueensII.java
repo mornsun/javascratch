@@ -6,6 +6,15 @@ package topcoder;
 import java.util.*;
 
 /**
+ * Follow up for N-Queens problem.
+
+Now, instead outputting board configurations, return the total number of distinct solutions.
+
+
+
+Hide Tags Backtracking
+Hide Similar Problems (H) N-Queens
+
  * @author Chauncey
  *
  */
