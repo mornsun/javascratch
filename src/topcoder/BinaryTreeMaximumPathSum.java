@@ -1,6 +1,3 @@
-/**
- * 
- */
 package topcoder;
 
 import java.util.*;

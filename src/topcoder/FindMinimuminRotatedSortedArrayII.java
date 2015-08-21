@@ -6,21 +6,25 @@ package topcoder;
 import java.util.*;
 
 /**
- * Suppose a sorted array is rotated at some pivot unknown to you beforehand.
+ * Follow up for "Find Minimum in Rotated Sorted Array":
+What if duplicates are allowed?
+
+Would this affect the run-time complexity? How and why?
+Suppose a sorted array is rotated at some pivot unknown to you beforehand.
 
 (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
 
 Find the minimum element.
 
-You may assume no duplicate exists in the array.
+The array may contain duplicates.
 
 Hide Tags Array Binary Search
-Hide Similar Problems (H) Search in Rotated Sorted Array (H) Find Minimum in Rotated Sorted Array II
+Hide Similar Problems (M) Find Minimum in Rotated Sorted Array
 
  * @author Chauncey
  *
  */
-public class FindMinimuminRotatedSortedArray {
+public class FindMinimuminRotatedSortedArrayII {
 	public static int findMin(int[] nums) {
 		if (null == nums || nums.length == 0)
 			return 0;

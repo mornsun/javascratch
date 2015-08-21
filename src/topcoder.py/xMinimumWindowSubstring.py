@@ -18,11 +18,58 @@ Hide Similar Problems (H) Substring with Concatenation of All Words (M) Minimum 
 '''
 import sys
 
+'''
+          0123456789
+Example: "ababcbcbaaabbdef" 
+has a 2-character substring "baaabb" of length 6 (longest) 
+and a 2-character substring "bcbcb" of lenght 5 (second longest).
+'''
+
+
 class Solution:
+    #Google Round 1
+    def maxWindow(self, s, k):
+        if s is None or k < 1: return ''
+        slen = len(s)
+        if slen == 0: return ''
+        hits = [0 for i in xrange(256)]
+        nhit = 0
+        lo = 0
+        hi = 0
+        maxwin = 0
+        lwin = 0
+        rwin= 0
+        while lo <= hi:
+            if nhit <= k:
+                if hi >= slen:
+                    break
+                ch = ord(s[hi])
+                if hits[ch] == 0:
+                    nhit += 1
+                hits[ch] += 1
+                hi += 1
+            else:
+                if hi-lo-1 > maxwin:
+                    maxwin = hi - lo - 1
+                    lwin = lo
+                    rwin = hi-1
+                if lo >= slen:
+                    break
+                ch = ord(s[lo])
+                hits[ch] -= 1
+                if hits[ch] == 0:
+                    nhit -= 1
+                lo += 1
+        if nhit <= k:
+            if hi-lo > maxwin:
+                maxwin = hi - lo
+                lwin = lo
+                rwin = hi
+        return s[lwin:rwin]
     # @param {string} s
     # @param {string} t
     # @return {string}
-    def minWindow(self, s, t):
+    def minWindow1(self, s, t):
         if s is None or t is None: return ''
         slen = len(s)
         tlen = len(t)
@@ -65,7 +112,10 @@ class Solution:
                     
 if __name__ == '__main__':
     solution = Solution();
-    print solution.minWindow('ADOBECODEBANC', 'ZZZZ')
+    print solution.maxWindow('ababcbcbaaabbdef', 2)
+    print solution.maxWindow('a', 2)
+    #print solution.maxWindow('abcdefg', 2)
+    #print solution.maxWindow('ababcbcbaaabbddef', 2)
     
     
     

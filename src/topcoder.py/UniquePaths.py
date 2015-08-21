@@ -28,4 +28,4 @@ class Solution:
         return dp[n-1]
         
 solution = Solution();
-print solution.uniquePaths(1,2)
+print solution.uniquePaths(5,5)

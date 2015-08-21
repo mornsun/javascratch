@@ -1,3 +1,7 @@
+package topcoder;
+
+import java.util.*;
+
 /**
  * Given an array S of n integers, are there elements a, b, c in S such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
 
@@ -11,13 +15,6 @@ The solution set must not contain duplicate triplets.
     (-1, -1, 2)
 Hide Tags Array Two Pointers
 Hide Similar Problems (M) Two Sum (M) 3Sum Closest (M) 4Sum (M) 3Sum Smaller
-
- */
-package topcoder;
-
-import java.util.*;
-
-/**
  * @author Chauncey
  *
  */
