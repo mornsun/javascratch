@@ -5,8 +5,6 @@ package topcoder;
 
 import java.util.*;
 
-import topcoder.xBinaryTreePostorderTraversal.TreeNode;
-
 /**
  * Given a binary tree, return the inorder traversal of its nodes' values.
 
