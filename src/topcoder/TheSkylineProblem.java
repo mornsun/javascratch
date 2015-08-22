@@ -30,45 +30,97 @@ Hide Tags Divide and Conquer Heap
  */
 public class TheSkylineProblem
 {
-    public static List<List<Integer>> threeSum(int[] nums) {
-    	List<List<Integer>> result = new LinkedList<List<Integer>>();
-    	if (nums.length < 3)
-    		return result;
-    	Arrays.sort(nums);
-    	int target = 0;
-    	for (int i=0; i < nums.length-2; ++i) {
-    		if (i>0 && nums[i]==nums[i-1]) {
-    			continue;
+	private Comparator<int[]> maxComp =  new Comparator<int[]>(){  
+        public int compare(int[] o1, int[] o2) {
+            if(o1[0] < o2[0]) {
+                return 1;
+            } else if(o1[0] > o2[0]) {  
+                return -1;
+            } else {
+            	if (o1[1] < o2[1]) {
+            		return 1;
+            	} else if (o1[1] > o2[1]) {
+            		return -1;
+            	}
+                return 0;
+            }
+        }
+    };
+    public List<int[]> getSkyline(int[][] buildings) {
+    	LinkedList<int[]> res = new LinkedList<int[]>();
+        if (buildings == null || buildings.length == 0) return res;
+        PriorityQueue<int[]> q_height =  new PriorityQueue<int[]>((buildings.length>>1)+1, maxComp);
+        int[] prev_height = null;
+        //L,R,H
+        for (int i=0; i<buildings.length; ) {//{0,2,3},{2,5,3}
+        	int[] building = buildings[i];
+        	int[] cur_height = q_height.peek(); //H,R
+        	//System.out.println("cur:"+building[0]+":"+(cur_height==null?"null":cur_height[1]+":"+cur_height[0]));
+        	//System.out.println("pre:"+building[0]+":"+(prev_height==null?"null":prev_height[1]+":"+prev_height[0]));
+        	if (cur_height == null) {
+        		if (!res.isEmpty() && building[0] == res.getLast()[0]) {
+        			res.removeLast();
+        		}
+    			res.add(new int[]{building[0], building[2]});
+        		//System.out.println(building[0] +":a:"+ building[2]);
+        		q_height.add(new int[]{building[2], building[1]});
+    			prev_height = null;
+        		++i;
+        	} else if (building[0] > cur_height[1]) { //L>R', poll height heap
+        		if (prev_height == null) {
+        			prev_height = cur_height;
+        		}
+        		q_height.poll();
+        		cur_height = q_height.peek();
+        		if (cur_height == null) {
+        			res.add(new int[]{prev_height[1], 0});
+            		//System.out.println(building[0] +":c1:" + prev_height[1] + ":0");
+        			prev_height = null;
+        		} else if (cur_height[1] > prev_height[1]) { //R'>R''
+        			res.add(new int[]{prev_height[1], cur_height[0]});
+            		//System.out.println(building[0] +":c2:"+ prev_height[1]+":"+ cur_height[0]+":"+cur_height[1]);
+            		prev_height = cur_height;
+        		}
+        	} else if (building[1] >= cur_height[1]) { // R>=R'
+        		if (building[2] > cur_height[0]) { // H>H'
+            		q_height.poll();
+            		prev_height = new int[]{building[2], building[1]};
+            		//System.out.println("null1:"+building[1] +":"+ cur_height[1]);
+        		} else { //H<=H'
+        			q_height.add(new int[]{building[2], building[1]});
+            		//System.out.println("null2:"+building[1] +":"+ cur_height[1]);
+            		prev_height = null;
+        			++i;
+        		}
+        	} else { //R<R'
+        		if (building[2] > cur_height[0]) { // H>H'
+        			q_height.add(new int[]{building[2], building[1]});
+        			res.add(new int[]{building[0], building[2]});
+            		//System.out.println(building[0] +":b:"+ building[2] +":"+ cur_height[0]);
+        			prev_height = null;
+        		}
+    			++i;
+        	}
+        }
+        while (!q_height.isEmpty()) {
+        	int[] cur_height = q_height.peek(); //H,R
+    		if (prev_height == null) {
+    			prev_height = cur_height;
     		}
-	    	int j = i+1;
-	    	int k = nums.length-1;
-	    	while (j < k) {
-	    		//System.out.println(nums[i]+":"+ nums[j] +":"+ nums[k]);
-	    		if (j != i+1 && nums[j]==nums[j-1]) {
-	    			++j;
-	    			continue;
-	    		}
-	    		if (k != nums.length-1 && nums[k]==nums[k+1]) {
-	    			--k;
-	    			continue;
-	    		}
-		    	if (nums[i] + nums[j] + nums[k] < target) {
-		    		++j;
-		    	} else if (nums[i] + nums[j] + nums[k] > target) {
-		    		--k;
-		    	} else {
-		    		int[] arr = {nums[i], nums[j], nums[k]};
-		    		List<Integer> list = new LinkedList<Integer>();
-		    		for (int n : arr) {
-		    			list.add(n);
-		    		}
-		    		result.add(list);
-		    		++j;
-		    		--k;
-		    	}
-	    	}
-    	}
-    	return result;
+    		q_height.poll();
+    		cur_height = q_height.peek();
+    		if (cur_height == null) {
+    			res.add(new int[]{prev_height[1], 0});
+            	//System.out.println(prev_height[1] +":d:"+ 0);
+    			prev_height = null;
+    		} else if (cur_height[1] > prev_height[1]) { //R'>R''
+    			//if (cur_height[0] != prev_height[0])
+            	//System.out.println(cur_height[1] +":d:"+ prev_height[1]);
+    			res.add(new int[]{prev_height[1], cur_height[0]});
+        		prev_height = cur_height;
+    		}
+        }
+        return res;
     }
 	    
 	/**
@@ -76,11 +128,25 @@ public class TheSkylineProblem
 	 */
 	public static void main(String[] args)
 	{
-		int[] nums = new int[]{-2,0,0,2,2};
-		List<List<Integer>> list = threeSum(nums);
-		for (List<Integer> l : list) {
-			System.out.println(l);
+		TheSkylineProblem solution = new TheSkylineProblem();
+		/*int[][] nums = new int[][]{{12201,180636,768079},{17026,833587,302899},{18677,413984,15176},{27370,135545,463369},
+			{42943,768584,703338},{51976,936558,66041},{54606,127067,669012},{91091,258297,345480},{120084,551243,591722},
+			{125332,482162,229054},{132267,178740,267569},{138894,237225,932827},{140440,580487,826146},{155313,225996,145444},
+			{180691,915808,647004},{192902,938643,883952},{203216,332302,741361},{207950,456999,515711},{216187,667027,135252},
+			{261232,981655,39884},{285814,905808,834322},{298641,425210,117058},{304154,968625,523103},{322773,930787,873059},
+			{327500,676571,38708},{338631,494968,692391},{338997,473330,476269},{369949,516273,169265},{410278,954566,63172},
+			{483053,574785,32225},{490123,712845,242431},{532359,861610,112707},{542839,818345,404991},{557965,724092,42073},
+			{567055,714994,926566},{567082,630925,935263},{617444,764701,810427},{637484,931752,188344},{649558,938988,587319},
+			{692137,713637,903511},{694808,974482,967343},{697940,699208,67540},{745045,978819,317587},{760350,846025,696863},
+			{761974,869856,640266},{809879,910736,632624},{884041,994482,828751},{902556,964455,713111},{910850,938456,335481}};*/
+		//int[][] nums = new int[][]{{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}};
+		//int[][] nums = new int[][]{{1,2,1},{1,2,2},{1,2,3}};
+		int[][] nums = new int[][]{{0,3,3},{1,5,3},{2,4,3},{3,7,3}};
+		List<int[]> list = solution.getSkyline(nums);
+		for (int[] item : list) {
+			System.out.println(item[0]+","+item[1]);
 		}
+		
 	}
 
 }
