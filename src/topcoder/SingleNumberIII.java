@@ -3,52 +3,46 @@ package topcoder;
 import java.util.*;
 
 /**
- * Write a program to find the n-th ugly number.
+ * Given an array of numbers nums, in which exactly two elements appear only once and all the other elements appear exactly twice. Find the two elements that appear only once.
 
-Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For example, 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
+For example:
 
-Note that 1 is typically treated as an ugly number.
+Given nums = [1, 2, 1, 3, 2, 5], return [3, 5].
 
-Hint:
-
-The naive approach is to call isUgly for every number until you reach the nth one. Most numbers are not ugly. Try to focus your effort on generating only the ugly ones.
-An ugly number must be multiplied by either 2, 3, or 5 from a smaller ugly number.
-The key is how to maintain the order of the ugly numbers. Try a similar approach of merging from three sorted lists: L1, L2, and L3.
-Assume you have Uk, the kth ugly number. Then Uk+1 must be Min(L1 * 2, L2 * 3, L3 * 5).
+Note:
+The order of the result is not important. So in the above example, [5, 3] is also correct.
+Your algorithm should run in linear runtime complexity. Could you implement it using only constant space complexity?
 Credits:
 Special thanks to @jianchao.li.fighter for adding this problem and creating all test cases.
 
-Hide Tags Dynamic Programming Heap Math
-Hide Similar Problems (H) Merge k Sorted Lists (E) Count Primes (E) Ugly Number
-
+Hide Tags Bit Manipulation
+Hide Similar Problems (M) Single Number (M) Single Number II
 
  * @author Chauncey
  *
  */
 public class SingleNumberIII
 {
-    public int nthUglyNumber(int n) {
-    	if (n<=1) return 1;
-    	HashSet<Long> set = new HashSet<Long>(); //use long to avoid integer overflow
-        PriorityQueue<Long> heap =  new PriorityQueue<Long>();
-        heap.add((long)1);
-        set.add((long)1);
-        long[] nexts = new long[3];
-        long num = 1;
-        for (int i=0; i<n; ++i) {
-        	num = heap.poll();
-        	set.remove(num);
-        	nexts[0] = num * 2;
-        	nexts[1] = num * 3;
-        	nexts[2] = num * 5;
-        	for (long next : nexts) {
-        		if (!set.contains(next)) {
-        			heap.add(next);
-        			set.add(next);
-        		}
+    public int[] singleNumber(int[] nums) {
+        if (nums == null || nums.length == 0) return null;
+        int val = nums[0];
+        for (int i=1; i<nums.length; ++i) {
+        	val ^= nums[i];
+        }
+        if (val == 0) return null; // two identical numbers without conforming the question
+        int btest = 1;
+        while ((val & btest) == 0) {
+        	btest <<= 1;
+        }
+        int v1 = 0, v2 = 0;
+        for (int num : nums) {
+        	if ((num&btest) == 0) {
+        		v1 ^= num;
+        	} else {
+        		v2 ^= num;
         	}
         }
-        return (int)num;
+        return v1 < v2 ? new int[]{v1, v2} : new int[]{v2, v1};
     }
 	    
 	/**
@@ -58,7 +52,9 @@ public class SingleNumberIII
 	{
 		SingleNumberIII solution = new SingleNumberIII();
 		
-		System.out.println(solution.nthUglyNumber(1600));
+		for (int num : solution.singleNumber(new int[]{1, 2, 1, 3, 2, 5})) {
+			System.out.println(num);
+		}
 	}
 
 }
