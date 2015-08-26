@@ -36,6 +36,7 @@ class Solution:
             else:
                 tmp = stack.pop()
                 max_area = max(max_area, height[tmp]*(i if len(stack)==0 else i-stack[-1]-1))
+                #print max_area
         return max_area
         
         
@@ -61,7 +62,7 @@ class Solution:
                     
 if __name__ == '__main__':
     solution = Solution();
-    print solution.largestRectangleArea([2,1,5,6,2,3])
+    print solution.largestRectangleArea([2,1,5,6,4,1])
     
     
     
