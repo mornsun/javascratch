@@ -19,27 +19,20 @@ public class HouseRobber
 {
     public int rob(int[] nums) {
     	if (null == nums || nums.length == 0) return 0;
-        int[][] f = new int[2][3]; //0 represent robbing 1st house but 1 not
-        f[0][0] = nums[0];
-        f[1][0] = 0;
-        if (nums.length==1) return nums[0];
-        f[0][1] = 0;
-        f[1][1] = nums[1];
-        if (nums.length==2) return Math.max(nums[0], nums[1]);
-        f[0][2] = f[0][0] + nums[2];
-        f[1][2] = nums[2];
-        if (nums.length==3) return Math.max(f[0][0], Math.max(f[1][1], f[1][2]));
+        int[] f = new int[3];
+        f[0] = nums[0];
+        if (nums.length==1) return f[0];
+        f[1] = nums[1];
+        if (nums.length==2) return Math.max(f[0], f[1]);
+        f[2] = f[0] + nums[2];
+        if (nums.length==3) return Math.max(f[1], f[2]);
         for (int i=3; i<nums.length; ++i) {
-        	int cur = Math.max(f[0][0], f[0][1]) + nums[i];
-        	f[0][0] = f[0][1];
-        	f[0][1] = f[0][2];
-        	f[0][2] = cur;
-        	cur = Math.max(f[1][0], f[1][1]) + nums[i];
-        	f[1][0] = f[1][1];
-        	f[1][1] = f[1][2];
-        	f[1][2] = cur;
+        	int cur = Math.max(f[0], f[1]) + nums[i];
+        	f[0] = f[1];
+        	f[1] = f[2];
+        	f[2] = cur;
         }
-        return Math.max(Math.max(f[0][0], f[0][1]), Math.max(f[1][1], f[1][2]));
+        return Math.max(f[1], f[2]);
     }
     
 	/**
