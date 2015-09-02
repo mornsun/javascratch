@@ -1,6 +1,3 @@
-/**
- * 
- */
 package topcoder;
 
 import java.util.*;
@@ -51,11 +48,18 @@ public class MergeTwoSortedLists
     public static ListNode mergeKLists(ListNode[] lists) {
     	if (null == lists || lists.length == 0)
     		return null;
-    	ListNode list = lists[0];
-        for (int i=1; i<lists.length; ++i) {
-        	list = mergeTwoLists(list, lists[i]);
-        }
-        return list;
+    	int last = lists.length-1;
+    	while (last != 0) {
+	        for (int i=0; i<=last; i+=2) {
+	        	if (i == last) {
+	        		lists[(i>>1)] = lists[i];
+	        	} else {
+	        		lists[(i>>1)] = mergeTwoLists(lists[i], lists[i+1]);
+	        	}
+	        }
+	        last >>= 1;
+    	}
+        return lists[0];
     }
 	    
 	/**
