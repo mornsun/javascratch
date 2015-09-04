@@ -54,7 +54,7 @@ public class xGraphStrongConnected
 		vertexs[vertex] = 1; //grey
 		Set<Integer> edges = graph.get(vertex);
 		if (edges != null) {
-			for (Integer next_vertex : graph.get(vertex)) {
+			for (Integer next_vertex : edges) {
 				if (vertexs[next_vertex] == 0) { //white
 					time = graph_dfs1(graph, vertexs, next_vertex, finishtimes, time);
 				}
@@ -68,7 +68,7 @@ public class xGraphStrongConnected
 		leaders[vertex] = leader;
 		Set<Integer> edges = graph.get(vertex);
 		if (edges != null) {
-			for (Integer next_vertex : graph.get(vertex)) {
+			for (Integer next_vertex : edges) {
 				if (visited[next_vertex] == 0) { //white
 					graph_dfs2(graph, visited, next_vertex, leaders, leader);
 				}
