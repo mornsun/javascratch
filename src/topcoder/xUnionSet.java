@@ -67,15 +67,21 @@ public class xUnionSet
 	{
 		xUnionSet solution = new xUnionSet(100);
 		solution.union(1,2);
-		System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
-		solution.union(2,3);
-		System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
-		solution.union(4,5);
-		System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
-		solution.union(5,15);
-		System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
-		solution.union(3,5);
-		System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
+		//System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
+		solution.union(3,4);
+		solution.union(2,4);
+		//System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
+		solution.union(5,6);
+		solution.union(7,8);
+		solution.union(6,8);
+		//System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
+		solution.union(4,8);
+		System.out.println(solution.id[1]);
+		System.out.println(solution.find(1));
+		System.out.println(solution.id[1]);
+		System.out.println(solution.find(1));
+		System.out.println(solution.id[1]);
+		//System.out.println(solution.find(1)+":"+solution.find(3)+":"+solution.count()+":"+solution.size(1));
 	}
 
 }
