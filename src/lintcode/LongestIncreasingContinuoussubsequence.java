@@ -2,9 +2,6 @@ package lintcode;
 
 import java.util.*;
 
-import topcoder.BinarySearchTreeIterator.TreeNode;
-import topcoder.LinkedListCycle.ListNode;
-
 /**
  * Give you an integer array (index from 0 to n-1, where n is the size of this array)，find the longest increasing continuous subsequence in this array. (The definition of the longest increasing continuous subsequence here can be from right to left or from left to right)
 

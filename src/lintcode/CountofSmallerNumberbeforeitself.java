@@ -2,8 +2,6 @@ package lintcode;
 
 import java.util.*;
 
-import topcoder.BinarySearchTreeIterator.TreeNode;
-
 /**
  * Give you an integer array (index from 0 to n-1, where n is the size of this array, value from 0 to 10000) . For each element Ai in the array, count the number of element before this element Ai is smaller than it and return count number array.
 

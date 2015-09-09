@@ -2,9 +2,6 @@ package lintcode;
 
 import java.util.*;
 
-import topcoder.BinarySearchTreeIterator.TreeNode;
-import topcoder.LinkedListCycle.ListNode;
-
 /**
  * Given an array of integers, how many three numbers can be found in the array, so that we can build an triangle whose three edges length is the three numbers that we find?
 

@@ -2,9 +2,6 @@ package lintcode;
 
 import java.util.*;
 
-import topcoder.BinarySearchTreeIterator.TreeNode;
-import topcoder.LinkedListCycle.ListNode;
-
 /**
  * Given an integer array, find a subarray where the sum of numbers is between two given interval. Your code should return the number of possible answer.
 

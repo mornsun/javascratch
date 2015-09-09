@@ -2,8 +2,6 @@ package lintcode;
 
 import java.util.*;
 
-import topcoder.BinarySearchTreeIterator.TreeNode;
-
 /**
  * Have you met this question in a real interview? Yes
 Example

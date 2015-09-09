@@ -2,9 +2,6 @@ package lintcode;
 
 import java.util.*;
 
-import topcoder.BinarySearchTreeIterator.TreeNode;
-import topcoder.LinkedListCycle.ListNode;
-
 /**
  * There is an integer matrix which has the following features:
 
