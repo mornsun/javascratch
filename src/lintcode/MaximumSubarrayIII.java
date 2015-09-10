@@ -43,8 +43,33 @@ public class MaximumSubarrayIII
     	if (null == nums || nums.size()==0 || k==0) return 0;
     	int len = nums.size();
     	if (k>=len) k=len;
+    	int[][] global = new int[len][k];
+    	int[][] local = new int[len][k];
+    	local[0][0] = nums.get(0);
+    	global[0][0] = nums.get(0);
+    	int sum = nums.get(0);
+    	for (int i=1; i<len; ++i) {
+    		local[i][0] = Math.max(local[i-1][0], 0) + nums.get(i);
+    		global[i][0] = Math.max(local[i][0], global[i-1][0]);
+    		if (i<k) {
+    			sum += nums.get(i);
+    			local[i][i] = sum;
+    			global[i][i] = sum;
+    		}
+    		for (int t=1; t<i && t<k; ++t) {
+    			local[i][t] = Math.max(global[i-1][t-1]+nums.get(i), local[i-1][t]+nums.get(i));
+    			global[i][t] = Math.max(local[i][t], global[i-1][t]);
+    			//System.out.print(global[i][t]+"("+i+":"+t+"),");
+    		}
+    	}
+    	return global[len-1][k-1];
+    }
+    public int maxSubArray1(ArrayList<Integer> nums, int k) {
+    	if (null == nums || nums.size()==0 || k==0) return 0;
+    	int len = nums.size();
+    	if (k>=len) k=len;
     	int[][] between = new int[len][len];
-    	int[][] f = new int[len][k];
+    	int[][] f = new int[k][len];
     	for (int i=0; i<len; ++i) {
     		int sum = 0;
     		int max = Integer.MIN_VALUE;
@@ -55,26 +80,16 @@ public class MaximumSubarrayIII
     			between[i][j] = max;
     		}
     	}
-		for (int i=0; i<len; ++i) {
-			f[i][0] = between[0][i];
-			//int left = 1;
-			for (int t=1; t<=i && t<k; ++t) {
+    	for (int i=0; i<len; ++i) {
+    		f[0][i] = between[0][i];
+    	}
+		for (int t=1; t<k; ++t) {
+			f[t][t] = f[t-1][t-1] + between[t][t];
+			for (int i=t+1; i<len; ++i) {
+				//int left = 1;
 				int max = Integer.MIN_VALUE;
-				//int sum = f[t-1][t-1] + between[t][i];
-				//int max = sum;
-				/*for (; left < i; ++left) {
-					if (between[left+1][i]<0) continue;
-					sum = f[left][t-1] + between[left+1][i];
-					if (sum >= max) {
-						max = sum;
-					} else {
-						break;
-					}
-				}
-				if (left>1) --left;*/
 				for (int left=t-1; left<i; ++left) {
-					if (between[left+1][i]<0) continue;
-					int sum = f[left][t-1] + between[left+1][i];
+					int sum = f[t-1][left] + between[left+1][i];
 					if (sum >= max) {
 						max = sum;
 					}
@@ -82,10 +97,10 @@ public class MaximumSubarrayIII
 				}
 				//System.out.println(i+"-"+t);
 				//System.out.println();
-				f[i][t] = max;
+				f[t][i] = max;
     		}
     	}
-		return f[len-1][k-1];
+		return f[k-1][len-1];
     }
     
 	/**
@@ -97,6 +112,10 @@ public class MaximumSubarrayIII
 
 		//8
 		System.out.println(solution.maxSubArray(new ArrayList<Integer>(Arrays.asList(new Integer[]{-1,4,-2,3,-2,3})), 2));
+		//9
+		System.out.println(solution.maxSubArray(new ArrayList<Integer>(Arrays.asList(new Integer[]{5,4})), 2));
+		//-2
+		System.out.println(solution.maxSubArray(new ArrayList<Integer>(Arrays.asList(new Integer[]{-1,-2,-3,-100,-1,-50})), 2));
 		//4114
 		System.out.println(solution.maxSubArray(new ArrayList<Integer>(Arrays.asList(new Integer[]{-42,81,-43,97,-82,20,-33,49,-62,2,
 		-43,18,-54,52,-29,31,-70,87,-75,47,
