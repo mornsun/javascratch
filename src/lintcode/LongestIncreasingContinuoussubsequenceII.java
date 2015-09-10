@@ -42,40 +42,38 @@ public class LongestIncreasingContinuoussubsequenceII
         int m = A.length;
         int n = A[0].length;
         int max = 0;
-        //boolean[][][] asc = new boolean[m][n][4];
         int[][][] step = new int[m][n][4]; //up, down, left, right
         for (int i=0; i<m; ++i) {
         	for (int j=0; j<n; ++j) {
-        		max = Math.max(max, dfs(A, step, i, j, false));
-        		max = Math.max(max, dfs(A, step, i, j, true));
+        		max = Math.max(max, dfs(A, step, i, j));
         	}
         }
         return max+1;
     }
     
-    private final int dfs(int[][] A, int[][][] step, int i, int j, boolean asc) {
+    private final int dfs(int[][] A, int[][][] step, int i, int j) {
     	int max = 0;
-    	if (i > 0 && A[i][j]!=A[i-1][j] && A[i][j]<A[i-1][j] == asc) { //up
+    	if (i > 0 &&  A[i][j]<A[i-1][j]) { //up
 	    	if (step[i][j][0] == 0) {
-	    		step[i][j][0] = dfs(A, step, i-1, j, asc) + 1;
+	    		step[i][j][0] = dfs(A, step, i-1, j) + 1;
 	    	}
 	    	max = step[i][j][0];
     	}
-    	if (i < A.length-1 && A[i][j]!=A[i+1][j] && A[i][j]<A[i+1][j] == asc) { //down
+    	if (i < A.length-1 && A[i][j]<A[i+1][j]) { //down
 	    	if (step[i][j][1] == 0) {
-	    		step[i][j][1] = dfs(A, step, i+1, j, asc) + 1;
+	    		step[i][j][1] = dfs(A, step, i+1, j) + 1;
 	    	}
 	    	max = Math.max(max, step[i][j][1]);
     	}
-    	if (j > 0 && A[i][j]!=A[i][j-1] && A[i][j]<A[i][j-1] == asc) { //left
+    	if (j > 0 && A[i][j]<A[i][j-1]) { //left
 	    	if (step[i][j][2] == 0) {
-	    		step[i][j][2] = dfs(A, step, i, j-1, asc) + 1;
+	    		step[i][j][2] = dfs(A, step, i, j-1) + 1;
 	    	}
 	    	max = Math.max(max, step[i][j][2]);
     	}
-    	if (j < A[0].length-1 && A[i][j]!=A[i][j+1] && A[i][j]<A[i][j+1] == asc) { //down
+    	if (j < A[0].length-1 && A[i][j]<A[i][j+1]) { //down
 	    	if (step[i][j][3] == 0) {
-	    		step[i][j][3] = dfs(A, step, i, j+1, asc) + 1;
+	    		step[i][j][3] = dfs(A, step, i, j+1) + 1;
 	    	}
 	    	max = Math.max(max, step[i][j][3]);
     	}
