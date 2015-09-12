@@ -20,14 +20,6 @@ Hide Tags String
  */
 public class LongestCommonPrefix
 {
-    private static boolean foo1(int i) {
-        System.out.println("foo1"+i);
-        return true;
-    }
-    private static boolean foo2(int i) {
-        System.out.println("foo2"+i);
-        return true;
-    }
     public static String longestCommonPrefix(String[] strs) {
         if (strs == null || strs.length == 0) return "";
         String prefix = strs[0];
