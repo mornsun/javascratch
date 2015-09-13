@@ -128,6 +128,46 @@ public class ShopPositions {
 		return c[(n-1)*3*m+y-1];
 	}
     public int maxProfit(int n, int m, int[] c) {
+    	int[][] f = new int[m+1][m+1];
+    	for (int p=0; p<n; ++p) {
+    		int[][] next = new int[m+1][m+1];
+    		for (int i=0; i<=m; ++i) {
+    			for (int j=0; j<=m; ++j) {
+    				for (int k=0; k<=m; ++k) {
+    					next[j][k] = Math.max(next[j][k], f[i][j] + (j==0 ? 0 : j*c[p*3*m+i+j+k-1]));
+    				}
+    			}
+    		}
+    		f = next;
+    	}
+    	int res = 0;
+    	for (int[] x : f)
+    		for (int y : x)
+    			res = Math.max(res, y);
+		
+    	return res;
+    }
+    public int maxProfit2(int n, int m, int[] c) {
+    	int[][][] f = new int[n][m+1][m+1];
+    	//f[0][0][0] = 0;
+    	for (int i=0; i<n; ++i) {
+    		for (int j=0; j<=m; ++j) {
+    			for (int k=0; k<=m; ++k) {
+    				for (int p=0; p<=m; ++p) {
+    					f[i][k][p] = Math.max(f[i][k][p], (i==0 ? 0 : f[i-1][j][k]) + (k==0 ? 0 : k*c[i*3*m+j+k+p-1]));
+    					//f[i][k][p] = Math.max(f[i][k][p], f[i][j][k] + get_profit_idx(c, i-1, m, j+k+p)*k);
+    				}
+    			}
+    		}
+    	}
+    	int res = 0;
+    	for (int k=0; k<=m; ++k)
+    		for (int p=0; p<=m; ++p)
+    			res = Math.max(res, f[n-1][k][p]);
+		
+    	return res;
+    }
+    public int maxProfit1(int n, int m, int[] c) {
     	int[][][] f = new int[n+1][m+1][m+1];
     	int ans = 0;
     	f[0][0][0] = 0;
