@@ -30,25 +30,25 @@ public class FractiontoRecurringDecimal
 		if (n<0) n = -n;
 		if (d<0) d = -d;
     	long divide = n/d;
-    	long reminder = (int)(n-divide*d);
+    	long remaining = (int)(n-divide*d);
     	sb.append(String.valueOf(divide));
     	HashMap<Long, Integer> map = new HashMap<Long, Integer>();
-    	if (reminder != 0) {
+    	if (remaining != 0) {
     		sb.append('.');
         	int i = sb.length();
-        	while (reminder != 0) {
+        	while (remaining != 0) {
         		//System.out.println(n+":"+divide+":"+reminder);
-        		Integer last = map.get(reminder);
+        		Integer last = map.get(remaining);
         		if (last == null) {
-        			map.put(reminder, i);
+        			map.put(remaining, i);
         		} else {
         			sb.insert(last.intValue(), '(');
         			sb.append(')');
         			break;
         		}
-        		n = reminder*10;
+        		n = remaining*10;
         		divide = n/d;
-        		reminder = (int)(n-divide*d);
+        		remaining = (int)(n-divide*d);
         		sb.append(divide);
         		++i;
         	}
