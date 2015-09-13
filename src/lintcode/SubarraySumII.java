@@ -27,12 +27,13 @@ Easy Subarray Sum 25 %
 public class SubarraySumII
 {
     /**
+     * arbitrary array O(n*log(n))
      * @param A an integer array
      * @param start an integer
      * @param end an integer
      * @return the number of possible answer
      */
-    public int subarraySumII(int[] A, int start, int end) {
+    public int subarraySumII1(int[] A, int start, int end) {
     	if (A==null || A.length==0) return 0;
     	int res = 0;
     	TreeSet<Integer> map = new TreeSet<Integer>();
@@ -41,6 +42,55 @@ public class SubarraySumII
     		map.add(sum);
     		sum += A[i];
     		res += map.subSet(sum-end, true, sum-start, true).size();
+    	}
+    	return res;
+    }
+    /**
+     * non-negative array, O(n)
+     * @param A
+     * @param start
+     * @param end
+     * @return
+     */
+    public int subarraySumII(int[] A, int start, int end) {
+    	if (A==null || A.length==0) return 0;
+    	int res = 0;
+    	int hi = 0;
+    	int lo = 0;
+    	int sum = A[hi];
+    	int s = 0;
+    	int subsum = A[hi];
+    	while (lo<=hi) {
+    		if (sum > end) {
+        		sum -= A[lo++];
+    			if (lo > hi) {
+    				++hi;
+            		if (hi<A.length) {
+            			sum += A[hi];
+            			subsum += A[hi];
+            		}
+            		else break;
+    			}
+    		} else if (sum < start) {
+    			++hi;
+        		if (hi<A.length) {
+        			sum += A[hi];
+        			subsum += A[hi];
+        		}
+        		else break;
+    		} else {
+    			//System.out.println(lo+":"+hi);
+    			while (subsum >= start) {
+    				subsum -= A[s++];
+    			}
+        		res+=s-lo;
+    			++hi;
+        		if (hi<A.length) {
+        			sum += A[hi];
+        			subsum += A[hi];
+        		}
+        		else break;
+    		}
     	}
     	return res;
     }
@@ -54,6 +104,10 @@ public class SubarraySumII
 
 		//4
 		System.out.println(solution.subarraySumII(new int[]{1,2,3,4}, 1, 3));
+		//1
+		System.out.println(solution.subarraySumII(new int[]{4,3,2,1}, 10, 10));
+		//41
+		System.out.println(solution.subarraySumII(new int[]{1,3,4,5,6,7,1,2,3,4,5}, 1, 19));
 	}
 
 }
