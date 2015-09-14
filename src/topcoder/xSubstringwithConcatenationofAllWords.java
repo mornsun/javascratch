@@ -45,6 +45,7 @@ public class xSubstringwithConcatenationofAllWords
         }
         int slen = s.length();
         LinkedList<Integer> res = new LinkedList<Integer>();
+        //sliding window
         for (int i=0; i<wordlen; ++i) {
         	int lo = i;
         	int hi = i;

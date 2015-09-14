@@ -37,7 +37,7 @@ public class FractiontoRecurringDecimal
     		sb.append('.');
         	int i = sb.length();
         	while (remaining != 0) {
-        		//System.out.println(n+":"+divide+":"+reminder);
+        		//System.out.println(n+":"+divide+":"+remaining);
         		Integer last = map.get(remaining);
         		if (last == null) {
         			map.put(remaining, i);
@@ -63,9 +63,9 @@ public class FractiontoRecurringDecimal
 	{
 		FractiontoRecurringDecimal solution = new FractiontoRecurringDecimal();
 		
-		System.out.println(solution.fractionToDecimal(50,-8));
+		//System.out.println(solution.fractionToDecimal(50,-8));
 		System.out.println(solution.fractionToDecimal(7,-12));
-		System.out.println(solution.fractionToDecimal(-1, -2147483648));
+		//System.out.println(solution.fractionToDecimal(-1, -2147483648));
 		
 	}
 

@@ -37,8 +37,27 @@ public class xGameCard24
     	}
     	return res;
     }
-    
+
     private final void evaluate(ArrayList<HashMap<Float, SubEvaluation>> sets, int index) {
+    	int cnt = 0;
+    	int[] pos = new int[MAX_LENGTH];
+    	for (int popcount=index; popcount!=0; ++cnt) {
+    		int prev = popcount;
+    		popcount &= (popcount-1);
+    		pos[cnt] = prev ^ popcount;
+    	}
+    	for (int i=(1<<(cnt-1))-1; i>0; --i) {
+    		int left = 0;
+    		int bittest = i;
+    		for (int j=0; j<cnt; ++j, bittest>>=1) {
+    			if ( (bittest&1) != 0) left |= pos[j];
+    		}
+    		int right = index ^ left;
+    		evaluate(sets, index, left, right);
+    	}
+    	
+    }
+    private final void evaluate1(ArrayList<HashMap<Float, SubEvaluation>> sets, int index) {
     	int cnt = 0;
     	int[] pos = new int[MAX_LENGTH];
     	for (int test=index; test!=0; ++cnt) {
