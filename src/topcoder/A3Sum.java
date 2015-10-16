@@ -20,7 +20,7 @@ Hide Similar Problems (M) Two Sum (M) 3Sum Closest (M) 4Sum (M) 3Sum Smaller
  */
 public class A3Sum
 {
-    public static List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum(int[] nums) {
     	List<List<Integer>> result = new LinkedList<List<Integer>>();
     	if (nums.length < 3)
     		return result;
@@ -66,8 +66,9 @@ public class A3Sum
 	 */
 	public static void main(String[] args)
 	{
+		A3Sum solution = new A3Sum();
 		int[] nums = new int[]{-2,0,0,2,2};
-		List<List<Integer>> list = threeSum(nums);
+		List<List<Integer>> list = solution.threeSum(nums);
 		for (List<Integer> l : list) {
 			System.out.println(l);
 		}
