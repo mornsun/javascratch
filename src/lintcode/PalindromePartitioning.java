@@ -1,7 +1,7 @@
 /**
  * 
  */
-package topcoder;
+package lintcode;
 
 import java.util.*;
 
@@ -10,15 +10,22 @@ import java.util.*;
 
 Return all possible palindrome partitioning of s.
 
-For example, given s = "aab",
-Return
+Have you met this question in a real interview? Yes
+Example
+Given s = "aab",
 
-  [
-    ["aa","b"],
-    ["a","a","b"]
-  ]
-Hide Tags Backtracking
-Hide Similar Problems (H) Palindrome Partitioning II (M) Word Break
+Return:
+
+[
+  ["aa","b"],
+  ["a","a","b"]
+]
+Tags Expand 
+Backtracking Depth First Search
+
+
+Related Problems Expand 
+Medium Palindrome Partitioning II 20 %
 
  * @author Chauncey
  *
@@ -82,15 +89,15 @@ public class PalindromePartitioning
     		for (int j=i; j<len; ++j) {
     			if (dp[i][j]) {
     				final String palindrome = s.substring(i, j+1);
-					//System.out.println(i+":"+j+":"+palindrome);
+					System.out.println(i+":"+j+":"+palindrome);
     				if (j+1 < len) {
-    					//System.out.println("in"+(j+1)+":"+res.get(j+1));
+    					System.out.println("in"+(j+1)+":"+res.get(j+1));
     					for (List<String> v: res.get(j+1)) {
     						final ArrayList<String> nv = new ArrayList<String>(v);
     						nv.add(0,palindrome);
     						res.get(i).add(nv);
     					}
-    					//System.out.println("out"+(j+1)+":"+res);
+    					System.out.println("out"+(j+1)+":"+res);
     				} else {
     					final ArrayList<String> v = new ArrayList<String>();
 						v.add(palindrome);
