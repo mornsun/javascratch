@@ -66,10 +66,10 @@ public class ReorderList
 		l.next.next = new ListNode(3);
 		l.next.next.next = new ListNode(4);
 		l.next.next.next.next = new ListNode(5);
+		l.next.next.next.next.next = new ListNode(6);
 		solution.reorderList(l);
-		while (l != null) {
-			System.out.print(l.val+"->");
-			l = l.next;
+		for (ListNode node = l; node != null; node = node.next) {
+			System.out.print(node.val+"->");
 		}
 		System.out.println();
 	}
