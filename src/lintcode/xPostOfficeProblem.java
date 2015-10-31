@@ -43,7 +43,7 @@ public class xPostOfficeProblem
     	}
     	int[] fprev = new int[A.length];
     	int[] fcurr = new int[A.length];
-    	for (int j=1; j<A.length; ++j) {
+    	for (int j=0; j<A.length; ++j) {
     		fprev[j] = between[0][j]; //before house j (inclusive), build 1 post office
     	}
     	for (int i=1; i<k; ++i) {

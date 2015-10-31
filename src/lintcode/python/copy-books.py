@@ -35,9 +35,9 @@ class Solution:
             for j in xrange(i+1, n):
                 minval = sys.maxsize
                 while left < j:
-                    next = max(f[i-1][left], f[0][j]-f[0][left])
-                    if next < minval:
-                        minval = next
+                    nxt = max(f[i-1][left], f[0][j]-f[0][left])
+                    if nxt < minval:
+                        minval = nxt
                     else:
                         break
                     left += 1
