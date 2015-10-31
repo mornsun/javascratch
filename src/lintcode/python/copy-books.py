@@ -44,7 +44,7 @@ class Solution:
                 f[i][j] = minval
                 if left > i: left -= 1
         return f[k-1][n-1]
-                    
+
 if __name__ == '__main__':
     solution = Solution();
     print solution.copyBooks([3,2,4],2)
