@@ -55,31 +55,6 @@ public class xGameCard24
     		int right = index ^ left;
     		evaluate(sets, index, left, right);
     	}
-    	
-    }
-    private final void evaluate1(ArrayList<HashMap<Float, SubEvaluation>> sets, int index) {
-    	int cnt = 0;
-    	int[] pos = new int[MAX_LENGTH];
-    	for (int test=index; test!=0; ++cnt) {
-    		int prev = test;
-    		test &= (test-1);
-    		pos[cnt] = prev ^ test;
-    	}
-    	int combination_num = 1<<(cnt-1);
-    	for (int i=combination_num-1; i>0; --i) {
-    		int left = 0;
-    		int k = 0;
-    		int test = i;
-    		while (test != 0) {
-    			if ((test&1) == 1) {
-    				left |= pos[k];
-    			}
-    			test >>= 1;
-    			++k;
-    		}
-    		int right = index ^ left;
-    		evaluate(sets, index, left, right);
-    	}
     }
     
     private final void evaluate(ArrayList<HashMap<Float, SubEvaluation>> sets, int index, int left, int right) {

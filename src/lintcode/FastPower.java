@@ -7,9 +7,9 @@ import java.util.*;
 
 Have you met this question in a real interview? Yes
 Example
-For 231 % 3 = 2
+For 2^31 % 3 = 2
 
-For 1001000 % 1000 = 0
+For 100^1000 % 1000 = 0
 
 Challenge
 O(logn)

@@ -79,7 +79,7 @@ public class xCombinations
 	 */
 	public static void main(String[] args)
 	{
-		List<List<Integer>> list = combine(4,3);
+		List<List<Integer>> list = combine(5,3);
 		System.out.println(list);
 		
 	}

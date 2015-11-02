@@ -32,20 +32,10 @@ public class xTheSkylineProblem
 {
 	private Comparator<int[]> maxComp =  new Comparator<int[]>(){  
         public int compare(int[] o1, int[] o2) {
-            if(o1[0] < o2[0]) {
-                return 1;
-            } else if(o1[0] > o2[0]) {  
-                return -1;
-            } else {
-            	if (o1[1] < o2[1]) {
-            		return 1;
-            	} else if (o1[1] > o2[1]) {
-            		return -1;
-            	}
-                return 0;
-            }
+        	return o1[0]==o2[0] ? o2[1]-o1[1] : o2[0]-o1[0];
         }
     };
+    
     public List<int[]> getSkyline(int[][] buildings) {
     	LinkedList<int[]> res = new LinkedList<int[]>();
         if (buildings == null || buildings.length == 0) return res;
@@ -139,14 +129,18 @@ public class xTheSkylineProblem
 			{567055,714994,926566},{567082,630925,935263},{617444,764701,810427},{637484,931752,188344},{649558,938988,587319},
 			{692137,713637,903511},{694808,974482,967343},{697940,699208,67540},{745045,978819,317587},{760350,846025,696863},
 			{761974,869856,640266},{809879,910736,632624},{884041,994482,828751},{902556,964455,713111},{910850,938456,335481}};*/
-		//int[][] nums = new int[][]{{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}};
-		//int[][] nums = new int[][]{{1,2,1},{1,2,2},{1,2,3}};
-		int[][] nums = new int[][]{{0,3,3},{1,5,3},{2,4,3},{3,7,3}};
-		List<int[]> list = solution.getSkyline(nums);
+		//int[][] nums = ;
+		List<int[]> list = solution.getSkyline(new int[][]{{2, 9, 10}, {3, 7, 15}, {5, 12, 12}, {15, 20, 10}, {19, 24, 8}});
 		for (int[] item : list) {
 			System.out.println(item[0]+","+item[1]);
 		}
-		
+		list = solution.getSkyline(new int[][]{{1,2,1},{1,2,2},{1,2,3}});
+		for (int[] item : list) {
+			System.out.println(item[0]+","+item[1]);
+		}
+		list = solution.getSkyline(new int[][]{{0,3,3},{1,5,3},{2,4,3},{3,7,3}});
+		for (int[] item : list) {
+			System.out.println(item[0]+","+item[1]);
+		}
 	}
-
 }

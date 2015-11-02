@@ -15,7 +15,7 @@ Hide Tags Math Binary Search
  */
 public class xDivideTwoIntegers
 {
-    public static int divide(int dividend, int divisor) {
+    public int divide(int dividend, int divisor) {
     	if (dividend == 0 || divisor == 0) return 0;
     	boolean positive = true;
         if (dividend<0 && divisor>0 || dividend>0 && divisor<0) positive = false;
@@ -23,8 +23,7 @@ public class xDivideTwoIntegers
         long b = (divisor < 0 ? -(long)divisor : divisor);
         long res = 0;
         while (a >= b) {
-        	long multi = b;
-        	for (long i=1; a >= multi; i<<=1, multi<<=1) {
+        	for (long i=1, multi = b; a >= multi; i<<=1, multi<<=1) {
         		a -= multi;
         		res += i;
         	}
@@ -36,9 +35,9 @@ public class xDivideTwoIntegers
      */
     public static void main(String[] args)
     {
-        // TODO Auto-generated method stub
-        int res = divide(-2147483648, -1);
-        System.out.println(res);
+    	xDivideTwoIntegers solution = new xDivideTwoIntegers();
+    	System.out.println(solution.divide(555, 112));
+    	System.out.println(solution.divide(-2147483648, -1));
     }
 
 }

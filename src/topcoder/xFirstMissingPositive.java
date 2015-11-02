@@ -20,7 +20,7 @@ bucket sort
  */
 public class xFirstMissingPositive {
 
-	private static void bucket_sort(int[] nums) {
+	private final void bucket_sort(int[] nums) {
 		for (int i=0; i<nums.length; ++i) {
 			while (nums[i] != i + 1) {
 				if (nums[i] <= 0 || nums[i] > nums.length || nums[i] == nums[nums[i]-1] )
@@ -31,7 +31,7 @@ public class xFirstMissingPositive {
 			}
 		}
 	}
-    public static int firstMissingPositive(int[] nums) {
+    public int firstMissingPositive(int[] nums) {
     	bucket_sort(nums);
         for (int i=0; i<nums.length; ++i) {
         	if (nums[i] != i+1) {
@@ -45,9 +45,9 @@ public class xFirstMissingPositive {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		xFirstMissingPositive solution = new xFirstMissingPositive();
 		int[] nums = new int[]{3,4,-1,1};
-		System.out.println(firstMissingPositive(nums));
+		System.out.println(solution.firstMissingPositive(nums));
     	for (int num : nums) {
     		System.out.print(num+", ");
     	}

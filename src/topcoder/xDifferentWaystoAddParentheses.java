@@ -35,40 +35,6 @@ Hide Similar Problems (M) Unique Binary Search Trees II (M) Basic Calculator
  */
 public class xDifferentWaystoAddParentheses
 {
-	private final int one_operation(int lnum, int rnum, char op) {
-        int ans = 0;
-    	switch(op) {
-    	case '+':
-    		ans = lnum + rnum;
-    		break;
-    	case '-':
-    		ans = lnum - rnum;
-    		break;
-    	case '*':
-    		ans = lnum * rnum;
-    		break;
-    	}
-    	return ans;
-	}
-	private final List<Integer> add_parentheses(ArrayList<Integer> numberlist, ArrayList<Character> oplist, int lo, int hi)
-	{
-    	LinkedList<Integer> res = new LinkedList<Integer>();
-		if (hi-lo == 1) {
-			res.add(one_operation(numberlist.get(lo), numberlist.get(lo+1), oplist.get(lo)));
-			return res;
-		} else if (hi-lo == 0) {
-			res.add(numberlist.get(lo));
-			return res;
-		}
-    	for (int i=lo; i<hi; ++i) {
-    		for (int leftnum : add_parentheses(numberlist, oplist, lo, i)) {
-        		for (int rightnum : add_parentheses(numberlist, oplist, i+1, hi)) {
-        			res.add(one_operation(leftnum, rightnum, oplist.get(i)));
-        		}
-    		}
-    	}
-    	return res;
-	}
     public List<Integer> diffWaysToCompute(String input) {
     	if (input == null || input.length()==0) return null;
     	int num = -1;
@@ -107,7 +73,56 @@ public class xDifferentWaystoAddParentheses
 			return null;
         return add_parentheses(numberlist, oplist, 0, oplist.size());
     }
-	private final void operate(LinkedList<Integer> num_stack, LinkedList<Character> op_stack) {
+	
+	private final List<Integer> add_parentheses(ArrayList<Integer> numberlist, ArrayList<Character> oplist, int lo, int hi)
+	{
+    	LinkedList<Integer> res = new LinkedList<Integer>();
+		if (hi-lo == 1) {
+			res.add(one_operation(numberlist.get(lo), numberlist.get(lo+1), oplist.get(lo)));
+			return res;
+		} else if (hi-lo == 0) {
+			res.add(numberlist.get(lo));
+			return res;
+		}
+    	for (int i=lo; i<hi; ++i) {
+    		for (int leftnum : add_parentheses(numberlist, oplist, lo, i)) {
+        		for (int rightnum : add_parentheses(numberlist, oplist, i+1, hi)) {
+        			res.add(one_operation(leftnum, rightnum, oplist.get(i)));
+        		}
+    		}
+    	}
+    	return res;
+	}
+    
+	private final int one_operation(int lnum, int rnum, char op) {
+        int ans = 0;
+    	switch(op) {
+    	case '+':
+    		ans = lnum + rnum;
+    		break;
+    	case '-':
+    		ans = lnum - rnum;
+    		break;
+    	case '*':
+    		ans = lnum * rnum;
+    		break;
+    	}
+    	return ans;
+	}
+	
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args)
+	{
+		xDifferentWaystoAddParentheses solution = new xDifferentWaystoAddParentheses();
+		
+		System.out.println(solution.diffWaysToCompute("2*3-4*5"));
+		System.out.println(solution.diffWaysToCompute(" "));
+		System.out.println(solution.diffWaysToCompute("0"));
+	}
+    
+	/*private final void operate(LinkedList<Integer> num_stack, LinkedList<Character> op_stack) {
 		Character op = op_stack.peek();
 		if (op == null || op == '(') {
 			return;
@@ -174,6 +189,7 @@ public class xDifferentWaystoAddParentheses
 		operate(num_stack, op_stack);
         return num_stack.peek();
     }
+    
 	private final void next_operation(String s, int l, int idx, List<Integer> res, List<Integer> path, int deep) {
 		int num = -1;
     	int i = idx;
@@ -254,19 +270,5 @@ public class xDifferentWaystoAddParentheses
             	}
             }
         }
-
-	}
-	    
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		xDifferentWaystoAddParentheses solution = new xDifferentWaystoAddParentheses();
-		
-		System.out.println(solution.diffWaysToCompute("2*3-4*5"));
-		System.out.println(solution.diffWaysToCompute(" "));
-		System.out.println(solution.diffWaysToCompute("0"));
-	}
-
+	}*/
 }
