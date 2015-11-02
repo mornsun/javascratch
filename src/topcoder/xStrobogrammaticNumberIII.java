@@ -26,17 +26,19 @@ public class xStrobogrammaticNumberIII
 	private final char[] greaters = new char[]{4,3,3,3,3,3,2,2,1,0};
 	private final char[] lesses = new char[]{0,1,2,2,2,2,2,3,3,4};
 	private final boolean[] isStrobogrammatic = new boolean[]{true,true,false,false,false,false,true,false,true,true};
-	private final int strobogrammaticNumberInBits(int k, int n) {
-		if (k >= (n+1)/2) return 1; //3:0-1 4:0-1
-		int cnt = 1;
-		for (; k<n/2; ++k) { //3:1 4:2
-			cnt *= k==0 ? 4 : 5;
-		}
-		if ((n&1) == 1) { //odd number 0,1,8
-			cnt *= 3;
-		}
-		return cnt;
-	}
+
+    public int strobogrammaticInRange(String low, String high) {
+    	if (null == low || null == high) return 0;
+    	int lowlen = low.length();
+    	int highlen = high.length();
+    	int cnt = strobogrammaticInEqualBitNumberGreaters(low)
+    			+ strobogrammaticInEqualBitNumberLesses(high);
+    	for (int k=lowlen+1; k<highlen; ++k) {
+    		cnt += strobogrammaticNumberInBits(0, k);
+    	}
+    	return cnt;
+    }
+    
 	private final int strobogrammaticInEqualBitNumberGreaters(String low) {
 		int n = low.length();
 		int cnt = 0;
@@ -65,6 +67,7 @@ public class xStrobogrammaticNumberIII
 		System.out.println("greater:"+cnt);
 		return cnt;
 	}
+	
 	private final int strobogrammaticInEqualBitNumberLesses(String high) {
 		int n = high.length();
 		int cnt = 0;
@@ -95,17 +98,18 @@ public class xStrobogrammaticNumberIII
 		System.out.println("less:"+cnt);
 		return cnt;
 	}
-    public int strobogrammaticInRange(String low, String high) {
-    	if (null == low || null == high) return 0;
-    	int lowlen = low.length();
-    	int highlen = high.length();
-    	int cnt = strobogrammaticInEqualBitNumberGreaters(low)
-    			+ strobogrammaticInEqualBitNumberLesses(high);
-    	for (int k=lowlen+1; k<highlen; ++k) {
-    		cnt += strobogrammaticNumberInBits(0, k);
-    	}
-    	return cnt;
-    }
+    
+	private final int strobogrammaticNumberInBits(int k, int n) {
+		if (k >= (n+1)/2) return 1; //3:0-1 4:0-1
+		int cnt = 1;
+		for (; k<n/2; ++k) { //3:1 4:2
+			cnt *= k==0 ? 4 : 5;
+		}
+		if ((n&1) == 1) { //odd number 0,1,8
+			cnt *= 3;
+		}
+		return cnt;
+	}
 	    
 	/**
 	 * @param args
