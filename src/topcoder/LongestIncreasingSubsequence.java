@@ -28,8 +28,35 @@ public class LongestIncreasingSubsequence
     public int lengthOfLIS(int[] nums) {
     	if (null == nums || nums.length == 0)
     		return 0;
+    	int[] cnts = new int[nums.length];
+    	int right = 0;
+    	for (int n : nums) {
+    		int lo = 0;
+    		int hi = right-1;
+    		while (lo <= hi) {
+    			int m = lo+(hi-lo>>1);
+    			if (cnts[m] < n) {
+    				lo = m+1;
+    			} else if (cnts[m] > n){
+    				hi = m-1;
+    			} else {
+    				lo = m;
+    				break;
+    			}
+    		}
+    		if (lo < right) {
+    			cnts[lo] = n;
+    		} else {
+    			cnts[right++] = n;
+    		}
+    	}
+    	return right;
+    }
+    
+    public int lengthOfLIS1(int[] nums) {
+    	if (null == nums || nums.length == 0)
+    		return 0;
     	int max = 1;
-    	//TreeMap<Integer, Integer> map = new TreeMap<Integer, Integer>();
     	int[] cnts = new int[nums.length];
     	for (int i=0; i<nums.length; ++i) {
     		int cnt = 0;
@@ -48,8 +75,9 @@ public class LongestIncreasingSubsequence
 	public static void main(String[] args)
 	{
 		LongestIncreasingSubsequence solution = new LongestIncreasingSubsequence();
-		int[] nums = new int[]{10, 9, 2, 5, 3, 7, 101, 18};
-		System.out.println(solution.lengthOfLIS(nums));
+		//System.out.println(solution.lengthOfLIS(new int[]{10, 9, 2, 5, 3, 7, 101, 18}));
+		//2 4 5 6 7 12
+		System.out.println(solution.lengthOfLIS(new int[]{3,5,6,2,5,4,19,5,6,7,12}));
 	}
 
 }
