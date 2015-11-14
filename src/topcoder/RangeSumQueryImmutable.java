@@ -37,7 +37,7 @@ public class RangeSumQueryImmutable
     }
 
     public int sumRange(int i, int j) {
-        if (i > j) return 0;
+        if (i > j || _leftsum == null) return 0;
         if (i < 0) i=0;
         if (j > _leftsum.length-2) j = _leftsum.length-2;
         return _leftsum[j+1] - _leftsum[i];
