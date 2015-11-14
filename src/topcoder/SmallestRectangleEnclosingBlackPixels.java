@@ -3,83 +3,70 @@ package topcoder;
 import java.util.*;
 
 /**
- * Given a 2D matrix matrix, find the sum of the elements inside the rectangle defined by its upper left corner (row1, col1) and lower right corner (row2, col2).
+ * An image is represented by a binary matrix with 0 as a white pixel and 1 as a black pixel. The black pixels are connected, i.e., there is only one black region. Pixels are connected horizontally and vertically. Given the location (x, y) of one of the black pixels, return the area of the smallest (axis-aligned) rectangle that encloses all black pixels.
 
-Range Sum Query 2D
-The above rectangle (with the red border) is defined by (row1, col1) = (2, 1) and (row2, col2) = (4, 3), which contains sum = 8.
+For example, given the following image:
 
-Example:
-Given matrix = [
-  [3, 0, 1, 4, 2],
-  [5, 6, 3, 2, 1],
-  [1, 2, 0, 1, 5],
-  [4, 1, 0, 1, 7],
-  [1, 0, 3, 0, 5]
+[
+  "0010",
+  "0110",
+  "0100"
 ]
-
-sumRegion(2, 1, 4, 3) -> 8
-sumRegion(1, 1, 2, 2) -> 11
-sumRegion(1, 2, 2, 4) -> 12
-Note:
-You may assume that the matrix does not change.
-There are many calls to sumRegion function.
-You may assume that row1 ≤ row2 and col1 ≤ col2.
-Subscribe to see which companies asked this question
-
-Hide Tags Dynamic Programming
-Hide Similar Problems (E) Range Sum Query - Immutable
+and x = 0, y = 2,
+Return 6.
 
  * @author Chauncey
  *
  */
 public class SmallestRectangleEnclosingBlackPixels
 {
-	private int[][] _topLeftSum = null;
-
-    public SmallestRectangleEnclosingBlackPixels(int[][] matrix) {
-        if (null == matrix || matrix.length == 0 || matrix[0].length == 0) return;
-        _topLeftSum = new int[matrix.length+1][matrix[0].length+1];
-        for (int i=0; i<matrix.length; ++i) {
-        	int sum = 0;
-            for (int j=0; j<matrix[0].length; ++j) {
-            	sum += matrix[i][j];
-            	_topLeftSum[i+1][j+1] = _topLeftSum[i][j+1] + sum;
-            }
-        }
-    }
-    
-    public int sumRegion(int row1, int col1, int row2, int col2) {
-        if (_topLeftSum == null || row1 > row2 || col1 > col2) return 0;
-        if (row1 < 0) row1 = 0;
-        if (col1 < 0) col1 = 0;
-        if (row2 > _topLeftSum.length-2) row2 = _topLeftSum.length-2;
-        if (col2 > _topLeftSum[0].length-2) col2 = _topLeftSum[0].length-2;
-        return _topLeftSum[row2+1][col2+1] + _topLeftSum[row1][col1] - _topLeftSum[row1][col2+1] - _topLeftSum[row2+1][col1];
-    }
+	/**BFS approach
+	 * Ref. BinarySearch: https://leetcode.com/discuss/68246/c-java-python-binary-search-solution-with-explanation
+	 * @param image
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public int minArea(char[][] image, int x, int y) {
+		if (null==image || image.length==0 || image[0].length==0
+				|| y<0 || y>=image.length || x<0 || x>=image[0].length) return -1;
+		int[][] rect = new int[2][2];
+		rect[0][0] = x; rect[0][1] = y; rect[1][0] = x; rect[1][1] = y;
+		dfs(image, x, y, rect);
+		return (rect[1][0]-rect[0][0]+1) * (rect[1][1]-rect[0][1]+1);
+	}
+	
+	private void dfs(char[][] image, int x, int y, int[][] rect) {
+		image[x][y] = '-';
+		if (x-1>=0 && image[x-1][y]=='1') {
+			rect[0][0] = Math.min(rect[0][0], x-1);
+			dfs(image, x-1, y, rect);
+		}
+		if (y-1>=0 && image[x][y-1]=='1') {
+			rect[0][1] = Math.min(rect[0][1], y-1);
+			dfs(image, x, y-1, rect);
+		}
+		if (x+1<image.length && image[x+1][y]=='1') {
+			rect[1][0] = Math.max(rect[1][0], x+1);
+			dfs(image, x+1, y, rect);
+		}
+		if (y+1<image[0].length && image[x][y+1]=='1') {
+			rect[1][1] = Math.max(rect[1][1], y+1);
+			dfs(image, x, y+1, rect);
+		}
+	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		int[][] matrix = new int[][] {
-		          {3, 0, 1, 4, 2},
-		          {5, 6, 3, 2, 1},
-		          {1, 2, 0, 1, 5},
-		          {4, 1, 0, 1, 7},
-		          {1, 0, 3, 0, 5}};
-		SmallestRectangleEnclosingBlackPixels solution = new SmallestRectangleEnclosingBlackPixels(matrix);
+		char[][] matrix = new char[][] {
+				  {'0','0','1','0'},
+				  {'0','1','1','0'},
+				  {'0','1','0','0'}};
+		SmallestRectangleEnclosingBlackPixels solution = new SmallestRectangleEnclosingBlackPixels();
 		//8
-		System.out.println(solution.sumRegion(2, 1, 4, 3));
-		//11
-		System.out.println(solution.sumRegion(1, 1, 2, 2));
-		//12
-		System.out.println(solution.sumRegion(1, 2, 2, 4));
-		matrix = new int[][]{{1},{-7}};
-		solution = new SmallestRectangleEnclosingBlackPixels(matrix);
-		System.out.println(solution.sumRegion(0,0,0,0));
-		System.out.println(solution.sumRegion(1,0,1,0));
-		System.out.println(solution.sumRegion(0,0,1,0));
+		System.out.println(solution.minArea(matrix, 0, 2));
 	}
-
 }
