@@ -31,6 +31,65 @@ Hide Tags Array Backtracking Breadth-first Search String
  */
 public class WordLadderII
 {
+    public List<List<String>> findLadders(String start, String end, Set<String> dict) {
+    	List<List<String>> res = new ArrayList<List<String>>();
+    	if (start==null || end==null) return res;
+    	int len = start.length();
+    	if (end.length() != len) return res;
+    	addWord(start);
+    	addWord(end);
+    	for (String word : dict) {
+    		if (word.length() != len) continue;
+    		addWord(word);
+    	}
+    	HashSet<String> visited = new HashSet<String>();
+    	LinkedList<LadderTreeNode> parents = new LinkedList<LadderTreeNode>();
+    	LinkedList<LadderTreeNode> children = new LinkedList<LadderTreeNode>();
+    	children.offer(new LadderTreeNode(start, null));
+    	visited.add(start);
+    	boolean arrived = false;
+    	while (!children.isEmpty()) {
+    		LinkedList<LadderTreeNode> tmp = children;
+    		children = parents;
+    		parents = tmp;
+    		while (!parents.isEmpty()) {
+    			LadderTreeNode parent = parents.poll();
+    			char[] word = parent.word.toCharArray();
+    			for (int i=0; i<len; ++i) {
+    				char ch = word[i];
+    				word[i] = '.';
+        			List<String> nexts = search(word);
+        			word[i] = ch;
+        			for (String next : nexts) {
+        				if (visited.contains(next)) continue;
+        				if (end.equals(next)) {
+        					LinkedList<String> path = new LinkedList<String>();
+        					path.push(next);
+        					path.push(parent.word);
+        					LadderTreeNode node = parent.parent;
+        					while (node != null) {
+        						path.push(node.word);
+        						node = node.parent;
+        					}
+        					res.add(path);
+        					arrived = true;
+        				} else {
+	        				LadderTreeNode child = new LadderTreeNode(next, parent);
+	        				children.offer(child);
+        				}
+        			}
+    			}
+    		}
+    		if (arrived) {
+    			break;
+    		}
+    		for (LadderTreeNode child : children) {
+    			visited.add(child.word);
+    		}
+    	}
+    	return res;
+    }
+    
 	private class TrieNode{
 		TrieNode[] next;
 		boolean end;
@@ -98,73 +157,12 @@ public class WordLadderII
     	public LadderTreeNode(String w, LadderTreeNode p) { word = w; parent=p;}
     }
 
-    public List<List<String>> findLadders(String start, String end, Set<String> dict) {
-    	List<List<String>> res = new ArrayList<List<String>>();
-    	if (start==null || end==null) return res;
-    	int len = start.length();
-    	if (end.length() != len) return res;
-    	addWord(start);
-    	addWord(end);
-    	for (String word : dict) {
-    		if (word.length() != len) continue;
-    		addWord(word);
-    	}
-    	HashSet<String> visited = new HashSet<String>();
-    	LinkedList<LadderTreeNode> parents = new LinkedList<LadderTreeNode>();
-    	LinkedList<LadderTreeNode> children = new LinkedList<LadderTreeNode>();
-    	children.offer(new LadderTreeNode(start, null));
-    	visited.add(start);
-    	boolean arrived = false;
-    	while (!children.isEmpty()) {
-    		LinkedList<LadderTreeNode> tmp = children;
-    		children = parents;
-    		parents = tmp;
-    		while (!parents.isEmpty()) {
-    			LadderTreeNode parent = parents.poll();
-    			char[] word = parent.word.toCharArray();
-    			for (int i=0; i<len; ++i) {
-    				char ch = word[i];
-    				word[i] = '.';
-        			List<String> nexts = search(word);
-        			word[i] = ch;
-        			for (String next : nexts) {
-        				if (visited.contains(next)) continue;
-        				if (end.equals(next)) {
-        					LinkedList<String> path = new LinkedList<String>();
-        					path.push(next);
-        					path.push(parent.word);
-        					LadderTreeNode node = parent.parent;
-        					while (node != null) {
-        						path.push(node.word);
-        						node = node.parent;
-        					}
-        					res.add(path);
-        					arrived = true;
-        				} else {
-	        				LadderTreeNode child = new LadderTreeNode(next, parent);
-	        				children.offer(child);
-        				}
-        			}
-    			}
-    		}
-    		if (arrived) {
-    			break;
-    		}
-    		for (LadderTreeNode child : children) {
-    			visited.add(child.word);
-    		}
-    	}
-    	return res;
-    }
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
 		WordLadderII solution = new WordLadderII();
-		String[] words = new String[]{"hot","dot","dog","lot","log"};
-		HashSet<String> dict = new HashSet<String>(Arrays.asList(words));
-		//System.out.println(solution.findLadders("hit", "cog", dict));
 		System.out.println(solution.findLadders("a", "c", new HashSet<String>(Arrays.asList(new String[]{"b"}))));
 		
 	}
