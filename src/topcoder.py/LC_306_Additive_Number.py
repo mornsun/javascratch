@@ -18,6 +18,7 @@ Given a string containing only digits '0'-'9', write a function to determine if 
 
 Follow up:
 How would you handle overflow for very large input integers?
+
 @author: Chauncey
 '''
 
@@ -59,41 +60,66 @@ class Solution(object):
         return res
 
 
+    def _validNumber(self, num_list, start, end):
+        if num_list[start] == 0 and end > start+1:
+            return False
+        return True
+
+    def _largeNumberPlus(self, num_list, s1, e1, s2, e2):
+        offset1 = e1-1
+        offset2 = e2-1
+        res_list = []
+        carrybit = 0
+        while offset1 >= s1 or offset2 >= s2:
+            left = num_list[offset1] if offset1 >= s1 else 0
+            right = num_list[offset2] if offset2 >= s2 else 0
+            total = left+right+carrybit
+            carrybit = 1 if total>=10 else 0
+            if total >= 10:
+                total -= 10
+            res_list.append(total)
+            offset1-=1
+            offset2-=1
+
+        if carrybit == 1:
+            res_list.append(1)
+        res_list.reverse()
+
+        return res_list
+
+
     def isAdditiveList(self, num_list, start, end):
         for i in xrange(start+1, end-1):
-            left = self._calNumber(num_list, start, i)
-            if left is None:
+            if not self._validNumber(num_list, start, i):
                 break
             for j in xrange(i+1, end):
-                right = self._calNumber(num_list, i, j)
-                if right is None:
+                if not self._validNumber(num_list, i, j):
                     break
-                total = left + right
-                #print '+', total
-                l = self._toNumList(total)
+                l = self._largeNumberPlus(num_list, start, i, i, j)
+                print '+', l
+                #l = self._toNumList(total)
                 match = True
                 for k in xrange(0, len(l)):
                     if j+k >= len(num_list) or l[k] != num_list[j+k]:
                         match = False
                         break
-                if match and self.isAdditiveListRec(num_list, right, total, j, j+len(l)):
+                if match and self.isAdditiveListRec(num_list, i, j, j, j+len(l)):
                     return True
         return False
 
 
-    def isAdditiveListRec(self, num_list, left, right, i, j):
-        if j == len(num_list):
+    def isAdditiveListRec(self, num_list, s1, e1, s2, e2):
+        if e2 == len(num_list):
             return True
 
-        total = left + right
-        #print '++', total
-        l = self._toNumList(total)
+        l = self._largeNumberPlus(num_list, s1, e1, s2, e2)
+        print '++', l
         match = True
         for k in xrange(0, len(l)):
-            if j+k >= len(num_list) or l[k] != num_list[j+k]:
+            if e2+k >= len(num_list) or l[k] != num_list[e2+k]:
                 match = False
                 break
-        if match and self.isAdditiveListRec(num_list, right, total, j, j+len(l)):
+        if match and self.isAdditiveListRec(num_list, s2, e2, e2, e2+len(l)):
             return True
         return False
 
