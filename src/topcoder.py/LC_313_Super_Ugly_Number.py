@@ -25,9 +25,11 @@ Hide Similar Problems (M) Ugly Number II
 '''
 
 import heapq
+import datetime
+import time
 
 class Solution(object):
-    def nthSuperUglyNumber(self, n, primes):
+    def nthSuperUglyNumber1(self, n, primes):
         """
         :type n: int
         :type primes: List[int]
@@ -51,12 +53,39 @@ class Solution(object):
                     heapq.heappush(heap, next_num)
                     items.add(next_num)
 
-        return num;
+        return num
+
+
+    def nthSuperUglyNumber(self, n, primes):
+        """
+        :type n: int
+        :type primes: List[int]
+        :rtype: int
+        """
+        ugly = [1] * n
+        i_list = [-1] * len(primes)
+        v_list = [1] * len(primes)
+        k = 0
+        while k < n:
+            x = min(v_list)
+            ugly[k] = x
+            for v in xrange(len(v_list)):
+                if x == v_list[v]:
+                    i_list[v] += 1
+                    v_list[v] = ugly[i_list[v]] * primes[v]
+            k += 1
+        return ugly[k-1]
         
 
         
 if __name__ == '__main__':
     solution = Solution()
-    print solution.nthSuperUglyNumber(5, [2, 7, 13, 19]) #8
-    print solution.nthSuperUglyNumber(100000, [7,19,29,37,41,47,53,59,61,79,83,89,101,103,109,127,131,137,139,157,167,179,181,199,211,229,233,239,241,251])
+    start_time = datetime.datetime.now()
+
+    print solution.nthSuperUglyNumber1(5, [2, 7, 13, 19]) #8
+    print solution.nthSuperUglyNumber1(100000, [7,19,29,37,41,47,53,59,61,79,83,89,101,103,109,127,131,137,139,157,167,179,181,199,211,229,233,239,241,251])
+    #time.sleep(1.0)
+
+    elapsed = datetime.datetime.now() - start_time
+    print 'elapsed: ', elapsed.total_seconds()
     #transactions = [buy, sell, cooldown, buy, sell]
