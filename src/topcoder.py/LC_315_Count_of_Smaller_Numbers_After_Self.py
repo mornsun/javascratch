@@ -36,7 +36,7 @@ class TreeNode:
         self.rcnt = 0
 
 class Solution(object):
-    def countSmaller(self, nums):
+    def countSmaller1(self, nums):
         def sort(enum):
             half = len(enum) / 2
             if half:
@@ -52,7 +52,7 @@ class Solution(object):
         sort(list(enumerate(nums)))
         return smaller
 
-    def countSmaller1(self, nums):
+    def countSmaller(self, nums):
         """
         :type nums: List[int]
         :rtype: List[int]
@@ -64,6 +64,7 @@ class Solution(object):
         res = [0]
         for i in xrange(n-2, -1, -1):
             res.append(self.addNode(root, nums[i], 0))
+            #self.print_tree(root, 0)
         return res[::-1]
 
 
@@ -79,19 +80,34 @@ class Solution(object):
         else:
             if root.right is None:
                 root.right = TreeNode(num)
-                ret = prevcnt + root.lcnt
+                ret = prevcnt + root.lcnt + (0 if root.val==num else 1)
             else:
-                ret = self.addNode(root.right, num, prevcnt + root.lcnt)
+                ret = self.addNode(root.right, num, prevcnt + root.lcnt + (0 if root.val==num else 1))
             root.rcnt += 1
 
         return ret
+
+
+    
+    def print_tree(self, node, deep):
+        indent = ''
+        for i in xrange(deep):
+            indent += ' '
+
+        if node is None:
+            print "%s|-" % (indent)
+        else:
+            print "%s|-(%d,%d,%d)" % (indent, node.val, node.lcnt, node.rcnt)
+            self.print_tree(node.left, deep+1)
+            self.print_tree(node.right, deep+1)
         
 
 if __name__ == '__main__':
     solution = Solution()
     start_time = datetime.datetime.now()
 
-    print solution.countSmaller1([5, 2, 6, 1]) #[2, 1, 1, 0]
+    print solution.countSmaller([5, 2, 6, 1]) #[2, 1, 1, 0]
+    print solution.countSmaller([-1,-1]) #[0, 0]
 
     elapsed = datetime.datetime.now() - start_time
     print 'elapsed: ', elapsed.total_seconds()
