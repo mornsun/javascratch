@@ -70,34 +70,49 @@ class Solution(object):
             sums.append(sums[-1]+nums[i])
         #print sums
 
-        root_smaller_than_lower = TreeNode(sums[0])
-        root_smaller_than_upper = TreeNode(sums[0])
+        root = TreeNode(sums[0])
         smaller_than_lower = 0
         smaller_than_upper = 0
         for i in xrange(1, n+1): #xrange(n-1, -1, -1):
-            smaller_than_lower += self.addNode(root_smaller_than_lower, lower, sums[i], 0)
-            smaller_than_upper += self.addNode(root_smaller_than_upper, upper+1, sums[i], 0)
+            smaller_than_lower += self.getSmallerCnt(root, sums[i]-lower, 0)
+            smaller_than_upper += self.getSmallerCnt(root, sums[i]-upper+1, 0)
+            self.addNode(root, sums[i], 0)
             #self.print_tree(root, 0)
         #print upper, lower
         print smaller_than_upper, smaller_than_lower
         return smaller_than_upper - smaller_than_lower
 
-    def addNode(self, root, diff, num, prevcnt):
+    def addNode(self, root, num, prevcnt):
 
-        if num - root.val < diff:
+        if num < root.val:
             if root.left is None:
                 root.left = TreeNode(num)
                 ret = prevcnt
             else:
-                ret = self.addNode(root.left, diff, num, prevcnt)
+                ret = self.addNode(root.left, num, prevcnt)
             root.lcnt += 1
         else:
             if root.right is None:
                 root.right = TreeNode(num)
-                ret = prevcnt + root.lcnt + (0 if num-root.val == diff else 1)
+                ret = prevcnt + root.lcnt + (0 if num==root.val else 1)
             else:
-                ret = self.addNode(root.right, diff, num, prevcnt + root.lcnt + (0 if num-root.val == diff else 1))
+                ret = self.addNode(root.right, num, prevcnt + root.lcnt + (0 if num==root.val else 1))
             root.rcnt += 1
+
+        return ret
+
+    def getSmallerCnt(self, root, num, prevcnt):
+
+        if num < root.val:
+            if root.left is None:
+                ret = prevcnt
+            else:
+                ret = self.getSmallerCnt(root.left, num, prevcnt)
+        else:
+            if root.right is None:
+                ret = prevcnt + root.lcnt + (0 if num==root.val else 1)
+            else:
+                ret = self.getSmallerCnt(root.right, num, prevcnt + root.lcnt + (0 if num==root.val else 1))
 
         return ret
     
