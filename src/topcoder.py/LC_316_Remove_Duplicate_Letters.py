@@ -8,7 +8,7 @@ Example:
 Given "bcabc"
 Return "abc"
 
-Given "cbacdcbc"
+Given "cbacdcbc" abcd
 Return "acdb"
 
 Related Topics 
@@ -21,6 +21,7 @@ Stack, Greedy
 import heapq
 import datetime
 import time
+import collections
 
 class Solution(object):
     def removeDuplicateLetters(self, s):
@@ -28,23 +29,39 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        
+        if s is None or len(s)<=1:
+          return s
+
+        counter = collections.Counter(s)
+        stack = []
+        got = set()
+
+        for c in s:
+          counter[c] -= 1
+          if c in got:
+            continue
+          got.add(c)
+          while stack and stack[-1]>c and counter[stack[-1]]>0:
+            top = stack.pop()
+            got.remove(top)
+          stack.append(c)
+
+        return ''.join(stack)
+
+    def removeDuplicateLetters(self, s):
+        for c in sorted(set(s)):
+            suffix = s[s.index(c):]
+            if set(suffix) == set(s):
+                return c + self.removeDuplicateLetters(suffix.replace(c, ''))
+        return ''
         
 
 if __name__ == '__main__':
     solution = Solution()
     start_time = datetime.datetime.now()
 
-    print solution.longestIncreasingPath([
-  [9,9,4],
-  [6,6,8],
-  [2,1,1]
-]) #4
-    print solution.longestIncreasingPath([
-  [3,4,5],
-  [3,2,6],
-  [2,2,1]
-]) #4
+    print solution.removeDuplicateLetters("bcabc") #abc
+    print solution.removeDuplicateLetters("cbacdcbc") #acdb
     
     elapsed = datetime.datetime.now() - start_time
     print 'elapsed: ', elapsed.total_seconds()
