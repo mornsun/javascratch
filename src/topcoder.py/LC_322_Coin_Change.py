@@ -21,6 +21,7 @@ Related Topics
 Dynamic Programming
 
 @author: Chauncey
+beat 95.22%
 '''
 
 import heapq
@@ -66,7 +67,7 @@ class Solution(object):
           return 0
 
         coins.sort(reverse=True)
-        
+
         visited = [False] * (amount+1)
         parents = [0]
         children = []
