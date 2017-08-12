@@ -20,13 +20,14 @@ Similar Questions
 Summary Ranges Find Right Interval
 
 @author: Chauncey
-beat  %
+beat 35.85%
 '''
 
 import heapq
 import datetime
 import time
 import sys
+import bisect
 import collections
 # Definition for an interval.
 class Interval(object):
@@ -40,7 +41,7 @@ class SummaryRanges(object):
         """
         Initialize your data structure here.
         """
-        
+        self.intervals = []
         
 
     def addNum(self, val):
@@ -48,12 +49,37 @@ class SummaryRanges(object):
         :type val: int
         :rtype: void
         """
+        new_interval = [val, val]
+        idx = bisect.bisect(self.intervals, new_interval)-1
+        #print idx, new_interval
+        inserted = False
+        if idx != -1:
+            if self.intervals[idx][1]+1 == val:
+                self.intervals[idx][1] += 1
+                inserted = True
+                if idx+1 < len(self.intervals):
+                    if self.intervals[idx+1][0]-1 == val:
+                        self.intervals[idx][1] = self.intervals[idx+1][1]
+                        del self.intervals[idx+1]
+            elif self.intervals[idx][1] >= val:
+                inserted = True
+
+        if not inserted and idx+1 < len(self.intervals):
+            if self.intervals[idx+1][0]-1 == val:
+                self.intervals[idx+1][0] = val
+                inserted = True
+            elif self.intervals[idx+1][0] == val:
+                inserted = True
+
+        if not inserted:
+            bisect.insort(self.intervals, new_interval)
         
 
     def getIntervals(self):
         """
         :rtype: List[Interval]
         """
+        return self.intervals
         
 
 # Your SummaryRanges object will be instantiated and called as such:
@@ -80,10 +106,18 @@ if __name__ == '__main__':
     obj = SummaryRanges()
     start_time = datetime.datetime.now()
 
-    #obj.addNum(val)
-    #param_2 = obj.getIntervals()
+    obj.addNum(1)
+    print obj.getIntervals()
+    obj.addNum(3)
+    print obj.getIntervals()
+    obj.addNum(7)
+    print obj.getIntervals()
+    obj.addNum(2)
+    print obj.getIntervals()
+    obj.addNum(6)
+    print obj.getIntervals()
 
-    od = MyOrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
+    '''od = MyOrderedDict([('apple', 4), ('banana', 3), ('orange', 2), ('pear', 1)])
     print od.next_key("apple")
     print od.next_key("banana")
     print od.next_key("orange")
@@ -93,8 +127,35 @@ if __name__ == '__main__':
     print od.prev_key("apple")
     print od.prev_key("banana")
     print od.prev_key("orange")
-    print od.prev_key("pear")
+    print od.prev_key("pear")'''
     
     elapsed = datetime.datetime.now() - start_time
     print 'elapsed: ', elapsed.total_seconds()
-    #transactions = [buy, sell, cooldown, buy, sell]
+
+
+    obj = SummaryRanges()
+    start_time = datetime.datetime.now()
+
+    obj.addNum(6)
+    print obj.getIntervals() #[[6,6]]
+    obj.addNum(6)
+    print obj.getIntervals() #[[6,6]]
+    obj.addNum(0)
+    print obj.getIntervals() #[[0,0],[6,6]]
+    obj.addNum(4)
+    print obj.getIntervals() #[[0,0],[4,4],[6,6]]
+    obj.addNum(8)
+    print obj.getIntervals() #[[0,0],[4,4],[6,6],[8,8]]
+    obj.addNum(7)
+    print obj.getIntervals() #[[0,0],[4,4],[6,8]]
+    obj.addNum(6)
+    print obj.getIntervals() #[[0,0],[4,4],[6,8]]
+    obj.addNum(4)
+    print obj.getIntervals() #[[0,0],[4,4],[6,8]]
+    obj.addNum(7)
+    print obj.getIntervals() #[[0,0],[4,4],[6,8]]
+    obj.addNum(5)
+    print obj.getIntervals() #[[0,0],[4,8]]
+    
+    elapsed = datetime.datetime.now() - start_time
+    print 'elapsed: ', elapsed.total_seconds()
