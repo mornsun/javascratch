@@ -15,6 +15,11 @@ Input:
 Output:
 [2,3]
 
+Related Topics 
+Array
+Similar Questions 
+Find All Numbers Disappeared in an Array
+
 @author: Chauncey
 beat 15.19%
 '''
