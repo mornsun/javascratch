@@ -38,42 +38,42 @@ public class CoinsinaLineIII
      * @return: a boolean which equals to true if the first player will win
      */
     public boolean firstWillWin(int[] values) {
-    	if (values==null || values.length<3) return true;
-    	int f[] = new int [values.length];
-    	int f_prev[] = new int [values.length];
-    	int sum[] = new int [values.length];
-    	int sum_prev[] = new int [values.length];
-    	for (int i=values.length-1; i>=0; --i) {
-    		sum[i] = values[i];
-    		f[i] = values[i];
-    		for (int j=i+1; j<values.length; ++j) {
-    			sum[j] = sum[j-1]+values[j];
-        		f[j] = Math.max(sum_prev[j]-f_prev[j]+values[i], sum[j-1]-f[j-1]+values[j]);
-    		}
-    		int tmp[] = f;
-    		f = f_prev;
-    		f_prev = tmp;
-    		tmp = sum;
-    		sum = sum_prev;
-    		sum_prev = tmp;
-    	}
-    	return f_prev[values.length-1]>f[values.length-1] ||
-    			f_prev[values.length-1] > f_prev[values.length-2];
+        if (values==null || values.length<3) return true;
+        int f[] = new int [values.length];
+        int f_prev[] = new int [values.length];
+        int sum[] = new int [values.length];
+        int sum_prev[] = new int [values.length];
+        for (int i=values.length-1; i>=0; --i) {
+            sum[i] = values[i];
+            f[i] = values[i];
+            for (int j=i+1; j<values.length; ++j) {
+                sum[j] = sum[j-1]+values[j];
+                f[j] = Math.max(sum_prev[j]-f_prev[j]+values[i], sum[j-1]-f[j-1]+values[j]);
+            }
+            int tmp[] = f;
+            f = f_prev;
+            f_prev = tmp;
+            tmp = sum;
+            sum = sum_prev;
+            sum_prev = tmp;
+        }
+        return f_prev[values.length-1]>f[values.length-1] ||
+                f_prev[values.length-1] > f_prev[values.length-2];
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		CoinsinaLineIII solution = new CoinsinaLineIII();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        CoinsinaLineIII solution = new CoinsinaLineIII();
 
-		//true
-		System.out.println(solution.firstWillWin(new int[]{3,2,2}));
-		//true
-		System.out.println(solution.firstWillWin(new int[]{1,2,4}));
-		//false
-		System.out.println(solution.firstWillWin(new int[]{1,20,4}));
-	}
+        //true
+        System.out.println(solution.firstWillWin(new int[]{3,2,2}));
+        //true
+        System.out.println(solution.firstWillWin(new int[]{1,2,4}));
+        //false
+        System.out.println(solution.firstWillWin(new int[]{1,20,4}));
+    }
 
 }

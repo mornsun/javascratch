@@ -38,27 +38,27 @@ public class HashFunction
      * @return an integer
      */
     public int hashCode(char[] key,int HASH_SIZE) {
-    	if (key == null || key.length==0) return 0;
-    	int hash = 0;
-    	int factor = 1;
-    	for (int i=key.length-1; i>=0; --i) {
-    		hash = (int)(hash + ((long)key[i] * factor) % HASH_SIZE ) % HASH_SIZE;
-    		//System.out.println(":"+hash);
-    		factor = (int)((factor * (long)33) % HASH_SIZE);
-    	}
-    	return hash;
+        if (key == null || key.length==0) return 0;
+        int hash = 0;
+        int factor = 1;
+        for (int i=key.length-1; i>=0; --i) {
+            hash = (int)(hash + ((long)key[i] * factor) % HASH_SIZE ) % HASH_SIZE;
+            //System.out.println(":"+hash);
+            factor = (int)((factor * (long)33) % HASH_SIZE);
+        }
+        return hash;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		HashFunction solution = new HashFunction();
-		"ubuntu".hashCode();
-		System.out.println(solution.hashCode("ubuntu".toCharArray(), 1007));
-		//382528955
-		System.out.println(solution.hashCode("Wrong answer or accepted?".toCharArray(), 1000000007));
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        HashFunction solution = new HashFunction();
+        "ubuntu".hashCode();
+        System.out.println(solution.hashCode("ubuntu".toCharArray(), 1007));
+        //382528955
+        System.out.println(solution.hashCode("Wrong answer or accepted?".toCharArray(), 1000000007));
+    }
 
 }

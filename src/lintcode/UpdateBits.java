@@ -38,30 +38,30 @@ public class UpdateBits
      *return: An integer
      */
     public int updateBits(int n, int m, int i, int j) {
-    	if (i > j) return n;
-    	int mask = 0xffffffff;
-    	for (int k=i; k<=j; ++k) {
-    		mask <<= 1;
-    	}
-    	for (int k=0; k<i; ++k) {
-    		mask <<= 1;
-    		mask |= 1;
-    		m <<= 1;
-    	}
-    	return n & mask | m;
+        if (i > j) return n;
+        int mask = 0xffffffff;
+        for (int k=i; k<=j; ++k) {
+            mask <<= 1;
+        }
+        for (int k=0; k<i; ++k) {
+            mask <<= 1;
+            mask |= 1;
+            m <<= 1;
+        }
+        return n & mask | m;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		UpdateBits solution = new UpdateBits();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        UpdateBits solution = new UpdateBits();
 
-		//10
-		System.out.println(Integer.toString(0x400, 2));
-		System.out.println(Integer.toString(0x15, 2));
-		System.out.println(Integer.toString(solution.updateBits(0x400, 0x15, 2, 6), 2));
-	}
+        //10
+        System.out.println(Integer.toString(0x400, 2));
+        System.out.println(Integer.toString(0x15, 2));
+        System.out.println(Integer.toString(solution.updateBits(0x400, 0x15, 2, 6), 2));
+    }
 
 }

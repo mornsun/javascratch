@@ -34,28 +34,28 @@ public class LongestCommonSubstring
      * @return: the length of the longest common substring.
      */
     public int longestCommonSubstring(String A, String B) {
-    	if (null==A || A.length()==0 || null==B || B.length()==0)
-    		return 0;
-    	int alen = A.length();
-    	int blen = B.length();
-    	int max = 0;
-    	int[][] local = new int[alen+1][blen+1]; //can be tuned with scroll array
-    	for (int i=1; i<=alen; ++i) {
-    		for (int j=1; j<=blen; ++j) {
-    			local[i][j] = A.charAt(i-1)==B.charAt(j-1) ? local[i-1][j-1]+1 : 0;
-    			max = Math.max(max, local[i][j]);
-    		}
-    	}
-    	return max;
+        if (null==A || A.length()==0 || null==B || B.length()==0)
+            return 0;
+        int alen = A.length();
+        int blen = B.length();
+        int max = 0;
+        int[][] local = new int[alen+1][blen+1]; //can be tuned with scroll array
+        for (int i=1; i<=alen; ++i) {
+            for (int j=1; j<=blen; ++j) {
+                local[i][j] = A.charAt(i-1)==B.charAt(j-1) ? local[i-1][j-1]+1 : 0;
+                max = Math.max(max, local[i][j]);
+            }
+        }
+        return max;
     }
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		LongestCommonSubstring solution = new LongestCommonSubstring();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        LongestCommonSubstring solution = new LongestCommonSubstring();
 
-		System.out.println(solution.longestCommonSubstring("ABCD", "CBCE"));
-	}
+        System.out.println(solution.longestCommonSubstring("ABCD", "CBCE"));
+    }
 
 }

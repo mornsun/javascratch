@@ -44,17 +44,17 @@ public class CoinsinaLine
         return true;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		CoinsinaLine solution = new CoinsinaLine();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        CoinsinaLine solution = new CoinsinaLine();
 
-		//[0,2] or [1,3]
-		System.out.println(solution.firstWillWin(1));
-		System.out.println(solution.firstWillWin(2));
-		System.out.println(solution.firstWillWin(3));
-	}
+        //[0,2] or [1,3]
+        System.out.println(solution.firstWillWin(1));
+        System.out.println(solution.firstWillWin(2));
+        System.out.println(solution.firstWillWin(3));
+    }
 
 }

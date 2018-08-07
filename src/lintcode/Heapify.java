@@ -36,42 +36,42 @@ public class Heapify
      * @return: void
      */
     public void heapify(int[] A) {
-    	if (A==null || A.length==0) return;
-    	int first_leaf = A.length/2;
-    	for (int i=first_leaf-1; i>=0; --i) {
-    		max_heapify(A, i);
-    	}
+        if (A==null || A.length==0) return;
+        int first_leaf = A.length/2;
+        for (int i=first_leaf-1; i>=0; --i) {
+            max_heapify(A, i);
+        }
     }
     
     private final void max_heapify(int[] A, int i) {
-    	int left = (i<<1)+1;
-    	int right = (i<<1)+2;
-    	int least = i;
-    	if (left < A.length && A[left] < A[least]) {
-    		least = left;
-    	}
-    	if (right < A.length && A[right] < A[least]) {
-    		least = right;
-    	}
-    	if (least != i) { //swap
-    		int tmp = A[least];
-    		A[least] = A[i];
-    		A[i] = tmp;
-        	max_heapify(A, least);
-    	}
+        int left = (i<<1)+1;
+        int right = (i<<1)+2;
+        int least = i;
+        if (left < A.length && A[left] < A[least]) {
+            least = left;
+        }
+        if (right < A.length && A[right] < A[least]) {
+            least = right;
+        }
+        if (least != i) { //swap
+            int tmp = A[least];
+            A[least] = A[i];
+            A[i] = tmp;
+            max_heapify(A, least);
+        }
     }
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		Heapify solution = new Heapify();
-		int[] nums = new int[]{2, 5, 6, 0, 3, 1};
-		solution.heapify(nums);
-		for (int num : nums) {
-			System.out.print(num+",");
-		}
-		System.out.println();
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        Heapify solution = new Heapify();
+        int[] nums = new int[]{2, 5, 6, 0, 3, 1};
+        solution.heapify(nums);
+        for (int num : nums) {
+            System.out.print(num+",");
+        }
+        System.out.println();
+    }
 
 }

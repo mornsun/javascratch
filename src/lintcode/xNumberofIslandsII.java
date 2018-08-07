@@ -28,14 +28,14 @@ Medium Find the Weak Connected Component in the Directed Graph 17 %
  */
 public class xNumberofIslandsII
 {/**
-	 * Definition for a point.
-	 */
-	 private static class Point {
-	     int x;
-	     int y;
-	     Point() { x = 0; y = 0; }
-	     Point(int a, int b) { x = a; y = b; }
-	 }
+     * Definition for a point.
+     */
+     private static class Point {
+         int x;
+         int y;
+         Point() { x = 0; y = 0; }
+         Point(int a, int b) { x = a; y = b; }
+     }
     /**
      * @param m an integer
      * @param n an integer
@@ -43,40 +43,40 @@ public class xNumberofIslandsII
      * @return an integer array
      */
     public List<Integer> numIslands2(int n, int m, Point[] operators) {
-    	if (m==0 || n==0 || operators==null || operators.length==0) return new ArrayList<Integer>();
-    	List<Integer> res = new ArrayList<Integer>(operators.length);
-    	initset(m*n);
-    	for (Point operator : operators) {
-    		int idx = n*operator.y + operator.x;
-    		if (size(idx) != 0) {
-    			System.out.println(idx+":"+size(idx));
-        		res.add(count());
-    			continue;
-    		}
-			makeset(idx);
-    		if (operator.x>0) { //left side
-    			int side = idx-1;
-    			if (size(side) != 0)
-    				union(idx,side);
-    		}
-    		if (operator.x<n-1) { //right side
-    			int side = idx+1;
-    			if (size(side) != 0)
-    				union(idx,side);
-    		}
-    		if (operator.y>0) { //up side
-    			int side = idx-n;
-    			if (size(side) != 0)
-    				union(idx,side);
-    		}
-    		if (operator.y<m-1) { //up side
-    			int side = idx+n;
-    			if (size(side) != 0)
-    				union(idx,side);
-    		}
-    		res.add(count());
-    	}
-    	return res;
+        if (m==0 || n==0 || operators==null || operators.length==0) return new ArrayList<Integer>();
+        List<Integer> res = new ArrayList<Integer>(operators.length);
+        initset(m*n);
+        for (Point operator : operators) {
+            int idx = n*operator.y + operator.x;
+            if (size(idx) != 0) {
+                System.out.println(idx+":"+size(idx));
+                res.add(count());
+                continue;
+            }
+            makeset(idx);
+            if (operator.x>0) { //left side
+                int side = idx-1;
+                if (size(side) != 0)
+                    union(idx,side);
+            }
+            if (operator.x<n-1) { //right side
+                int side = idx+1;
+                if (size(side) != 0)
+                    union(idx,side);
+            }
+            if (operator.y>0) { //up side
+                int side = idx-n;
+                if (size(side) != 0)
+                    union(idx,side);
+            }
+            if (operator.y<m-1) { //up side
+                int side = idx+n;
+                if (size(side) != 0)
+                    union(idx,side);
+            }
+            res.add(count());
+        }
+        return res;
     }
     
     private int _count;
@@ -95,7 +95,7 @@ public class xNumberofIslandsII
     }
     
     public void makeset(int idx) {
-    	if (size(idx) != 0) return;
+        if (size(idx) != 0) return;
         _size[idx] = 1;
         ++_count;
     }
@@ -131,14 +131,14 @@ public class xNumberofIslandsII
         return this._size[find(idx)];
     }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		xNumberofIslandsII solution = new xNumberofIslandsII();
-		System.out.println(solution.numIslands2(3, 3, new Point[]{new Point(0,0),new Point(0,1),new Point(2,2),new Point(2,1)}));
-		System.out.println(solution.numIslands2(4, 5, new Point[]{new Point(1,1),new Point(0,1),new Point(3,3),new Point(3,4)}));
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        xNumberofIslandsII solution = new xNumberofIslandsII();
+        System.out.println(solution.numIslands2(3, 3, new Point[]{new Point(0,0),new Point(0,1),new Point(2,2),new Point(2,1)}));
+        System.out.println(solution.numIslands2(4, 5, new Point[]{new Point(1,1),new Point(0,1),new Point(3,3),new Point(3,4)}));
+    }
 
 }

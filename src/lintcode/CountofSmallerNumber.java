@@ -36,35 +36,35 @@ public class CountofSmallerNumber
      *          are smaller that the given integer
      */
     public ArrayList<Integer> countOfSmallerNumber(int[] A, int[] queries) {
-    	ArrayList<Integer> res = new ArrayList<Integer>();
-    	if (null == A || null == queries || queries.length == 0) return res;
-    	int[] as = Arrays.copyOf(A, A.length);
-    	Arrays.sort(as);
-    	for (int query : queries) {
-    		int lo = 0;
-    		int hi = as.length-1;
-    		while (lo<hi) {
-    			int m = lo+(hi-lo>>1);
-    			if (as[m] < query) {
-    				lo = m+1;
-    			} else {
-    				hi = m;
-    			}
-    		}
-    		res.add(lo);
-    	}
-    	return res;
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if (null == A || null == queries || queries.length == 0) return res;
+        int[] as = Arrays.copyOf(A, A.length);
+        Arrays.sort(as);
+        for (int query : queries) {
+            int lo = 0;
+            int hi = as.length-1;
+            while (lo<hi) {
+                int m = lo+(hi-lo>>1);
+                if (as[m] < query) {
+                    lo = m+1;
+                } else {
+                    hi = m;
+                }
+            }
+            res.add(lo);
+        }
+        return res;
     }
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		CountofSmallerNumber solution = new CountofSmallerNumber();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        CountofSmallerNumber solution = new CountofSmallerNumber();
 
-		System.out.println(solution.countOfSmallerNumber(new int[]{1,2,7,8,5}, new int[]{1,8,5}));
-		System.out.println(solution.countOfSmallerNumber(new int[]{}, new int[]{86,59,39}));
-		
-	}
+        System.out.println(solution.countOfSmallerNumber(new int[]{1,2,7,8,5}, new int[]{1,8,5}));
+        System.out.println(solution.countOfSmallerNumber(new int[]{}, new int[]{86,59,39}));
+        
+    }
 
 }

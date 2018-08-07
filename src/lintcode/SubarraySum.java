@@ -33,33 +33,33 @@ public class SubarraySum
      *          and the index of the last number
      */
     public ArrayList<Integer> subarraySum(int[] nums) {
-    	ArrayList<Integer> res = new ArrayList<Integer>();
-    	if (null == nums || nums.length==0) return res;
-    	HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-		map.put(0, -1);
-    	int sum = 0;
-    	for (int i=0; i<nums.length; ++i) {
-    		sum += nums[i];
-    		Integer idx = map.get(sum);
-    		if (idx != null) {
-    			res.add(idx+1);
-    			res.add(i);
-    			return res;
-    		}
-    		map.put(sum, i);
-    	}
-    	return res;
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if (null == nums || nums.length==0) return res;
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        map.put(0, -1);
+        int sum = 0;
+        for (int i=0; i<nums.length; ++i) {
+            sum += nums[i];
+            Integer idx = map.get(sum);
+            if (idx != null) {
+                res.add(idx+1);
+                res.add(i);
+                return res;
+            }
+            map.put(sum, i);
+        }
+        return res;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		SubarraySum solution = new SubarraySum();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        SubarraySum solution = new SubarraySum();
 
-		//[0,2] or [1,3]
-		System.out.println(solution.subarraySum(new int[]{-3, 1, 2, -3, 4}));
-	}
+        //[0,2] or [1,3]
+        System.out.println(solution.subarraySum(new int[]{-3, 1, 2, -3, 4}));
+    }
 
 }

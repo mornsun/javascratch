@@ -44,71 +44,71 @@ public class LongestIncreasingContinuoussubsequenceII
         int max = 0;
         int[][][] step = new int[m][n][4]; //up, down, left, right
         for (int i=0; i<m; ++i) {
-        	for (int j=0; j<n; ++j) {
-        		max = Math.max(max, dfs(A, step, i, j));
-        	}
+            for (int j=0; j<n; ++j) {
+                max = Math.max(max, dfs(A, step, i, j));
+            }
         }
         return max+1;
     }
     
     private final int dfs(int[][] A, int[][][] step, int i, int j) {
-    	int max = 0;
-    	if (i > 0 &&  A[i][j]<A[i-1][j]) { //up
-	    	if (step[i][j][0] == 0) {
-	    		step[i][j][0] = dfs(A, step, i-1, j) + 1;
-	    	}
-	    	max = step[i][j][0];
-    	}
-    	if (i < A.length-1 && A[i][j]<A[i+1][j]) { //down
-	    	if (step[i][j][1] == 0) {
-	    		step[i][j][1] = dfs(A, step, i+1, j) + 1;
-	    	}
-	    	max = Math.max(max, step[i][j][1]);
-    	}
-    	if (j > 0 && A[i][j]<A[i][j-1]) { //left
-	    	if (step[i][j][2] == 0) {
-	    		step[i][j][2] = dfs(A, step, i, j-1) + 1;
-	    	}
-	    	max = Math.max(max, step[i][j][2]);
-    	}
-    	if (j < A[0].length-1 && A[i][j]<A[i][j+1]) { //down
-	    	if (step[i][j][3] == 0) {
-	    		step[i][j][3] = dfs(A, step, i, j+1) + 1;
-	    	}
-	    	max = Math.max(max, step[i][j][3]);
-    	}
-    	return max;
+        int max = 0;
+        if (i > 0 &&  A[i][j]<A[i-1][j]) { //up
+            if (step[i][j][0] == 0) {
+                step[i][j][0] = dfs(A, step, i-1, j) + 1;
+            }
+            max = step[i][j][0];
+        }
+        if (i < A.length-1 && A[i][j]<A[i+1][j]) { //down
+            if (step[i][j][1] == 0) {
+                step[i][j][1] = dfs(A, step, i+1, j) + 1;
+            }
+            max = Math.max(max, step[i][j][1]);
+        }
+        if (j > 0 && A[i][j]<A[i][j-1]) { //left
+            if (step[i][j][2] == 0) {
+                step[i][j][2] = dfs(A, step, i, j-1) + 1;
+            }
+            max = Math.max(max, step[i][j][2]);
+        }
+        if (j < A[0].length-1 && A[i][j]<A[i][j+1]) { //down
+            if (step[i][j][3] == 0) {
+                step[i][j][3] = dfs(A, step, i, j+1) + 1;
+            }
+            max = Math.max(max, step[i][j][3]);
+        }
+        return max;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		LongestIncreasingContinuoussubsequenceII solution = new LongestIncreasingContinuoussubsequenceII();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        LongestIncreasingContinuoussubsequenceII solution = new LongestIncreasingContinuoussubsequenceII();
 
-		int[][] matrix = new int[][]{
-				  {1 ,2 ,3 ,4 ,5},
-				  {16,17,24,23,6},
-				  {15,18,25,22,7},
-				  {14,19,20,21,8},
-				  {13,12,11,10,9}};
-		//25
-		System.out.println(solution.longestIncreasingContinuousSubsequenceII(matrix));
-		matrix = new int[][]{
-				  {13,12,11,10,9},
-				  {14,19,20,21,8},
-				  {15,18,25,22,7},
-				  {16,17,24,23,6},
-				  {1 ,2 ,3 ,4 ,5}};
-		//25
-		System.out.println(solution.longestIncreasingContinuousSubsequenceII(matrix));
-		matrix = new int[][]{
-				  {1,1,1},
-				  {1,1,1},
-				  {1,1,1}};
-		//25
-		System.out.println(solution.longestIncreasingContinuousSubsequenceII(matrix));
-	}
+        int[][] matrix = new int[][]{
+                  {1 ,2 ,3 ,4 ,5},
+                  {16,17,24,23,6},
+                  {15,18,25,22,7},
+                  {14,19,20,21,8},
+                  {13,12,11,10,9}};
+        //25
+        System.out.println(solution.longestIncreasingContinuousSubsequenceII(matrix));
+        matrix = new int[][]{
+                  {13,12,11,10,9},
+                  {14,19,20,21,8},
+                  {15,18,25,22,7},
+                  {16,17,24,23,6},
+                  {1 ,2 ,3 ,4 ,5}};
+        //25
+        System.out.println(solution.longestIncreasingContinuousSubsequenceII(matrix));
+        matrix = new int[][]{
+                  {1,1,1},
+                  {1,1,1},
+                  {1,1,1}};
+        //25
+        System.out.println(solution.longestIncreasingContinuousSubsequenceII(matrix));
+    }
 
 }

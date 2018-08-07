@@ -39,17 +39,17 @@ Medium First Bad Version 34 %
  */
 public class NutsBoltsProblem
 {
-	/**
-	 * You can use compare.cmp(a, b) to compare nuts "a" and bolts "b",
-	 * if "a" is bigger than "b", it will return 1, else if they are equal,
-	 * it will return 0, else if "a" is smaller than "b", it will return -1.
-	 * When "a" is not a nut or "b" is not a bolt, it will return 2, which is not valid.
-	*/
-	public static class NBComparator {
-		public int cmp(String a, String b) {
-			return a.compareToIgnoreCase(b);
-		}
-	}
+    /**
+     * You can use compare.cmp(a, b) to compare nuts "a" and bolts "b",
+     * if "a" is bigger than "b", it will return 1, else if they are equal,
+     * it will return 0, else if "a" is smaller than "b", it will return -1.
+     * When "a" is not a nut or "b" is not a bolt, it will return 2, which is not valid.
+    */
+    public static class NBComparator {
+        public int cmp(String a, String b) {
+            return a.compareToIgnoreCase(b);
+        }
+    }
     /**
      * @param nuts: an array of integers
      * @param bolts: an array of integers
@@ -57,64 +57,64 @@ public class NutsBoltsProblem
      * @return: nothing
      */
     public void sortNutsAndBolts(String[] nuts, String[] bolts, NBComparator compare) {
-    	if (null == nuts || nuts.length == 0 ||
-    			null == bolts || bolts.length != nuts.length ||
-    			null == compare) return;
-    	sortNutsAndBolts(nuts, bolts, 0, bolts.length-1, compare);
+        if (null == nuts || nuts.length == 0 ||
+                null == bolts || bolts.length != nuts.length ||
+                null == compare) return;
+        sortNutsAndBolts(nuts, bolts, 0, bolts.length-1, compare);
     }
     public void sortNutsAndBolts(String[] nuts, String[] bolts, int lo, int hi, NBComparator compare) {
-    	if (lo >= hi) return;
-    	//pivot is nuts[lo]
-    	int prev = lo-1;
-		for (int curr = lo; curr <= hi; ++curr) {
-			int cmp_ret = compare.cmp(bolts[curr], nuts[lo]);
-			//System.out.println(bolts[curr]+":"+nuts[lo]+":"+cmp_ret);
-			if (cmp_ret < 0) {
-				String tmp = bolts[curr];
-				bolts[curr] = bolts[++prev];
-				bolts[prev] = tmp; //swap [curr] and [prev] to put less bolt in left half
-			} else if (cmp_ret == 0) {
-				String tmp = bolts[curr];
-				bolts[curr] = bolts[++prev];
-				bolts[prev] = tmp; //swap [curr] and [prev] to put less bolt in left half
-				tmp = bolts[prev];
-				bolts[prev] = bolts[lo];
-				bolts[lo] = tmp; //swap [prev] and [pivot] to put mapping bolt at [pivot]
-			}
-		}
-    	prev = lo;
-		for (int curr = lo+1; curr <= hi; ++curr) {
-			int cmp_ret = compare.cmp(nuts[curr], bolts[lo]);
-			//System.out.println(bolts[curr]+":"+nuts[lo]+":"+cmp_ret);
-			if (cmp_ret < 0) {
-				String tmp = nuts[curr];
-				nuts[curr] = nuts[++prev];
-				nuts[prev] = tmp; //swap [curr] and [prev] to put less bolt in left half
-			}
-		}
-    	sortNutsAndBolts(nuts, bolts, lo+1, prev, compare);
-    	sortNutsAndBolts(nuts, bolts, prev+1, hi, compare);
+        if (lo >= hi) return;
+        //pivot is nuts[lo]
+        int prev = lo-1;
+        for (int curr = lo; curr <= hi; ++curr) {
+            int cmp_ret = compare.cmp(bolts[curr], nuts[lo]);
+            //System.out.println(bolts[curr]+":"+nuts[lo]+":"+cmp_ret);
+            if (cmp_ret < 0) {
+                String tmp = bolts[curr];
+                bolts[curr] = bolts[++prev];
+                bolts[prev] = tmp; //swap [curr] and [prev] to put less bolt in left half
+            } else if (cmp_ret == 0) {
+                String tmp = bolts[curr];
+                bolts[curr] = bolts[++prev];
+                bolts[prev] = tmp; //swap [curr] and [prev] to put less bolt in left half
+                tmp = bolts[prev];
+                bolts[prev] = bolts[lo];
+                bolts[lo] = tmp; //swap [prev] and [pivot] to put mapping bolt at [pivot]
+            }
+        }
+        prev = lo;
+        for (int curr = lo+1; curr <= hi; ++curr) {
+            int cmp_ret = compare.cmp(nuts[curr], bolts[lo]);
+            //System.out.println(bolts[curr]+":"+nuts[lo]+":"+cmp_ret);
+            if (cmp_ret < 0) {
+                String tmp = nuts[curr];
+                nuts[curr] = nuts[++prev];
+                nuts[prev] = tmp; //swap [curr] and [prev] to put less bolt in left half
+            }
+        }
+        sortNutsAndBolts(nuts, bolts, lo+1, prev, compare);
+        sortNutsAndBolts(nuts, bolts, prev+1, hi, compare);
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		NutsBoltsProblem solution = new NutsBoltsProblem();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        NutsBoltsProblem solution = new NutsBoltsProblem();
 
-		//
-		String[] nuts = new String[]{"ff","gf","ab","bc","dd","gg","ac"};
-		String[] bolts = new String[]{"BC","AB","DD","GG","GF","FF","AC"};
-		nuts = new String[]{"ij","hi","ab","bc","dd","gg","cd","de","ef","fg","gh","jk"};
-		bolts = new String[]{"GH","FG","EF","IJ","DE","JK","CD","HI","AB","GG","DD","BC"};
-		solution.sortNutsAndBolts(nuts, bolts, new NBComparator());
-		for (String nut : nuts)
-			System.out.print(nut+",");
-		System.out.print("==>");
-		for (String bolt : bolts)
-			System.out.print(bolt+",");
-		System.out.println();
-	}
+        //
+        String[] nuts = new String[]{"ff","gf","ab","bc","dd","gg","ac"};
+        String[] bolts = new String[]{"BC","AB","DD","GG","GF","FF","AC"};
+        nuts = new String[]{"ij","hi","ab","bc","dd","gg","cd","de","ef","fg","gh","jk"};
+        bolts = new String[]{"GH","FG","EF","IJ","DE","JK","CD","HI","AB","GG","DD","BC"};
+        solution.sortNutsAndBolts(nuts, bolts, new NBComparator());
+        for (String nut : nuts)
+            System.out.print(nut+",");
+        System.out.print("==>");
+        for (String bolt : bolts)
+            System.out.print(bolt+",");
+        System.out.println();
+    }
 
 }

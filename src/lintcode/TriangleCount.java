@@ -40,31 +40,31 @@ public class TriangleCount
         int cnt = 0;
         Arrays.sort(S);
         for (int i=S.length-1; i>1; --i) {
-        	int x=0;
-        	int y=i-1;
-        	while (x<y) {
-        		if (S[x]+S[y] > S[i]) {
-    				cnt += y-x;
-        			--y;
-        		} else {
-        			++x;
-        		}
-        	}
+            int x=0;
+            int y=i-1;
+            while (x<y) {
+                if (S[x]+S[y] > S[i]) {
+                    cnt += y-x;
+                    --y;
+                } else {
+                    ++x;
+                }
+            }
         }
         return cnt;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		TriangleCount solution = new TriangleCount();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        TriangleCount solution = new TriangleCount();
 
-		//3
-		System.out.println(solution.triangleCount(new int[]{3,4,6,7}));
-		//4
-		System.out.println(solution.triangleCount(new int[]{4,4,4,4}));
-	}
+        //3
+        System.out.println(solution.triangleCount(new int[]{3,4,6,7}));
+        //4
+        System.out.println(solution.triangleCount(new int[]{4,4,4,4}));
+    }
 
 }

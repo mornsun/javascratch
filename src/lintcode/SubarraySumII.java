@@ -34,16 +34,16 @@ public class SubarraySumII
      * @return the number of possible answer
      */
     public int subarraySumII1(int[] A, int start, int end) {
-    	if (A==null || A.length==0) return 0;
-    	int res = 0;
-    	TreeSet<Integer> map = new TreeSet<Integer>();
-    	int sum = 0;
-    	for (int i=0; i< A.length; ++i) {
-    		map.add(sum);
-    		sum += A[i];
-    		res += map.subSet(sum-end, true, sum-start, true).size();
-    	}
-    	return res;
+        if (A==null || A.length==0) return 0;
+        int res = 0;
+        TreeSet<Integer> map = new TreeSet<Integer>();
+        int sum = 0;
+        for (int i=0; i< A.length; ++i) {
+            map.add(sum);
+            sum += A[i];
+            res += map.subSet(sum-end, true, sum-start, true).size();
+        }
+        return res;
     }
     /**
      * non-negative array, O(n)
@@ -53,61 +53,61 @@ public class SubarraySumII
      * @return
      */
     public int subarraySumII(int[] A, int start, int end) {
-    	if (A==null || A.length==0) return 0;
-    	int res = 0;
-    	int hi = 0;
-    	int lo = 0;
-    	int sum = A[hi];
-    	int s = 0;
-    	int subsum = A[hi];
-    	while (lo<=hi) {
-    		if (sum > end) {
-        		sum -= A[lo++];
-    			if (lo > hi) {
-    				++hi;
-            		if (hi<A.length) {
-            			sum += A[hi];
-            			subsum += A[hi];
-            		}
-            		else break;
-    			}
-    		} else if (sum < start) {
-    			++hi;
-        		if (hi<A.length) {
-        			sum += A[hi];
-        			subsum += A[hi];
-        		}
-        		else break;
-    		} else {
-    			//System.out.println(lo+":"+hi);
-    			while (subsum >= start) {
-    				subsum -= A[s++];
-    			}
-        		res+=s-lo;
-    			++hi;
-        		if (hi<A.length) {
-        			sum += A[hi];
-        			subsum += A[hi];
-        		}
-        		else break;
-    		}
-    	}
-    	return res;
+        if (A==null || A.length==0) return 0;
+        int res = 0;
+        int hi = 0;
+        int lo = 0;
+        int sum = A[hi];
+        int s = 0;
+        int subsum = A[hi];
+        while (lo<=hi) {
+            if (sum > end) {
+                sum -= A[lo++];
+                if (lo > hi) {
+                    ++hi;
+                    if (hi<A.length) {
+                        sum += A[hi];
+                        subsum += A[hi];
+                    }
+                    else break;
+                }
+            } else if (sum < start) {
+                ++hi;
+                if (hi<A.length) {
+                    sum += A[hi];
+                    subsum += A[hi];
+                }
+                else break;
+            } else {
+                //System.out.println(lo+":"+hi);
+                while (subsum >= start) {
+                    subsum -= A[s++];
+                }
+                res+=s-lo;
+                ++hi;
+                if (hi<A.length) {
+                    sum += A[hi];
+                    subsum += A[hi];
+                }
+                else break;
+            }
+        }
+        return res;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		SubarraySumII solution = new SubarraySumII();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        SubarraySumII solution = new SubarraySumII();
 
-		//4
-		System.out.println(solution.subarraySumII(new int[]{1,2,3,4}, 1, 3));
-		//1
-		System.out.println(solution.subarraySumII(new int[]{4,3,2,1}, 10, 10));
-		//41
-		System.out.println(solution.subarraySumII(new int[]{1,3,4,5,6,7,1,2,3,4,5}, 1, 19));
-	}
+        //4
+        System.out.println(solution.subarraySumII(new int[]{1,2,3,4}, 1, 3));
+        //1
+        System.out.println(solution.subarraySumII(new int[]{4,3,2,1}, 10, 10));
+        //41
+        System.out.println(solution.subarraySumII(new int[]{1,3,4,5,6,7,1,2,3,4,5}, 1, 19));
+    }
 
 }

@@ -32,39 +32,39 @@ public class ImplementQueuebyTwoStacks
     private Stack<Integer> stack2 = new Stack<Integer>();
     
     public void push(int element) {
-    	stack1.push(element);
+        stack1.push(element);
     }
 
     public int pop() {
-    	if (stack2.isEmpty()) {
-    		while (!stack1.isEmpty()) {
-    			stack2.push(stack1.pop());
-    		}
-    	}
-    	return stack2.pop();
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.pop();
     }
 
     public int top() {
-    	if (stack2.isEmpty()) {
-    		while (!stack1.isEmpty()) {
-    			stack2.push(stack1.pop());
-    		}
-    	}
-    	return stack2.peek();
+        if (stack2.isEmpty()) {
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+        }
+        return stack2.peek();
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		ImplementQueuebyTwoStacks solution = new ImplementQueuebyTwoStacks();
-		solution.push(1);
-		System.out.println(solution.pop());
-		solution.push(2);
-		solution.push(3);
-		System.out.println(solution.top());
-		System.out.println(solution.pop());
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        ImplementQueuebyTwoStacks solution = new ImplementQueuebyTwoStacks();
+        solution.push(1);
+        System.out.println(solution.pop());
+        solution.push(2);
+        solution.push(3);
+        System.out.println(solution.top());
+        System.out.println(solution.pop());
+    }
 
 }

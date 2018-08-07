@@ -39,39 +39,39 @@ public class FirstBadVersion
      * you can use SVNRepo.isBadVersion(k) to judge whether 
      * the kth code version is bad or not.
      */
-	 public static class SVNRepo {
-	     public static boolean isBadVersion(int k) {return false;}
-	 }
-	 
+     public static class SVNRepo {
+         public static boolean isBadVersion(int k) {return false;}
+     }
+     
     /**
      * @param n: An integers.
      * @return: An integer which is the first bad version.
      */
     public int findFirstBadVersion(int n) {
-    	if (n < 1) return 0;
-    	if (!SVNRepo.isBadVersion(n)) return n + 1;
-    	int lo = 1;
-    	int hi = n;
-    	while (lo < hi) {
-    		int m = lo + (hi - lo >> 1);
-    		if (SVNRepo.isBadVersion(m)) {
-    			hi = m;
-    		} else {
-    			lo = m + 1;
-    		}
-    	}
-    	return lo;
+        if (n < 1) return 0;
+        if (!SVNRepo.isBadVersion(n)) return n + 1;
+        int lo = 1;
+        int hi = n;
+        while (lo < hi) {
+            int m = lo + (hi - lo >> 1);
+            if (SVNRepo.isBadVersion(m)) {
+                hi = m;
+            } else {
+                lo = m + 1;
+            }
+        }
+        return lo;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		FirstBadVersion solution = new FirstBadVersion();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        FirstBadVersion solution = new FirstBadVersion();
 
-		//10
-		System.out.println(solution.findFirstBadVersion(12));
-	}
+        //10
+        System.out.println(solution.findFirstBadVersion(12));
+    }
 
 }

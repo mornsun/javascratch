@@ -36,27 +36,27 @@ public class LongestCommonSubsequence
      * @return: The length of longest common subsequence of A and B.
      */
     public int longestCommonSubsequence(String A, String B) {
-    	if (null==A || A.length()==0 || null==B || B.length()==0)
-    		return 0;
-    	int alen = A.length();
-    	int blen = B.length();
-    	int[][] f = new int[alen+1][blen+1]; //can be tuned with scroll array
-    	for (int i=1; i<=alen; ++i) {
-    		for (int j=1; j<=blen; ++j) {
-    			f[i][j] = A.charAt(i-1)==B.charAt(j-1) ? f[i-1][j-1]+1 : Math.max(f[i-1][j], f[i][j-1]);
-    		}
-    	}
-    	return f[alen][blen];
+        if (null==A || A.length()==0 || null==B || B.length()==0)
+            return 0;
+        int alen = A.length();
+        int blen = B.length();
+        int[][] f = new int[alen+1][blen+1]; //can be tuned with scroll array
+        for (int i=1; i<=alen; ++i) {
+            for (int j=1; j<=blen; ++j) {
+                f[i][j] = A.charAt(i-1)==B.charAt(j-1) ? f[i-1][j-1]+1 : Math.max(f[i-1][j], f[i][j-1]);
+            }
+        }
+        return f[alen][blen];
     }
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		LongestCommonSubsequence solution = new LongestCommonSubsequence();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        LongestCommonSubsequence solution = new LongestCommonSubsequence();
 
-		System.out.println(solution.longestCommonSubsequence("ABCD", "EDCA"));
-		System.out.println(solution.longestCommonSubsequence("ABCD", "EACB"));
-	}
+        System.out.println(solution.longestCommonSubsequence("ABCD", "EDCA"));
+        System.out.println(solution.longestCommonSubsequence("ABCD", "EACB"));
+    }
 
 }

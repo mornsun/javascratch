@@ -36,33 +36,33 @@ public class LongestIncreasingContinuoussubsequence
         boolean asc = false;
         int max = 1;
         for (int i=1; i<A.length; ++i) {
-        	if (A[i] >= A[i-1] && asc == false) {
-        		if (i-lo > max) max = i-lo;
-        		asc = true;
-        		lo = i - 1;
-        	} else if (A[i] <= A[i-1] && asc == true) {
-        		if (i-lo > max) max = i-lo;
-        		asc = false;
-        		lo = i - 1;
-        	}
+            if (A[i] >= A[i-1] && asc == false) {
+                if (i-lo > max) max = i-lo;
+                asc = true;
+                lo = i - 1;
+            } else if (A[i] <= A[i-1] && asc == true) {
+                if (i-lo > max) max = i-lo;
+                asc = false;
+                lo = i - 1;
+            }
         }
-		if (A.length-lo > max) max = A.length-lo;
-		return max;
+        if (A.length-lo > max) max = A.length-lo;
+        return max;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		LongestIncreasingContinuoussubsequence solution = new LongestIncreasingContinuoussubsequence();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        LongestIncreasingContinuoussubsequence solution = new LongestIncreasingContinuoussubsequence();
 
-		//4
-		System.out.println(solution.longestIncreasingContinuousSubsequence(new int[]{5, 4, 2, 1, 3}));
-		//4
-		System.out.println(solution.longestIncreasingContinuousSubsequence(new int[]{5, 1, 2, 3, 4}));
-		//4
-		System.out.println(solution.longestIncreasingContinuousSubsequence(new int[]{5, 5, 4, 2, 1, 3}));
-	}
+        //4
+        System.out.println(solution.longestIncreasingContinuousSubsequence(new int[]{5, 4, 2, 1, 3}));
+        //4
+        System.out.println(solution.longestIncreasingContinuousSubsequence(new int[]{5, 1, 2, 3, 4}));
+        //4
+        System.out.println(solution.longestIncreasingContinuousSubsequence(new int[]{5, 5, 4, 2, 1, 3}));
+    }
 
 }

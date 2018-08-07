@@ -39,30 +39,30 @@ public class CosineSimilarity
      * @return: Cosine similarity.
      */
     public double cosineSimilarity(int[] A, int[] B) {
-    	if (null == A || A.length == 0 ||
-    			null == B || A.length != B.length) return 2.0;
-    	double numerator = 0;
-    	for (int i=0; i<A.length; ++i) {
-    		numerator += A[i]*B[i];
-    	}
-    	double denominator1 = 0;
-    	double denominator2 = 0;
-    	for (int i=0; i<A.length; ++i) {
-    		denominator1 += A[i]*A[i];
-    		denominator2 += B[i]*B[i];
-    	}
-    	if (denominator1 == 0 || denominator2 == 0) return 2.0;
-    	return numerator / (Math.sqrt(denominator1) * Math.sqrt(denominator2));
+        if (null == A || A.length == 0 ||
+                null == B || A.length != B.length) return 2.0;
+        double numerator = 0;
+        for (int i=0; i<A.length; ++i) {
+            numerator += A[i]*B[i];
+        }
+        double denominator1 = 0;
+        double denominator2 = 0;
+        for (int i=0; i<A.length; ++i) {
+            denominator1 += A[i]*A[i];
+            denominator2 += B[i]*B[i];
+        }
+        if (denominator1 == 0 || denominator2 == 0) return 2.0;
+        return numerator / (Math.sqrt(denominator1) * Math.sqrt(denominator2));
     }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		CosineSimilarity solution = new CosineSimilarity();
-		System.out.println(solution.cosineSimilarity(new int[]{1,2,3}, new int[]{2,3,4}));
-		System.out.println(solution.cosineSimilarity(new int[]{0}, new int[]{0}));
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        CosineSimilarity solution = new CosineSimilarity();
+        System.out.println(solution.cosineSimilarity(new int[]{1,2,3}, new int[]{2,3,4}));
+        System.out.println(solution.cosineSimilarity(new int[]{0}, new int[]{0}));
+    }
 
 }

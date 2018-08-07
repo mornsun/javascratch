@@ -46,22 +46,22 @@ LintCode Copyright Hash Table
  */
 public class Rehashing
 {
-	/**
-	 * Definition for ListNode
-	 */
-	public static class ListNode {
-	    int val;
-	    ListNode next;
-	    ListNode(int x) {
-	        val = x;
-	        next = null;
-	    }
-		@Override
-		public String toString() {
-			return "[" + val + "," + next + "]";
-		}
-	}
-	
+    /**
+     * Definition for ListNode
+     */
+    public static class ListNode {
+        int val;
+        ListNode next;
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
+        @Override
+        public String toString() {
+            return "[" + val + "," + next + "]";
+        }
+    }
+    
     /**
      * @param hashTable: A list of The first node of linked list
      * @return: A list of The first node of linked list which have twice size
@@ -70,20 +70,20 @@ public class Rehashing
         if (hashTable==null || hashTable.length==0) return hashTable;
         ListNode[] res = new ListNode[hashTable.length<<1];
         for (ListNode e : hashTable) {
-        	while (null != e) {
-        		ListNode next = e.next;
-        		int newidx = (e.val%res.length + res.length) % res.length;
-        		if (null == res[newidx]) {
-            		res[newidx] = e;
-            		e.next = null;
-        		} else {
-        			ListNode node = res[newidx];
-        			for (; node.next != null; node = node.next);
-        			node.next = e;
-        			e.next = null;
-        		}
-        		e = next;
-        	}
+            while (null != e) {
+                ListNode next = e.next;
+                int newidx = (e.val%res.length + res.length) % res.length;
+                if (null == res[newidx]) {
+                    res[newidx] = e;
+                    e.next = null;
+                } else {
+                    ListNode node = res[newidx];
+                    for (; node.next != null; node = node.next);
+                    node.next = e;
+                    e.next = null;
+                }
+                e = next;
+            }
         }
         return res;
     }
@@ -91,32 +91,32 @@ public class Rehashing
         if (hashTable==null || hashTable.length==0) return hashTable;
         ListNode[] res = new ListNode[hashTable.length<<1];
         for (ListNode e : hashTable) {
-        	while (null != e) {
-        		ListNode next = e.next;
-        		int newidx = (e.val%res.length + res.length) % res.length;
-        		e.next = res[newidx];
-        		res[newidx] = e;
-        		e = next;
-        	}
+            while (null != e) {
+                ListNode next = e.next;
+                int newidx = (e.val%res.length + res.length) % res.length;
+                e.next = res[newidx];
+                res[newidx] = e;
+                e = next;
+            }
         }
         return res;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		Rehashing solution = new Rehashing();
-		ListNode[] hash_table = new ListNode[4];
-		hash_table[1] = new ListNode(21);
-		hash_table[1].next = new ListNode(9);
-		hash_table[2] = new ListNode(14);
-		hash_table = solution.rehashing(hash_table);
-		for (ListNode num : hash_table) {
-			System.out.print(num+",");
-		}
-		System.out.println();
-	}
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        Rehashing solution = new Rehashing();
+        ListNode[] hash_table = new ListNode[4];
+        hash_table[1] = new ListNode(21);
+        hash_table[1].next = new ListNode(9);
+        hash_table[2] = new ListNode(14);
+        hash_table = solution.rehashing(hash_table);
+        for (ListNode num : hash_table) {
+            System.out.print(num+",");
+        }
+        System.out.println();
+    }
 
 }

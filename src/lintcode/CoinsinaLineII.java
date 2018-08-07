@@ -31,35 +31,35 @@ public class CoinsinaLineII
      * @return: a boolean which equals to true if the first player will win
      */
     public boolean firstWillWin(int[] values) {
-    	if (values==null || values.length<3) return true;
-    	int f3 = 0;
-    	int f2 = values[values.length-1];
-    	int f1 = values[values.length-1]+values[values.length-2];
-    	int sum3 = 0;
-    	int sum2 = f2;
-    	int sum1 = f1;
-    	for (int i=values.length-3; i>=0; --i) {
-    		sum3 = sum2;
-    		sum2 = sum1;
-    		sum1 = sum2 + values[i];
-    		f3 = f2;
-    		f2 = f1;
-    		f1 = Math.max(sum2-f2+values[i], sum3-f3+values[i]+values[i+1]);
-    	}
-    	return f1 > f2 || f1 > f3;
+        if (values==null || values.length<3) return true;
+        int f3 = 0;
+        int f2 = values[values.length-1];
+        int f1 = values[values.length-1]+values[values.length-2];
+        int sum3 = 0;
+        int sum2 = f2;
+        int sum1 = f1;
+        for (int i=values.length-3; i>=0; --i) {
+            sum3 = sum2;
+            sum2 = sum1;
+            sum1 = sum2 + values[i];
+            f3 = f2;
+            f2 = f1;
+            f1 = Math.max(sum2-f2+values[i], sum3-f3+values[i]+values[i+1]);
+        }
+        return f1 > f2 || f1 > f3;
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		CoinsinaLineII solution = new CoinsinaLineII();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        CoinsinaLineII solution = new CoinsinaLineII();
 
-		//true
-		System.out.println(solution.firstWillWin(new int[]{1,2,2}));
-		//false
-		System.out.println(solution.firstWillWin(new int[]{1,2,4}));
-	}
+        //true
+        System.out.println(solution.firstWillWin(new int[]{1,2,2}));
+        //false
+        System.out.println(solution.firstWillWin(new int[]{1,2,4}));
+    }
 
 }

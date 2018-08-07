@@ -35,12 +35,12 @@ Easy Reverse Linked List 41 %
  */
 public class ReverseNodesinkGroup
 {
-	public static class ListNode {
-		 int val;
-		 ListNode next;
-		 ListNode(int x) { val = x; }
-	}
-	
+    public static class ListNode {
+         int val;
+         ListNode next;
+         ListNode(int x) { val = x; }
+    }
+    
     /**
      * @param head a ListNode
      * @param k an integer
@@ -72,41 +72,41 @@ public class ReverseNodesinkGroup
         }
         return head;
     }
-	
-	private final ListNode canReverseSublist(ListNode head, int n)
-	{
-	    if (n < 2 || head == null) return null;
-	    ListNode p = head;
-	    for (int i=n-1; i>0; --i) {
-	        p = p.next;
+    
+    private final ListNode canReverseSublist(ListNode head, int n)
+    {
+        if (n < 2 || head == null) return null;
+        ListNode p = head;
+        for (int i=n-1; i>0; --i) {
+            p = p.next;
             if (p == null) return null;
-	    }
-	    return p;
-	}
+        }
+        return p;
+    }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		ReverseNodesinkGroup solution = new ReverseNodesinkGroup();
-		ListNode l1 = new ListNode(1);
-		l1.next = new ListNode(2);
-		l1.next.next = new ListNode(3);
-		ListNode tmp = l1.next.next;
-		l1.next.next.next = new ListNode(4);
-		l1.next.next.next.next = new ListNode(5);
-		//l2.next.next = new ListNode(6);
-		ListNode l = solution.reverseKGroup(l1,3);
-		while (l != null) {
-			System.out.print(l.val+"->");
-			l = l.next;
-		}
-		System.out.println();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        ReverseNodesinkGroup solution = new ReverseNodesinkGroup();
+        ListNode l1 = new ListNode(1);
+        l1.next = new ListNode(2);
+        l1.next.next = new ListNode(3);
+        ListNode tmp = l1.next.next;
+        l1.next.next.next = new ListNode(4);
+        l1.next.next.next.next = new ListNode(5);
+        //l2.next.next = new ListNode(6);
+        ListNode l = solution.reverseKGroup(l1,3);
+        while (l != null) {
+            System.out.print(l.val+"->");
+            l = l.next;
+        }
+        System.out.println();
         while (tmp != null) {
             System.out.print(tmp.val+"->");
             tmp = tmp.next;
         }
-	}
+    }
 
 }

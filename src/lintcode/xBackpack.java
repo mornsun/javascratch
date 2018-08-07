@@ -37,49 +37,49 @@ public class xBackpack
      * @return: The maximum size
      */
     public int backPack(int m, int[] A) {
-    	if (null == A || A.length == 0 || m<=0) return 0;
-    	int[] f = new int[m+1];
-    	for (int j=0; j<=m; ++j) {
-    		f[j] = j>=A[0] ? A[0] : 0;
-    	}
-    	for (int i=1; i<A.length; ++i) {
-    		f[0] = 0;
-    		for (int j=m; j>=A[i]; --j) {
-    			f[j] = Math.max(f[j], f[j-A[i]]+A[i]);
-    		}
-    	}
-    	return f[m];
+        if (null == A || A.length == 0 || m<=0) return 0;
+        int[] f = new int[m+1];
+        for (int j=0; j<=m; ++j) {
+            f[j] = j>=A[0] ? A[0] : 0;
+        }
+        for (int i=1; i<A.length; ++i) {
+            f[0] = 0;
+            for (int j=m; j>=A[i]; --j) {
+                f[j] = Math.max(f[j], f[j-A[i]]+A[i]);
+            }
+        }
+        return f[m];
     }
     
     public int backPack1(int m, int[] A) {
-    	if (null == A || A.length == 0 || m<=0) return 0;
-    	int[][] f = new int[A.length][m+1];
-    	for (int j=0; j<=m; ++j) {
-    		f[0][j] = j>=A[0] ? A[0] : 0;
-    	}
-    	for (int i=1; i<A.length; ++i) {
-    		f[i][0] = 0;
-    		for (int j=0; j<=m; ++j) {
-    			if (j<A[i]) f[i][j] = f[i-1][j];
-    			else f[i][j] = Math.max(f[i-1][j], f[i-1][j-A[i]]+A[i]);
-    		}
-    	}
-    	return f[A.length-1][m];
+        if (null == A || A.length == 0 || m<=0) return 0;
+        int[][] f = new int[A.length][m+1];
+        for (int j=0; j<=m; ++j) {
+            f[0][j] = j>=A[0] ? A[0] : 0;
+        }
+        for (int i=1; i<A.length; ++i) {
+            f[i][0] = 0;
+            for (int j=0; j<=m; ++j) {
+                if (j<A[i]) f[i][j] = f[i-1][j];
+                else f[i][j] = Math.max(f[i-1][j], f[i-1][j-A[i]]+A[i]);
+            }
+        }
+        return f[A.length-1][m];
     }
     
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args)
-	{
-		xBackpack solution = new xBackpack();
+    /**
+     * @param args
+     */
+    public static void main(String[] args)
+    {
+        xBackpack solution = new xBackpack();
 
-		//10
-		System.out.println(solution.backPack(11,new int[]{2, 3, 5, 7}));
-		//12
-		System.out.println(solution.backPack(12,new int[]{2, 3, 5, 7}));
-		//9
-		System.out.println(solution.backPack(10,new int[]{3,4,8,5}));
-	}
+        //10
+        System.out.println(solution.backPack(11,new int[]{2, 3, 5, 7}));
+        //12
+        System.out.println(solution.backPack(12,new int[]{2, 3, 5, 7}));
+        //9
+        System.out.println(solution.backPack(10,new int[]{3,4,8,5}));
+    }
 
 }
