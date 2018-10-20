@@ -32,6 +32,23 @@ Hide Similar Problems (M) Search a 2D Matrix
  */
 public class Searcha2DMatrixII
 {
+	public boolean searchMatrix(int[][] matrix, int target) {
+		if(matrix == null || matrix.length < 1 || matrix[0].length <1) {
+			return false;
+		}
+		int col = matrix[0].length-1;
+		int row = 0;
+		while(col >= 0 && row <= matrix.length-1) {
+			if(target == matrix[row][col]) {
+				return true;
+			} else if(target < matrix[row][col]) {
+				col--;
+			} else if(target > matrix[row][col]) {
+				row++;
+			}
+		}
+		return false;
+	}
 	/**
 	 * O(n ^ 1.58)解法：
 参考：https://leetcode.com/discuss/47528/c-with-o-m-n-complexity
@@ -51,7 +68,7 @@ http://bookshadow.com/weblog/2015/07/23/leetcode-search-2d-matrix-ii/
 	 * @param target
 	 * @return
 	 */
-    public boolean searchMatrix(int[][] matrix, int target) {
+    public boolean searchMatrix2(int[][] matrix, int target) {
         int n=matrix.length, m=matrix[0].length;
         return helper(matrix,0,n-1,0,m-1,target);
     }
@@ -124,7 +141,7 @@ http://bookshadow.com/weblog/2015/07/23/leetcode-search-2d-matrix-ii/
 				  {10, 13, 14, 17, 24},
 				  {18, 21, 23, 26, 30}
 		};
-		System.out.println(solution.searchMatrix(matrix, 20));
+		System.out.println(solution.searchMatrix(matrix, 14));
 	}
 
 }
