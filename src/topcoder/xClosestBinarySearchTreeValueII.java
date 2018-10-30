@@ -70,7 +70,7 @@ public class xClosestBinarySearchTreeValueII
 		}
 	}
 
-    public List<Integer> closestKValues(TreeNode root, double target, int k) {
+    public List<Integer> closestKValues1(TreeNode root, double target, int k) {
     	ArrayList<Integer> res = new ArrayList<Integer>(k);
     	if (null == root) return res;
     	TreeNode node = root;
@@ -132,6 +132,35 @@ public class xClosestBinarySearchTreeValueII
     	}
     	return res;
     }
+
+	public List<Integer> closestKValues(TreeNode root, double target, int k) {
+		ArrayList<Integer> res = new ArrayList<Integer>(k);
+		if (root == null || k <= 0)
+			return res;
+		PriorityQueue<TreeNode> heap = new PriorityQueue<TreeNode>(k, (a,b) -> (int)(Math.abs((double)b.val-target)-Math.abs((double)a.val-target)));
+		LinkedList<TreeNode> stack = new LinkedList<TreeNode>();
+		stack.addLast(root);
+		while (!stack.isEmpty()) {
+			TreeNode node = stack.removeLast();
+			if (heap.size() == k) {
+				if (Math.abs((double)node.val-target) < Math.abs((double)heap.peek().val-target)) {
+					heap.poll();
+					heap.offer(node);
+				}
+			} else {
+				heap.offer(node);
+			}
+			System.out.println(heap.peek().val);
+			if (node.left != null)
+				stack.addLast(node.left);
+			if (node.right != null)
+				stack.addLast(node.right);
+		}
+		for (TreeNode node : heap) {
+			res.add(node.val);
+		}
+		return res;
+	}
     
     private static final void print_tree(TreeNode node, int deep) {
     	StringBuilder indent = new StringBuilder();
@@ -164,7 +193,8 @@ public class xClosestBinarySearchTreeValueII
 	    root.right = new TreeNode(7);
 		xClosestBinarySearchTreeValueII solution = new xClosestBinarySearchTreeValueII();
 
-		System.out.println(solution.closestKValues(root, 4.5, 100));
+		System.out.println(solution.closestKValues1(root, 4.5, 3));
+		System.out.println(solution.closestKValues(root, 4.5, 3));
 		//print_tree(root, 0);
 		
 	}
