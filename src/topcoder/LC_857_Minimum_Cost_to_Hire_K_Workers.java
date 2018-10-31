@@ -3,9 +3,7 @@
  */
 package topcoder;
 
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.PriorityQueue;
+import java.util.*;
 
 /**
  * There are N workers.  The i-th worker has a quality[i] and a minimum wage expectation wage[i].
