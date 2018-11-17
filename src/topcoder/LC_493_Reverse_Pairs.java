@@ -31,7 +31,7 @@ All the numbers in the input array are in the range of 32-bit integer.
 public class LC_493_Reverse_Pairs
 {
     public int reversePairs(int[] nums) {
-        
+        return 0;
     }
 
 	/**
@@ -42,14 +42,7 @@ public class LC_493_Reverse_Pairs
 		long startTime = System.currentTimeMillis();
 
 		LC_493_Reverse_Pairs solution = new LC_493_Reverse_Pairs();
-		System.out.println(solution.superEggDrop(1, 2)); //2
-        System.out.println(solution.superEggDrop(2, 6)); //3
-        System.out.println(solution.superEggDrop(3, 14)); //4
-        System.out.println(solution.superEggDrop(1, 1)); //1
-        System.out.println(solution.superEggDrop(1, 3)); //3
-        System.out.println(solution.superEggDrop(2, 1)); //1
-        System.out.println(solution.superEggDrop(2, 7)); //4
-        System.out.println(solution.superEggDrop(6, 10000)); //16
+		//System.out.println(solution.superEggDrop(1, 2)); //2
 		
 		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
 	}
