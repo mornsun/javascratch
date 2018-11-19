@@ -26,6 +26,69 @@ Hide Similar Problems (M) Basic Calculator
  */
 public class xBasicCalculatorII
 {
+	public int calculate(String s) {
+		if (s==null || s.length()==0) {
+			return 0;
+		}
+		//5*(5-(5+5+5)-5)/5 to
+		//5 5 5 5 + 5 + - 5 - * 5 /
+		LinkedList<String> stack = new LinkedList<>();
+		LinkedList<String> ops = new LinkedList<>();
+		for (int i=0; i<s.length(); ++i) {
+			while (Character.isWhitespace(s.charAt(i)) && ++i<s.length());
+			if (i == s.length())
+				break;
+			char ch = s.charAt(i);
+			if (ch=='(') {
+				ops.addLast("(");
+			} else if (ch == ')') {
+				if (!ops.isEmpty()) {
+					String c = ops.pollLast();
+					if (!"(".equals(c))
+						stack.addLast(c);
+				}
+			} else if (ch=='+' || ch=='-') {
+				if (!ops.isEmpty()) {
+					String c = ops.pollLast();
+					if (!"(".equals(c))
+						stack.addLast(c);
+				}
+				ops.addLast(Character.toString(ch));
+			} else if (ch=='*' || ch=='/') {
+				ops.addLast(Character.toString(ch));
+			} else {
+				int start = i;
+				while (Character.isDigit(s.charAt(i)) && ++i<s.length());
+				if (start < i) {
+					stack.addLast(s.substring(start, i));
+					--i;
+				}
+			}
+			System.out.println(ch+":"+stack+":"+ops);
+		}
+
+		LinkedList<Integer> ansStack = new LinkedList<>();
+		int k = 0;
+		while (!stack.isEmpty()) {
+			String item = stack.pollFirst();
+			if (Character.isDigit(item.charAt(0))) {
+				ansStack.addLast(Integer.parseInt(item));
+			} else {
+				int r = ansStack.pollLast();
+				int l = ansStack.pollLast();
+				if ("+".equals(item))
+					ansStack.addLast(l+r);
+				else if ("-".equals(item))
+					ansStack.addLast(l-r);
+				else if ("*".equals(item))
+					ansStack.addLast(l*r);
+				else if ("/".equals(item))
+					ansStack.addLast(l/r);
+			}
+		}
+		return ansStack.peekLast();
+	}
+
 	private final void operate(LinkedList<Integer> num_stack, LinkedList<Character> op_stack) {
 		Character op = op_stack.peek();
 		if (op == null || op == '(') {
@@ -46,7 +109,7 @@ public class xBasicCalculatorII
 		}
 	}
 	
-    public int calculate(String s) {
+    public int calculate1(String s) {
     	if (s == null || s.length()==0) return 0;
     	s = s+"=";
     	int num = -1;
@@ -102,6 +165,9 @@ public class xBasicCalculatorII
 		xBasicCalculatorII solution = new xBasicCalculatorII();
 		
 		System.out.println(solution.calculate("1*2-3/4+5*6-7*8+9/10"));
+		System.out.println(solution.calculate1("1*2-3/4+5*6-7*8+9/10"));
+		System.out.println(solution.calculate("5*(5-(5+5+5)-5)/5"));
+
 	}
 
 }
