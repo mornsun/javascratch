@@ -31,6 +31,7 @@ import java.io.IOException;
  * dp[i][j] = dp[i-1][j] && (s3[i+j-1]==s1[i-1]) || dp[i][j-1] && (s3[i+j-1]==s2[j-1])
  * 
  * @author Chauncey
+ * beat 13.81%
  *
  */
 public class MedianofTwoSortedArraysIter
@@ -52,19 +53,29 @@ public class MedianofTwoSortedArraysIter
         while (iMin < iMax) {
             int m1 = iMin + (iMax - iMin >> 1);
             int m2 = halfLen - m1 - 1;
-            if (nums1[m1] < nums2[m2]) {
+            if (nums1[m1] <= nums2[m2]) {
                 iMin = m1 + 1;
             } else if (nums1[m1] > nums2[m2]) {
-                iMax = m1 - 1;
+                iMax = m1;
             }
         }
         int left = iMin;
         int right = halfLen - iMin - 1;
-        System.out.println(left+":"+right);
-        if (left == 0) return nums1.length==nums2.length ? (nums1[0]+nums2[right])/2.0 : Math.min(nums1[left], nums2[right]);
-        if (left == nums1.length-1) return nums1.length==nums2.length ? (nums1[nums1.length-1]+nums2[0])/2.0 : Math.min(nums1[left], nums2[right]);
-        if ( (nums1.length+nums2.length) % 2 == 0) return (nums1[left]+nums2[right])/2.0;
-        return Math.min(nums1[left], nums2[right]);
+        int leftMax;
+        int rightMin;
+        if (left == 0 && nums1.length<nums2.length && nums1[left]>=nums2[right]) {//[3] [1,2]
+            leftMax = nums2[halfLen - 1];
+            rightMin = halfLen<nums2.length ? Math.min(nums1[left], nums2[halfLen]) : nums1[0];
+        } else if (left == nums1.length-1 && nums1.length<nums2.length && nums1[left]<=nums2[right-1]) { //[1], [2,3]
+            leftMax = halfLen - 1 - nums1.length >= 0 ? Math.max(nums2[halfLen - 1 - nums1.length], nums1[left]) : nums1[left];
+            rightMin = nums2[halfLen - nums1.length];
+        } else {
+            leftMax = Math.max(left>0 ? nums1[left-1] : Integer.MIN_VALUE, nums2[right]);
+            rightMin = Math.min(nums1[left], right<nums2.length-1 ? nums2[right+1] : Integer.MAX_VALUE);
+        }
+        //System.out.println(left+":["+leftMax+"]:"+right+":["+rightMin+"]:"+nums1.length+":"+nums2.length+":"+halfLen);
+        if ( (nums1.length+nums2.length) % 2 == 0) return (leftMax+rightMin)/2.0;
+        return Math.min(leftMax, rightMin);
     }
     // 1, 3
     // 2, 4
@@ -132,12 +143,17 @@ public class MedianofTwoSortedArraysIter
     {
         // TODO Auto-generated method stub
         //
+        System.out.println(findMedianSortedArrays(new int[]{1,2,3}, new int[]{4})); //2.5
         System.out.println(findMedianSortedArrays(new int[]{1,2}, new int[]{3})); //2.0
         System.out.println(findMedianSortedArrays(new int[]{1,2}, new int[]{3,4})); //2.5
         System.out.println(findMedianSortedArrays(new int[]{1,3}, new int[]{2})); //2.0
         System.out.println(findMedianSortedArrays(new int[]{}, new int[]{1})); //1.0
         System.out.println(findMedianSortedArrays(new int[]{}, new int[]{2,3})); //2.5
-        System.out.println(findMedianSortedArrays(new int[]{1,2}, new int[]{-1,3})); //2.5
+        System.out.println(findMedianSortedArrays(new int[]{1,2}, new int[]{-1,3})); //1.5
+        System.out.println(findMedianSortedArrays(new int[]{1,2}, new int[]{1,2,3})); //2.0
+        System.out.println(findMedianSortedArrays(new int[]{1}, new int[]{2,3})); //2.0
+        System.out.println(findMedianSortedArrays(new int[]{2}, new int[]{1,3,4,5})); //3.0
+        System.out.println(findMedianSortedArrays(new int[]{3}, new int[]{1,2,4})); //2.5
         /*try {
             largetest("/home/work/testdata");
         } catch (IOException e) {
