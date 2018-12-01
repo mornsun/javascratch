@@ -79,6 +79,28 @@ public class LC_119_Pascals_Triangle_II
 		return ret;
 	}
 
+	public List<List<Integer>> generate(int numRows) {
+		ArrayList<List<Integer>> ret = new ArrayList<>(numRows);
+		if (numRows<=0)
+			return ret;
+
+		ArrayList<Integer> curr = new ArrayList<Integer>(1);
+		curr.add(1);
+		ret.add(curr);
+		for (int i=2; i<=numRows; ++i) {
+			ArrayList<Integer> next = new ArrayList<Integer>(i);
+			next.add(1);
+			for (int j=1; j<i-1; ++j)
+				next.add(curr.get(j-1)+curr.get(j));
+			next.add(1);
+
+			curr = next;
+			ret.add(curr);
+		}
+
+		return ret;
+	}
+
 	/**
 	 * @param args
 	 */
@@ -95,6 +117,9 @@ public class LC_119_Pascals_Triangle_II
 		System.out.println(solution.getRow(30)); // [1,30,435,4060,27405,142506,593775,2035800,5852925,14307150,30045015,54627300,86493225,119759850,145422675,155117520,145422675,119759850,86493225,54627300,30045015,14307150,5852925,2035800,593775,142506,27405,4060,435,30,1]
 		System.out.println(solution.getRow(31)); // [1,31,465,4495,31465,169911,736281,2629575,7888725,20160075,44352165,84672315,141120525,206253075,265182525,300540195,300540195,265182525,206253075,141120525,84672315,44352165,20160075,7888725,2629575,736281,169911,31465,4495,465,31,1]
 		System.out.println(solution.getRow(32)); // [1,32,496,4960,35960,201376,906192,3365856,10518300,28048800,64512240,129024480,225792840,347373600,471435600,565722720,601080390,565722720,471435600,347373600,225792840,129024480,64512240,28048800,10518300,3365856,906192,201376,35960,4960,496,32,1]
+
+		System.out.println(solution.generate(5));
+		System.out.println(solution.generate(0)); //[]
 
 		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
 	}

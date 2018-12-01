@@ -42,31 +42,40 @@ Random
 Rejection Sampling
 
  * @author Chauncey
- *
+ * beat 75.88
  */
-public class LC_470_Implement_Rand10_Using_Rand7
+public class xLC_470_Implement_Rand10_Using_Rand7
 {
-    public int rand10_1()
+    public int rand10()
     {
-    	int a1 = rand7()-1;
-    	while (a1 == 6) {
-    		a1 = rand7()-1;
-    	}
-    	int a2 = rand7();
-    	if (a1 == 5) {
-    		while (a2 > 5) {
-    			a2 = rand7();
-    		}
-    	}
-        int n = a1 * 7 + a2;
-        return (n % 10) + 1;
+        while (true) {
+            int a = rand7();
+            int b = rand7();
+            //1-49, get 1-40
+            int ans = (a-1)*7+b-1;
+            if (ans<=39)
+                return ans%10+1;
+            a = rand7();
+            b = rand7();
+            //1-63, get 1-60
+            ans = (a-1)*7+b-1;
+            if (ans<=59)
+                return ans%10+1;
+            a = rand7();
+            b = rand7();
+            //1-21, get 1-20
+            ans = (a-1)*7+b-1;
+            if (ans<=19)
+                return ans%10+1;
+        }
     }
 
-    public int rand10()
+    public int rand10_1()
     {
 	    int x = (rand7()-1)*7 + rand7()-1;
 	    return x<=39 ? x%10 +1 : rand10();
     }
+
 
 	private static Random rand = new Random();
     private static int rand7()
@@ -81,7 +90,7 @@ public class LC_470_Implement_Rand10_Using_Rand7
     {
         long startTime = System.currentTimeMillis();
         
-        LC_470_Implement_Rand10_Using_Rand7 solution = new LC_470_Implement_Rand10_Using_Rand7();
+        xLC_470_Implement_Rand10_Using_Rand7 solution = new xLC_470_Implement_Rand10_Using_Rand7();
         System.out.println(solution.rand10());
         System.out.println(solution.rand10() + "," + solution.rand10());
         System.out.println(solution.rand10() + "," + solution.rand10() + "," + solution.rand10());
