@@ -66,7 +66,7 @@ public class LC_1049_Last_Stone_Weight_II
 		long startTime = System.currentTimeMillis();
 
 		LC_1049_Last_Stone_Weight_II solution = new LC_1049_Last_Stone_Weight_II();
-		System.out.println(solution.lastStoneWeightII(new int[]{0,1,0,1,1,0,0,1}, 7)); //[0, 0, 1, 1, 0, 0, 0, 0]
+		System.out.println(solution.lastStoneWeightII(new int[]{2,7,4,1,8,1})); //[0, 0, 1, 1, 0, 0, 0, 0]
 
 
 		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
