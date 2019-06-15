@@ -47,6 +47,28 @@ import java.util.PriorityQueue;
 public class LC_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays
 {
     public int maxSumTwoNoOverlap(int[] A, int L, int M) {
+        int res = 0, Lsum = 0, Lmax = 0, Msum = 0, Mmax = 0;
+        for (int i = 0; i < A.length; ++i) {
+            Msum += A[i];
+            if (i - M >= 0) Msum -= A[i - M];
+            if (i - M >= 0) Lsum += A[i - M];
+            if (i - M - L >= 0) Lsum -= A[i - L - M];
+            Lmax = Math.max(Lmax, Lsum);
+            res = Math.max(res, Lmax + Msum);
+        }
+        Lsum = Lmax = Msum = Mmax = 0;
+        for (int i = 0; i < A.length; ++i) {
+            Lsum += A[i];
+            if (i - L >= 0) Lsum -= A[i - L];
+            if (i - L >= 0) Msum += A[i - L];
+            if (i - M - L >= 0) Msum -= A[i - L - M];
+            Mmax = Math.max(Mmax, Msum);
+            res = Math.max(res, Mmax + Lsum);
+        }
+        return res;
+    }
+
+    public int maxSumTwoNoOverlap_deprecated(int[] A, int L, int M) {
         if (A==null || A.length==0 || L<=0 || M<=0 || A.length<L+M) return 0;
 
         int N = A.length;
