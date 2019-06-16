@@ -104,7 +104,6 @@ public class LC_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays
 		LC_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays solution = new LC_1031_Maximum_Sum_of_Two_Non_Overlapping_Subarrays();
         System.out.println(solution.maxSumTwoNoOverlap(new int[]{0,6,5,2,2,5,1,9,4}, 1, 2)); //20
         System.out.println(solution.maxSumTwoNoOverlap(new int[]{8,20,6,2,20,17,6,3,20,8,12}, 5, 4)); //108
-
 		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
 	}
 
