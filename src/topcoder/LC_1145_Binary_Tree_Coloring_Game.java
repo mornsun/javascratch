@@ -1,3 +1,7 @@
+package topcoder;
+
+import java.util.*;
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -10,7 +14,14 @@
  * Runtime: 1 ms, faster than 24.75% of Java online submissions for Binary Tree Coloring Game.
  * Memory Usage: 34.8 MB, less than 100.00% of Java online submissions for Binary Tree Coloring Game.
  */
-class Solution {
+class LC_1145_Binary_Tree_Coloring_Game {
+    public static class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode(int x) { val = x; }
+  }
+
     public boolean btreeGameWinningMove(TreeNode root, int n, int x) {
 
         if (root == null || n<=2 || x>n || x<1)
@@ -48,7 +59,7 @@ return l + r + 1;
 	{
 		long startTime = System.currentTimeMillis();
 
-		Solution solution = new Solution();
+        LC_1145_Binary_Tree_Coloring_Game solution = new LC_1145_Binary_Tree_Coloring_Game();
         TreeNode root = new TreeNode(1);
         root.left= new TreeNode(2);
         root.right= new TreeNode(3);

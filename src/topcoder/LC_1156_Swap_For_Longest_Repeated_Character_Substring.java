@@ -1,7 +1,11 @@
+package topcoder;
+
+import java.util.*;
+
 //Runtime: 4 ms, faster than 81.67% of Java online submissions for Swap For Longest Repeated Character Substring.
 //Memory Usage: 35.9 MB, less than 100.00% of Java online submissions for Swap For Longest Repeated Character Substring.
 
-class Solution {
+class LC_1156_Swap_For_Longest_Repeated_Character_Substring {
     public int maxRepOpt1(String text) {
 
 if (text==null || text.length()==0)

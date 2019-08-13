@@ -1,11 +1,15 @@
+package topcoder;
+
+import java.util.*;
+
 //Runtime: 677 ms, faster than 69.28% of Java online submissions for Online Majority Element In Subarray.
 //Memory Usage: 66.4 MB, less than 100.00% of Java online submissions for Online Majority Element In Subarray.
-class MajorityChecker {
+class LC_1157_Online_Majority_Element_In_Subarray {
 
     private HashMap<Integer, ArrayList<Integer>> _a2i = new HashMap<Integer, ArrayList<Integer>>();
     private int[] _a;
     
-    public MajorityChecker(int[] arr) {
+    public LC_1157_Online_Majority_Element_In_Subarray(int[] arr) {
 
         if (arr == null)
           return;

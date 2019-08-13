@@ -1,8 +1,11 @@
+package topcoder;
+
+import java.util.*;
 
 //Runtime: 0 ms, faster than 100.00% of Java online submissions for Decrease Elements To Make Array Zigzag.
 //Memory Usage: 34.3 MB, less than 100.00% of Java online submissions for Decrease Elements To Make Array Zigzag.
 
-class Solution {
+class LC_1144_Decrease_Elements_To_Make_Array_Zigzag {
     public int movesToMakeZigzag(int[] nums) {
         
 if (nums==null || nums.length<2)
