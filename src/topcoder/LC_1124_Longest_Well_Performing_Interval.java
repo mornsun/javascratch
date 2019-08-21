@@ -1,3 +1,7 @@
+
+package topcoder;
+
+import java.util.Arrays;
 /*
 Runtime: 4 ms, faster than 99.28% of Java online submissions for Longest Well-Performing Interval.
 Memory Usage: 39.2 MB, less than 100.00% of Java online submissions for Longest Well-Performing Interval.
