@@ -24,6 +24,20 @@ import time
 import collections
 
 class Solution(object):
+
+    def removeDuplicateLetters(self, S):
+        last = {c: i for i, c in enumerate(S)}
+        stack = []
+        got = set()
+        for i, c in enumerate(S):
+            if c in got: continue
+            while stack and stack[-1] > c and i < last[stack[-1]]:
+                top = stack.pop()
+                got.remove(top)
+            stack.append(c)
+            got.add(c)
+        return "".join(stack)
+
     def removeDuplicateLetters(self, s):
         """
         :type s: str
