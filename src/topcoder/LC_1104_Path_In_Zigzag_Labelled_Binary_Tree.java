@@ -34,7 +34,6 @@ import java.util.List;
 public class LC_1104_Path_In_Zigzag_Labelled_Binary_Tree
 {
 	public List<Integer> pathInZigZagTree(int label) {
-
 		LinkedList<Integer> res = new LinkedList<>();
 		if (label<=0) return res;
 		int n=label;
