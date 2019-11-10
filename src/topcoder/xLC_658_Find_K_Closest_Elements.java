@@ -22,15 +22,7 @@ import java.util.*;
  * Binary Search
  *
  * @author Chauncey
- * Runtime: 769 ms, faster than 5.15% of Java online submissions for Shopping Offers.
- * Memory Usage: 59.3 MB, less than 30.77% of Java online submissions for Shopping Offers.
- *
- * Map
- * Runtime: 7 ms, faster than 62.09% of Java online submissions for Shopping Offers.
- * Memory Usage: 42.7 MB, less than 46.15% of Java online submissions for Shopping Offers.
- *
- * Runtime: 2 ms, faster than 99.74% of Java online submissions for Shopping Offers.
- * Memory Usage: 40.5 MB, less than 92.31% of Java online submissions for Shopping Offers.
+ * beats 99.70%
  */
 public class xLC_658_Find_K_Closest_Elements
 {
