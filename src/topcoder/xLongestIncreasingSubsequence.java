@@ -1,7 +1,5 @@
 package topcoder;
 
-import java.util.*;
-
 /**
  * Given an unsorted array of integers, find the length of longest increasing subsequence.
 
@@ -21,11 +19,36 @@ Subscribe to see which companies asked this question
 Hide Tags Dynamic Programming Binary Search
 
  * @author Chauncey
+ * Runtime: 1 ms, faster than 93.75% of Java online submissions for Longest Increasing Subsequence.
+ * Memory Usage: 36.6 MB, less than 100.00% of Java online submissions for Longest Increasing Subsequence.
  *
  */
-public class LongestIncreasingSubsequence
+public class xLongestIncreasingSubsequence
 {
-    public int lengthOfLIS(int[] nums) {
+	public int lengthOfLIS(int[] nums) {
+
+		if (nums==null || nums.length==0) return 0;
+		int N = nums.length;
+		int[] dp = new int[N];
+		int right = 0;
+
+		for (int n : nums) {
+			int lo = 0, hi = right;
+			while (lo<hi) {
+				int m = lo + (hi-lo>>1);
+				if (n>dp[m]) {
+					lo = m + 1;
+				} else {
+					hi = m;
+				}
+			}
+			dp[lo] = n;
+			if (lo==right) right++;
+		}
+		return right;
+	}
+
+    public int lengthOfLIS2(int[] nums) {
     	if (null == nums || nums.length == 0)
     		return 0;
     	int[] cnts = new int[nums.length];
@@ -74,7 +97,7 @@ public class LongestIncreasingSubsequence
 	 */
 	public static void main(String[] args)
 	{
-		LongestIncreasingSubsequence solution = new LongestIncreasingSubsequence();
+		xLongestIncreasingSubsequence solution = new xLongestIncreasingSubsequence();
 		//System.out.println(solution.lengthOfLIS(new int[]{10, 9, 2, 5, 3, 7, 101, 18}));
 		//2 4 5 6 7 12
 		System.out.println(solution.lengthOfLIS(new int[]{3,5,6,2,5,4,19,5,6,7,12}));
