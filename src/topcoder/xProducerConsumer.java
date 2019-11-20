@@ -32,14 +32,14 @@ public class xProducerConsumer {
         // Start both threads
         producer0.start();
         producer1.start();
-		/*producer2.start();
-		producer3.start();
+		producer2.start();
+		/*producer3.start();
 		producer4.start();
 		producer5.start();*/
         consumer0.start();
         consumer1.start();
-		/*consumer2.start();
-		consumer3.start();
+		consumer2.start();
+		/*consumer3.start();
 		consumer4.start();
 		consumer5.start();*/
 
@@ -71,7 +71,7 @@ public class xProducerConsumer {
                 long startTime = System.currentTimeMillis();
                 while (true) {
                     int val = pc.consume();
-                    if (val == 100000) {
+                    if (val >= 100000) {
                         System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
                         return;
                     }
@@ -125,10 +125,11 @@ public class xProducerConsumer {
             while (queue.size() == capacity)
                 bufferNotFull.await();
             queue.offer(value);
-            bufferNotEmpty.signalAll();
+            //bufferNotEmpty.signalAll();
+            bufferNotFull.signal();//better perf
             aLock.unlock();
-            System.out.println("Producer produced-"
-                    + value);
+            //System.out.println("Producer produced-"
+            //        + value);
         }
 
         public int consume() throws InterruptedException {
@@ -137,9 +138,11 @@ public class xProducerConsumer {
             while (queue.size() == 0)
                 bufferNotEmpty.await();
             val = queue.poll();
-            bufferNotFull.signalAll();
-            System.out.println("Consumer consumed-"
-                    + val);
+            //bufferNotFull.signalAll();
+            bufferNotFull.signal();//better perf
+            aLock.unlock();
+            //System.out.println("Consumer consumed-"
+            //        + val);
             return val;
         }
     }
