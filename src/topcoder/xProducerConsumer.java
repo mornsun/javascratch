@@ -94,8 +94,7 @@ public class xProducerConsumer {
                 queue.offer(value);
                 notify();
             }
-            System.out.println("Producer produced-"
-                    + value);
+            System.out.println("Producer produced-" + value);
         }
 
         public int consume() throws InterruptedException {
@@ -106,8 +105,7 @@ public class xProducerConsumer {
                 val = queue.poll();
                 notify();
             }
-            System.out.println("Consumer consumed-"
-                    + val);
+            System.out.println("Consumer consumed-" + val);
             return val;
         }
     }
@@ -128,8 +126,7 @@ public class xProducerConsumer {
             //bufferNotEmpty.signalAll();
             bufferNotFull.signal();//better perf
             aLock.unlock();
-            //System.out.println("Producer produced-"
-            //        + value);
+            //System.out.println("Producer produced-" + value);
         }
 
         public int consume() throws InterruptedException {
@@ -141,8 +138,7 @@ public class xProducerConsumer {
             //bufferNotFull.signalAll();
             bufferNotFull.signal();//better perf
             aLock.unlock();
-            //System.out.println("Consumer consumed-"
-            //        + val);
+            //System.out.println("Consumer consumed-" + val);
             return val;
         }
     }

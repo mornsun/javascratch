@@ -27,6 +27,8 @@ import java.util.List;
  * @author Chauncey
  * Runtime: 51 ms, faster than 43.51% of Java online submissions for Minimum Number of Arrows to Burst Balloons.
  * Memory Usage: 45.1 MB, less than 42.86% of Java online submissions for Minimum Number of Arrows to Burst Balloons.
+ * Runtime: 20 ms, faster than 94.27% of Java online submissions for Minimum Number of Arrows to Burst Balloons.
+ * Memory Usage: 45.2 MB, less than 42.86% of Java online submissions for Minimum Number of Arrows to Burst Balloons.
  */
 public class LC_452_Minimum_Number_of_Arrows_to_Burst_Balloons
 {
@@ -38,6 +40,18 @@ public class LC_452_Minimum_Number_of_Arrows_to_Burst_Balloons
 			if (prev!=null && ballon[0]<=prev[1]) continue;
 			cnt++;
 			prev = ballon;
+		}
+		return cnt;
+	}
+
+	public int findMinArrowShots1(int[][] ballons) {
+		Arrays.sort(ballons, (o1, o2)->o1[1]-o2[1]);
+		int cnt = 0;
+		long pEnd = Long.MIN_VALUE;
+		for (int[] ballon : ballons) {
+			if (ballon[0]<=pEnd) continue;
+			cnt++;
+			pEnd = ballon[1];
 		}
 		return cnt;
 	}
