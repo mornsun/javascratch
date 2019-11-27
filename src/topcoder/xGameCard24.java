@@ -118,7 +118,8 @@ public class xGameCard24
 	public static void main(String[] args)
 	{
 		xGameCard24 solution = new xGameCard24();
-		
+
+		System.out.println(solution.card24(new int[]{12,5,7,6}));
 		System.out.println(solution.card24(new int[]{12,5,7,6,11}));
 		System.out.println(solution.card24(new int[]{11,4,6,6}));
 	}
