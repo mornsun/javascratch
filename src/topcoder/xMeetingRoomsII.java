@@ -14,55 +14,40 @@ return 2.
  */
 public class xMeetingRoomsII
 {
-	private final static class Interval {
-		public int start;
-		public int end;
-		public Interval(int s, int e) {start=s; end=e;}
-	}
-    private Comparator<Interval> comparator = new Comparator<Interval>() {
-        public int compare(Interval o1, Interval o2) {
-            int r = o1.start - o2.start;
-            return r == 0 ? o1.end - o2.end : r;
-        }
-    };
-    public int minMeetingRooms(Interval[] intervals) {
+    public int minMeetingRooms(int[][] intervals) {
     	if (intervals == null || intervals.length==0) return 0;
-    	Arrays.sort(intervals, comparator);
+    	Arrays.sort(intervals, (o1,o2)->o1[0]-o2[0]);
+    	PriorityQueue<Integer> pqueue = new PriorityQueue<Integer>();
+    	int max = 0;
+    	for (int[] interval : intervals) {
+    		if (pqueue.isEmpty()) {
+    			pqueue.offer(interval[1]);
+    		} else {
+    			int prev_end = pqueue.peek();
+    			while (interval[0] >= prev_end) {
+    				pqueue.poll();
+					prev_end = pqueue.isEmpty() ? Integer.MAX_VALUE : pqueue.peek();
+    			}
+    			pqueue.offer(interval[1]);
+    		}
+    		max = Math.max(max, pqueue.size());
+    	}
+    	return max;
+	}
         /*Arrays.sort(intervals, (o1, o2) -> { //lambda
             int r = o1.start - o2.start;
             return r == 0 ? o1.end - o2.end : r;
         });*/
-    	PriorityQueue<Integer> pqueue = new PriorityQueue<Integer>();
-    	for (Interval interval : intervals) {
-    		if (pqueue.isEmpty()) {
-    			pqueue.offer(interval.end);
-    		} else {
-    			int prev_end = pqueue.peek();
-    			if (interval.start >= prev_end) {
-    				pqueue.remove();
-    			}
-    			pqueue.offer(interval.end);
-    		}
-    		
-    	}
-    	return pqueue.size();
-	}
 	    
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args)
 	{
-		List<List<Integer>> vec2d = new LinkedList<List<Integer>>();
-		List<Integer> vec = new LinkedList<Integer>(Arrays.asList(new Integer[]{1,2}));
-		vec2d.add(vec);
-		vec = new LinkedList<Integer>(Arrays.asList(new Integer[]{3}));
-		vec2d.add(vec);
-		vec = new LinkedList<Integer>(Arrays.asList(new Integer[]{4,5,6}));
-		vec2d.add(vec);
 		xMeetingRoomsII solution = new xMeetingRoomsII();
-
-		System.out.println(solution.minMeetingRooms(new Interval[]{new Interval(0,30),new Interval(5,10),new Interval(15,20)}));
+		System.out.println(solution.minMeetingRooms(new int[][]{{0,30},{5,10},{15,20}}));
+		System.out.println(solution.minMeetingRooms(new int[][]{{0,30},{6,9},{5,10},{15,20}}));
+		System.out.println(solution.minMeetingRooms(new int[][]{{7,10},{2,4}}));
 	}
 
 }

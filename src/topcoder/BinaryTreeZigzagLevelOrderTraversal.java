@@ -48,7 +48,36 @@ public class BinaryTreeZigzagLevelOrderTraversal
 		TreeNode(int x) { val = x; }
 	}
 
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+		LinkedList<List<Integer>> res = new LinkedList<>();
+		if (root==null) return res;
+		LinkedList<TreeNode> q = new LinkedList<>();
+		q.addLast(root);
+		boolean toright = false;
+
+		while (!q.isEmpty()) {
+			LinkedList<TreeNode> prev = q;
+			q = new LinkedList<>();
+			LinkedList<Integer> r = new LinkedList<>();
+			while(!prev.isEmpty()) {
+				TreeNode node = prev.removeLast();
+				r.add(node.val);
+				if (toright) {
+					if (node.right!=null) q.addLast(node.right);
+					if (node.left!=null) q.addLast(node.left);
+				} else {
+					if (node.left!=null) q.addLast(node.left);
+					if (node.right!=null) q.addLast(node.right);
+				}
+			}
+			toright = !toright;
+			res.add(r);
+		}
+		return res;
+
+	}
+
+    public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
     	ArrayList<List<Integer>> res = new ArrayList<List<Integer>>();
         if (root == null) return res;
         boolean zig = true;
