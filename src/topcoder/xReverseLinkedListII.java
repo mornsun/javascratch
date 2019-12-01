@@ -3,8 +3,6 @@
  */
 package topcoder;
 
-import java.util.*;
-
 /**
  * Reverse a linked list from position m to n. Do it in-place and in one-pass.
 
@@ -24,7 +22,7 @@ Hide Similar Problems (E) Reverse Linked List
  * Memory Usage: 34.5 MB, less than 100.00% of Java online submissions for Reverse Linked List II.
  *
  */
-public class ReverseLinkedListII
+public class xReverseLinkedListII
 {
 	public static class ListNode {
 		 int val;
@@ -87,7 +85,7 @@ public class ReverseLinkedListII
 	{
 		long startTime = System.currentTimeMillis();
 
-		ReverseLinkedListII solution = new ReverseLinkedListII();
+		xReverseLinkedListII solution = new xReverseLinkedListII();
 
 		ListNode l1 = new ListNode(1);
 		l1.next = new ListNode(2);
