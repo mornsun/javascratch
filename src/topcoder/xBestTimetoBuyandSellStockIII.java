@@ -64,13 +64,13 @@ public class xBestTimetoBuyandSellStockIII
     	int[] f = new int[n];
     	for (int i = 1, valley = prices[0]; i < n; ++i) {
    			if (valley > prices[i]) valley = prices[i];
-   			f[i] = f[i - 1] > prices[i] - valley ? f[i - 1] : prices[i] - valley;
+   			f[i] = Math.max(f[i - 1], prices[i] - valley);
     	}
     	
     	int[] g = new int[n];
     	for (int i = n - 2, peak = prices[n - 1]; i >= 0; --i) {
     		if (peak < prices[i]) peak = prices[i];
-    		g[i] = g[i+1] > peak - prices[i] ? g[i+1] : peak - prices[i];
+            g[i] = Math.max(g[i+1], peak - prices[i]);
     	}
     	
     	int max_profit = 0;
@@ -119,12 +119,13 @@ public class xBestTimetoBuyandSellStockIII
     public static void main(String[] args)
     {
         // TODO Auto-generated method stub
-        int[] prices = new int[]{9,8,7,6,5,4,3,2,1,0,0,0,0,0,0,0};
-        int res = maxProfit(prices);
-        System.out.println(res);
+        System.out.println(maxProfit(new int[]{3,3,5,0,0,3,1,4})); //6
+        System.out.println(maxProfit(new int[]{1,2,3,4,5})); //4
+        System.out.println(maxProfit(new int[]{7,6,4,3,1})); //0
+        System.out.println(maxProfit(new int[]{9,8,7,6,5,4,3,2,1,0,0,0,0,0,0,0})); //0
         try {
-            largetest("/home/work/testdata");
-        } catch (IOException e) {
+            //largetest("/home/work/testdata");
+        } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }

@@ -39,7 +39,7 @@ Hide Similar Problems (E) Binary Tree Level Order Traversal
  * @author Chauncey
  *
  */
-public class BinaryTreeZigzagLevelOrderTraversal
+public class xBinaryTreeZigzagLevelOrderTraversal
 {
 	public static class TreeNode {
 		int val;
@@ -132,7 +132,7 @@ public class BinaryTreeZigzagLevelOrderTraversal
 	 */
 	public static void main(String[] args)
 	{
-		BinaryTreeZigzagLevelOrderTraversal solution = new BinaryTreeZigzagLevelOrderTraversal();
+		xBinaryTreeZigzagLevelOrderTraversal solution = new xBinaryTreeZigzagLevelOrderTraversal();
 		TreeNode root = new TreeNode(5);
 	    root.left = new TreeNode(3);
 	    root.left.left = new TreeNode(1);
