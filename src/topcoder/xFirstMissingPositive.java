@@ -31,6 +31,25 @@ public class xFirstMissingPositive {
 			}
 		}
 	}
+	private final void bucket_sort1(int[] nums) {
+		for (int i=0; i<nums.length; ++i) {
+			System.out.print(nums[i] + " ");
+		}
+		System.out.println();
+		for (int i=0; i<nums.length; ++i) {
+			while (nums[i]!=i+1) {
+				if (nums[i] <= 0 || nums[i] > nums.length || nums[nums[i] - 1] == nums[i])
+					break;
+				int tmp = nums[i];
+				nums[i] = nums[tmp - 1];
+				nums[tmp - 1] = tmp;
+			}
+		}
+		for (int i=0; i<nums.length; ++i) {
+			System.out.print(nums[i] + " ");
+		}
+		System.out.println();
+	}
     public int firstMissingPositive(int[] nums) {
     	bucket_sort(nums);
         for (int i=0; i<nums.length; ++i) {
@@ -46,11 +65,8 @@ public class xFirstMissingPositive {
 	 */
 	public static void main(String[] args) {
 		xFirstMissingPositive solution = new xFirstMissingPositive();
-		int[] nums = new int[]{3,4,-1,1};
-		System.out.println(solution.firstMissingPositive(nums));
-    	for (int num : nums) {
-    		System.out.print(num+", ");
-    	}
+		System.out.println(solution.firstMissingPositive(new int[]{1,2,0})); //3
+		System.out.println(solution.firstMissingPositive(new int[]{3,4,-1,1})); //2
     	System.out.println();
 	}
 
