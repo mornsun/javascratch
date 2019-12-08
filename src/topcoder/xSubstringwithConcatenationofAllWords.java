@@ -7,22 +7,74 @@ import java.util.*;
 
 /**
  * You are given a string, s, and a list of words, words, that are all of the same length. Find all starting indices of substring(s) in s that is a concatenation of each word in words exactly once and without any intervening characters.
+ *
+ * Example 1:
+ *
+ * Input:
+ *   s = "barfoothefoobarman",
+ *   words = ["foo","bar"]
+ * Output: [0,9]
+ * Explanation: Substrings starting at index 0 and 9 are "barfoo" and "foobar" respectively.
+ * The output order does not matter, returning [9,0] is fine too.
+ * Example 2:
+ *
+ * Input:
+ *   s = "wordgoodgoodgoodbestword",
+ *   words = ["word","good","best","word"]
+ * Output: []
 
-For example, given:
-s: "barfoothefoobarman"
-words: ["foo", "bar"]
-
-You should return the indices: [0,9].
-(order does not matter).
-
-Hide Tags Hash Table Two Pointers String
+Hide Tags Hash Table, Two Pointers, String
 Hide Similar Problems (H) Minimum Window Substring
 
  * @author Chauncey
+ * Runtime: 8 ms, faster than 92.91% of Java online submissions for Substring with Concatenation of All Words.
+ * Memory Usage: 37.3 MB, less than 100.00% of Java online submissions for Substring with Concatenation of All Words.
+ * Runtime: 8 ms, faster than 92.91% of Java online submissions for Substring with Concatenation of All Words.
+ * Memory Usage: 37.1 MB, less than 100.00% of Java online submissions for Substring with Concatenation of All Words.
  *
  */
 public class xSubstringwithConcatenationofAllWords
 {
+	public static List<Integer> findSubstring(String s, String[] words) {
+		ArrayList<Integer> res = new ArrayList<>();
+		if (s==null || s.length()==0 || words==null || words.length==0) return res;
+		int len = words[0].length(), n = s.length();
+		if (len*words.length>n) return res;
+		for (int i=0; i<len; ++i) {
+			int lo=i, hi = lo+len*words.length;
+			if (hi > n) break;
+			HashMap<String, Integer> map = new HashMap<>();
+			for (String w : words)
+				map.put(w, map.getOrDefault(w, 0)+1);
+			int cnt=map.size();
+			for (int j=lo; j<hi; j+=len) {
+				String w = s.substring(j, j+len);
+				Integer c = map.get(w);
+				if (c!=null) {
+					if (c == 1) cnt--;
+					map.put(w, c - 1);
+				}
+			}
+			if (cnt==0) res.add(lo);
+			for (lo+=len, hi+=len; hi<=n; lo+=len, hi+=len) {
+				String w = s.substring(hi-len, hi);
+				Integer c = map.get(w);
+				if (c!=null) {
+					if (c == 1) cnt--;
+					map.put(w, c - 1);
+				}
+				w = s.substring(lo-len, lo);
+				c = map.get(w);
+				if (c!=null) {
+					if (c == 0) cnt++;
+					map.put(w, c + 1);
+				}
+				if (cnt==0)
+					res.add(lo);
+			}
+		}
+		return res;
+	}
 	/**
 	 * Use slide window to cache probable valid solution
 	 * time complexity O(n)
@@ -32,8 +84,9 @@ public class xSubstringwithConcatenationofAllWords
 	 * @param words
 	 * @return
 	 */
-    public static List<Integer> findSubstring(String s, String[] words) {
-        if (words == null || words.length == 0 || s.length() == 0) return null;
+    public static List<Integer> findSubstring1(String s, String[] words) {
+		LinkedList<Integer> res = new LinkedList<Integer>();
+        if (words == null || words.length == 0 || s.length() == 0) return res;
         int wordlen = words[0].length();
         HashMap<String, Integer> map = new HashMap<String, Integer>(words.length*4/3+1);
         for (String word : words) {
@@ -44,7 +97,6 @@ public class xSubstringwithConcatenationofAllWords
         		map.put(word, cnt+1);
         }
         int slen = s.length();
-        LinkedList<Integer> res = new LinkedList<Integer>();
         //sliding window
         for (int i=0; i<wordlen; ++i) {
         	int lo = i;
@@ -110,7 +162,10 @@ public class xSubstringwithConcatenationofAllWords
 	public static void main(String[] args)
 	{
 		//"wordgoodgoodgoodbestword", ["word","good","best","good"]
-		System.out.println(findSubstring("wordgoodgoodgoodbestword", new String[]{"word","good","best","good"}));
+		//System.out.println(findSubstring("wordgoodgoodgoodbestwordword", new String[]{"word","good","best","good"}));
+		//System.out.println(findSubstring("barfoothefoobarman", new String[]{"foo","bar"}));
+		//System.out.println(findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", new String[]{"fooo","barr","wing","ding","wing"})); //[13]
+		System.out.println(findSubstring("aaaaaa", new String[]{"aaa","aaa"}));
 	}
 
 }

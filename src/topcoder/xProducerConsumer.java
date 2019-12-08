@@ -85,16 +85,16 @@ public class xProducerConsumer {
     //only support 1 producer and 1 consumer
     public static class SynchronizedPC {
         LinkedList<Integer> queue = new LinkedList<>();
-        int capacity = 1;
+        int capacity = 10;
 
         public void produce(int value) throws InterruptedException {
             synchronized (this) {
                 while (queue.size() == capacity)
                     wait();
                 queue.offer(value);
-                notify();
+                notifyAll();
             }
-            System.out.println("Producer produced-" + value);
+            //System.out.println("Producer produced-" + value);
         }
 
         public int consume() throws InterruptedException {
@@ -103,9 +103,9 @@ public class xProducerConsumer {
                 while (queue.size() == 0)
                     wait();
                 val = queue.poll();
-                notify();
+                notifyAll();
             }
-            System.out.println("Consumer consumed-" + val);
+            //System.out.println("Consumer consumed-" + val);
             return val;
         }
     }
@@ -113,7 +113,7 @@ public class xProducerConsumer {
     //support n producer and n consumer
     public static class ConditionalPC {
         LinkedList<Integer> queue = new LinkedList<>();
-        int capacity = 1;
+        int capacity = 10;
         private final Lock aLock = new ReentrantLock();
         private final Condition bufferNotFull = aLock.newCondition();
         private final Condition bufferNotEmpty = aLock.newCondition();
@@ -124,7 +124,7 @@ public class xProducerConsumer {
                 bufferNotFull.await();
             queue.offer(value);
             //bufferNotEmpty.signalAll();
-            bufferNotFull.signal();//better perf
+            bufferNotEmpty.signal();//better perf
             aLock.unlock();
             //System.out.println("Producer produced-" + value);
         }

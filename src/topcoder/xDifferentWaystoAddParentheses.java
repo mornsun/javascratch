@@ -31,11 +31,40 @@ Hide Tags Divide and Conquer
 Hide Similar Problems (M) Unique Binary Search Trees II (M) Basic Calculator
 
  * @author Chauncey
- *
+ * Runtime: 3 ms, faster than 30.10% of Java online submissions for Different Ways to Add Parentheses.
+ * Memory Usage: 38.6 MB, less than 87.50% of Java online submissions for Different Ways to Add Parentheses.
+ * Runtime: 2 ms, faster than 73.57% of Java online submissions for Different Ways to Add Parentheses.
+ * Memory Usage: 38.3 MB, less than 87.50% of Java online submissions for Different Ways to Add Parentheses.
  */
 public class xDifferentWaystoAddParentheses
 {
-    public List<Integer> diffWaysToCompute(String input) {
+	public List<Integer> diffWaysToCompute(String input) {
+		ArrayList<Integer> res = new ArrayList<>();
+		if (input==null || input.length()==0) return res;
+		int n = input.length();
+		for (int i=0; i<n; ++i) {
+			char c = input.charAt(i);
+			if (c!='+' && c!='-' && c!='*') continue;
+			for (int left : diffWaysToCompute(input.substring(0,i)))
+				for (int right : diffWaysToCompute(input.substring(i+1,n)))
+					switch (c) {
+						case '+':
+							res.add(left + right);
+							break;
+						case '-':
+							res.add(left - right);
+							break;
+						case '*':
+							res.add(left * right);
+							break;
+					}
+		}
+		if (res.size()==0)
+			res.add(Integer.parseInt(input));
+		return res;
+	}
+
+    public List<Integer> diffWaysToCompute1(String input) {
     	if (input == null || input.length()==0) return null;
     	int num = -1;
     	int l = input.length();
@@ -118,7 +147,6 @@ public class xDifferentWaystoAddParentheses
 		xDifferentWaystoAddParentheses solution = new xDifferentWaystoAddParentheses();
 		
 		System.out.println(solution.diffWaysToCompute("2*3-4*5"));
-		System.out.println(solution.diffWaysToCompute(" "));
 		System.out.println(solution.diffWaysToCompute("0"));
 	}
     

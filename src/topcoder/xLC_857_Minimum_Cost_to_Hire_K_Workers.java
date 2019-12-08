@@ -38,7 +38,7 @@ import java.util.*;
  * @author Chauncey
  *
  */
-public class LC_857_Minimum_Cost_to_Hire_K_Workers
+public class xLC_857_Minimum_Cost_to_Hire_K_Workers
 {
     public double mincostToHireWorkers(int[] quality, int[] wage, int K) {
         if (quality == null || quality.length == 0 || wage == null || wage.length != quality.length || K < 1) {
@@ -76,7 +76,7 @@ public class LC_857_Minimum_Cost_to_Hire_K_Workers
 	{
 		long startTime = System.currentTimeMillis();
 
-		LC_857_Minimum_Cost_to_Hire_K_Workers solution = new LC_857_Minimum_Cost_to_Hire_K_Workers();
+		xLC_857_Minimum_Cost_to_Hire_K_Workers solution = new xLC_857_Minimum_Cost_to_Hire_K_Workers();
 		System.out.println(solution.mincostToHireWorkers(new int[]{10,20,5}, new int[]{70,50,30}, 2));
         System.out.println(solution.mincostToHireWorkers(new int[]{3,1,10,10,1}, new int[]{4,8,2,2,7}, 3));
 		

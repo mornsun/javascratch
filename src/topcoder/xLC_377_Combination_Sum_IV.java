@@ -23,6 +23,7 @@ import java.util.*;
  * (3, 1)
  *
  * Note that different sequences are counted as different combinations.
+ * True combination pls. check: xLC_518_Coin_Change_2
  *
  * Therefore the output is 7.
  *
@@ -30,6 +31,7 @@ import java.util.*;
  * What if negative numbers are allowed in the given array?
  * How does it change the problem?
  * What limitation we need to add to the question to allow negative numbers?
+ *
  *
  * Credits:
  * Special thanks to @pbrother for adding this problem and creating all test cases.

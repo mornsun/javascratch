@@ -19,10 +19,32 @@ Hide Tags Dynamic Programming
 Hide Similar Problems (H) Maximal Rectangle
 
  * @author Chauncey
- *
+ * Runtime: 4 ms, faster than 96.01% of Java online submissions for Maximal Square.
+ * Memory Usage: 39.7 MB, less than 100.00% of Java online submissions for Maximal Square.
  */
 public class xMaximalSquare
 {
+	public int maximalSquare(char[][] matrix) {
+		if (matrix==null || matrix.length==0 || matrix[0].length==0) return 0;
+		int m=matrix.length, n=matrix[0].length, max=0;
+		int[] dp = new int[n];
+		for (int i=0; i<m; ++i) {
+			int left = 0;
+			for (int j=0; j<n; ++j) {
+				if (i==0 || j==0 || matrix[i][j]=='0') {
+					left = dp[j];
+					dp[j] = matrix[i][j]-'0';
+				} else {
+					int upperleft = left;
+					left = dp[j];
+					dp[j] = Math.min(upperleft, Math.min(dp[j-1], dp[j]))+1;
+				}
+				max = Math.max(max, dp[j]);
+			}
+		}
+		return max*max;
+	}
+
     public int maximalSquare1(char[][] matrix) {
         if (matrix ==null || matrix.length ==0 || matrix[0].length ==0) return 0;
         int max_area = 0;
@@ -65,7 +87,7 @@ public class xMaximalSquare
         return max_area;
     }
 
-    public int maximalSquare(char[][] matrix) {
+    public int maximalSquare2(char[][] matrix) {
         if (matrix ==null || matrix.length ==0 || matrix[0].length ==0) return 0;
         int max_edge = 0;
         int m = matrix.length, n = matrix[0].length;
@@ -108,16 +130,27 @@ public class xMaximalSquare
 	public static void main(String[] args)
 	{
 		xMaximalSquare solution = new xMaximalSquare();
-		char[][] matrix = new char[][]{
+
+		//char[][] matrix = new char[][]{{'1'}};
+		System.out.println(solution.maximalSquare(new char[][]{
 				{'1', '1', '1', '0', '1', '0', '1', '1'},
 				{'1', '1', '1', '1', '1', '1', '1', '0'},
 				{'1', '1', '1', '1', '1', '1', '1', '0'},
 				{'1', '1', '1', '1', '1', '0', '0', '0'},
 				{'0', '1', '1', '1', '1', '0', '0', '0'},
-		};
-
-		//char[][] matrix = new char[][]{{'1'}};
-		System.out.println(solution.maximalSquare1(matrix));
+		}));
+		System.out.println(solution.maximalSquare(new char[][]{
+				{'1','0','1','0','0'},
+				{'1','0','1','1','1'},
+				{'1','1','1','1','1'},
+				{'1','0','0','1','0'}
+		}));
+		System.out.println(solution.maximalSquare(new char[][]{
+				{'1', '0', '1', '0'},
+				{'1', '0', '1', '1'},
+				{'1', '0', '1', '1'},
+				{'1', '1', '1', '1'}
+		}));
 	}
 
 }

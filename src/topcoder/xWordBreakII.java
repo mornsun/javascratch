@@ -6,26 +6,77 @@ package topcoder;
 import java.util.*;
 
 /**
- * Given a string s and a dictionary of words dict, add spaces in s to construct a sentence where each word is a valid dictionary word.
-
-Return all such possible sentences.
-
-For example, given
-s = "catsanddog",
-dict = ["cat", "cats", "and", "sand", "dog"].
-
-A solution is ["cats and dog", "cat sand dog"].
+ * Given a non-empty string s and a dictionary wordDict containing a list of non-empty words, add spaces in s to construct a sentence where each word is a valid dictionary word. Return all such possible sentences.
+ *
+ * Note:
+ *
+ * The same word in the dictionary may be reused multiple times in the segmentation.
+ * You may assume the dictionary does not contain duplicate words.
+ * Example 1:
+ *
+ * Input:
+ * s = "catsanddog"
+ * wordDict = ["cat", "cats", "and", "sand", "dog"]
+ * Output:
+ * [
+ *   "cats and dog",
+ *   "cat sand dog"
+ * ]
+ * Example 2:
+ *
+ * Input:
+ * s = "pineapplepenapple"
+ * wordDict = ["apple", "pen", "applepen", "pine", "pineapple"]
+ * Output:
+ * [
+ *   "pine apple pen apple",
+ *   "pineapple pen apple",
+ *   "pine applepen apple"
+ * ]
+ * Explanation: Note that you are allowed to reuse a dictionary word.
+ * Example 3:
+ *
+ * Input:
+ * s = "catsandog"
+ * wordDict = ["cats", "dog", "sand", "and", "cat"]
+ * Output:
+ * []
 
 Hide Tags Dynamic Programming Backtracking
 Hide Similar Problems (M) Word Break
 
  * @author Chauncey
- *
+ * Runtime: 6 ms, faster than 60.93% of Java online submissions for Word Break II.
+ * Memory Usage: 40.5 MB, less than 9.84% of Java online submissions for Word Break II.
  */
 public class xWordBreakII
 {
+	public List<String> wordBreak(String s, List<String> wordDict) {
+		HashMap<String, List<String>> map = new HashMap<>();
+		HashSet<String> words = new HashSet<>(wordDict);
+		return dfs(s, words, map);
+	}
+
+	private List<String> dfs(String s, HashSet<String> words, HashMap<String, List<String>> map) {
+		List<String> res = map.get(s);
+		if (res!=null) return res;
+		res = new ArrayList<>();
+		if (s.length()==0) {
+			res.add(null);
+			return res;
+		}
+		for (int len=1; len<=s.length(); ++len) {
+			String w = s.substring(0,len);
+			if (!words.contains(w)) continue;
+			for (String tail : dfs(s.substring(len), words, map))
+				res.add(w+(tail==null?"" : " "+tail));
+		}
+		map.put(s, res);
+		return res;
+	}
+
     // dp[j] = dp[i-1] && (s[i-1,j] is in dict)
-    public static List<String> wordBreak(String s, Set<String> wordDict) {
+    public static List<String> wordBreak1(String s, Set<String> wordDict) {
         if (null == wordDict || wordDict.isEmpty()) {
         	return new ArrayList<String>();
         }
@@ -82,23 +133,9 @@ public class xWordBreakII
 	 */
 	public static void main(String[] args)
 	{
-		String[] strs = new String[]{"leet","code"};
-		Set<String> wordDict = new HashSet<String>();
-		wordDict.add("leet");
-		wordDict.add("code");
-		System.out.println(wordBreak("leetcode", wordDict));
-		wordDict = new HashSet<String>();
-		wordDict.add("a");
-		wordDict.add("aa");
-		wordDict.add("aaa");
-		wordDict.add("aaaa");
-		wordDict.add("aaaaa");
-		wordDict.add("aaaaaa");
-		wordDict.add("aaaaaaa");
-		wordDict.add("aaaaaaaa");
-		wordDict.add("aaaaaaaaa");
-		wordDict.add("aaaaaaaaaa");
-		System.out.println(wordBreak("baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",wordDict));
+		xWordBreakII solution = new xWordBreakII();
+		System.out.println(solution.wordBreak("leetcode", Arrays.asList(new String[]{"leet", "code"})));
+		System.out.println(solution.wordBreak("baaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",Arrays.asList(new String[]{"a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa"})));
 		//, ["a","aa","aaa","aaaa","aaaaa","aaaaaa","aaaaaaa","aaaaaaaa","aaaaaaaaa","aaaaaaaaaa"]
 	}
 

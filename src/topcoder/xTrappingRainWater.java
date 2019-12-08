@@ -16,11 +16,29 @@ Hide Tags Array Stack Two Pointers
 Hide Similar Problems (M) Container With Most Water (M) Product of Array Except Self
 
  * @author Chauncey
- *
+ * Runtime: 1 ms, faster than 95.77% of Java online submissions for Trapping Rain Water.
+ * Memory Usage: 37.2 MB, less than 98.63% of Java online submissions for Trapping Rain Water.
  */
 public class xTrappingRainWater
 {
     public static int trap(int[] height) {
+        if (height==null || height.length==0) return 0;
+        int lo=0, hi=height.length-1, maxl=0, maxr=0, res=0;
+        while(lo<=hi) {
+            if (height[lo]<=height[hi]) {
+                if (height[lo]>maxl) maxl = height[lo];
+                else res+=maxl-height[lo];
+                lo++;
+            } else {
+                if (height[hi]>maxr) maxr = height[hi];
+                else res+=maxr-height[hi];
+                hi--;
+            }
+        }
+        return res;
+    }
+
+    public static int trap1(int[] height) {
         if (null == height || height.length == 0) return 0;
         int[] l2r = new int[height.length];
         int[] r2l = new int[height.length];

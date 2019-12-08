@@ -22,10 +22,32 @@ Hide Similar Problems (H) Search in Rotated Sorted Array
 
  * @author Chauncey
  * beat 100%
+ * Runtime: 0 ms, faster than 100.00% of Java online submissions for Search in Rotated Sorted Array II.
+ * Memory Usage: 39.1 MB, less than 70.42% of Java online submissions for Search in Rotated Sorted Array II.
  */
 public class xSearchinRotatedSortedArrayII {
 
 	public static boolean search(int[] nums, int target) {
+		if (nums==null || nums.length==0) return false;
+		int lo=0, hi=nums.length-1;
+		while(lo<=hi) {
+			int mid = lo + (hi-lo>>>1);
+			if (nums[mid]==target) return true;
+			if (nums[lo]==nums[mid] && nums[mid]==nums[hi]) {
+				lo++;
+				hi--;
+			} else if (nums[lo]<=nums[mid]) {
+				if (nums[lo]<=target && target<nums[mid]) hi = mid-1;
+				else lo = mid+1;
+			} else {
+				if (nums[mid]<target && target<=nums[hi]) lo = mid+1;
+				else hi = mid-1;
+			}
+		}
+		return false;
+	}
+
+	public static boolean search2(int[] nums, int target) {
 		if (nums==null || nums.length==0)
 			return false;
 		int lo = 0;
@@ -105,6 +127,7 @@ public class xSearchinRotatedSortedArrayII {
 		System.out.println(search(new int[]{8,8}, 8)); // true
 		System.out.println(search(new int[]{2,5,6,0,0,1,2}, 0)); // true
 		System.out.println(search(new int[]{2,5,6,0,0,1,2}, 3)); // false
+		System.out.println(search(new int[]{3,1}, 1)); // true
 	}
 
 }

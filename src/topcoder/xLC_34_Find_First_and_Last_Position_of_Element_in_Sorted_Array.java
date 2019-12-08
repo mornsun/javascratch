@@ -4,25 +4,31 @@
 package topcoder;
 
 /**
- * Given a sorted array of integers, find the starting and ending position of a given target value.
+ * Given an array of integers nums sorted in ascending order, find the starting and ending position of a given target value.
+ *
+ * Your algorithm's runtime complexity must be in the order of O(log n).
+ *
+ * If the target is not found in the array, return [-1, -1].
+ *
+ * Example 1:
+ *
+ * Input: nums = [5,7,7,8,8,10], target = 8
+ * Output: [3,4]
+ * Example 2:
+ *
+ * Input: nums = [5,7,7,8,8,10], target = 6
+ * Output: [-1,-1]
 
-Your algorithm's runtime complexity must be in the order of O(log n).
-
-If the target is not found in the array, return [-1, -1].
-
-For example,
-Given [5, 7, 7, 8, 8, 10] and target value 8,
-return [3, 4].
-
-Hide Tags Array Binary Search
+Hide Tags Array, Binary Search
 Hide Similar Problems (M) Search Insert Position
 
  * @author Chauncey
- *
+ * Runtime: 0 ms, faster than 100.00% of Java online submissions for Find First and Last Position of Element in Sorted Array.
+ * Memory Usage: 43.3 MB, less than 97.16% of Java online submissions for Find First and Last Position of Element in Sorted Array.
  */
-public class xSearchforaRange
+public class xLC_34_Find_First_and_Last_Position_of_Element_in_Sorted_Array
 {
-    public static int[] searchRange1(int[] nums, int target) {
+    public static int[] searchRange(int[] nums, int target) {
     	if (nums == null || nums.length == 0) return new int[]{-1,-1};
     	int lo = 0;
     	int hi = nums.length-1;
@@ -37,7 +43,6 @@ public class xSearchforaRange
     	if (nums[lo] != target)
     		return new int[]{-1,-1};
     	int lrange = lo;
-    	lo = 0;
     	hi = nums.length-1;
     	while (lo < hi) {
     		int m = lo + ((hi-lo+1)>>1);
@@ -51,7 +56,7 @@ public class xSearchforaRange
         return new int[]{lrange, rrange};
     }
     
-    public static int[] searchRange(int[] nums, int target) {
+    public static int[] searchRange1(int[] nums, int target) {
     	if (nums == null || nums.length == 0) return new int[]{-1,-1};
     	int lo = 0;
     	int hi = nums.length-1;
