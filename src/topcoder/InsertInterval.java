@@ -22,7 +22,8 @@ Hide Tags Array Sort
 Hide Similar Problems (H) Merge Intervals
 
  * @author Chauncey
- *
+ * Runtime: 1 ms, faster than 99.07% of Java online submissions for Insert Interval.
+ * Memory Usage: 39.9 MB, less than 90.63% of Java online submissions for Insert Interval.
  */
 public class InsertInterval
 {
@@ -66,6 +67,28 @@ public class InsertInterval
     	if (newInterval != null) list.add(newInterval);
         return list;
     }
+
+	public int[][] insert(int[][] intervals, int[] newInterval) {
+		int lo=0, hi=intervals.length, target=newInterval[1];
+		while (lo<hi) {
+			int m=lo+(hi-lo>>>1);
+			if (target>=intervals[m][0])
+				lo = m+1;
+			else
+				hi = m;
+		}
+		lo--;
+		while (lo>=0 && intervals[lo][1]>=newInterval[0]) {
+			newInterval[0] = Math.min(intervals[lo][0], newInterval[0]);
+			newInterval[1] = Math.max(intervals[lo][1], newInterval[1]);
+			lo--;
+		}
+		int[][] res = new int[lo+2+intervals.length-hi][];
+		System.arraycopy(intervals, 0, res, 0, lo+1);
+		res[lo+1] = newInterval;
+		System.arraycopy(intervals, hi, res, lo+2, intervals.length-hi);
+		return res;
+	}
 	    
 	/**
 	 * @param args
@@ -77,6 +100,12 @@ public class InsertInterval
     	intervals.add(new Interval(6, 9));
     	intervals.add(new Interval(15, 18));
     	System.out.println(insert(intervals, new Interval(2, 5)));
+
+		long startTime = System.currentTimeMillis();
+		InsertInterval solution = new InsertInterval();
+		System.out.println(Arrays.deepToString(solution.insert(new int[][]{{1,3},{6,9}}, new int[]{2,5}))); //{{1,5},{6,9}}
+		System.out.println(Arrays.deepToString(solution.insert(new int[][]{{1,2},{3,5},{6,7},{8,10},{12,16}}, new int[]{4,8}))); //{{1,2},{3,10},{12,16}}
+		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
 	}
 
 }
