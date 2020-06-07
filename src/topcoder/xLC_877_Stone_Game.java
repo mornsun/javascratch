@@ -36,7 +36,7 @@ package topcoder;
  * Runtime: 3 ms, faster than 55.72% of Java online submissions for Stone Game.
  * Memory Usage: 34.7 MB, less than 100.00% of Java online submissions for Stone Game.
  */
-public class LC_877_Stone_Game
+public class xLC_877_Stone_Game
 {
 	public boolean stoneGame(int[] piles) {
 		if (piles==null || piles.length==0) return false;
@@ -63,7 +63,7 @@ public class LC_877_Stone_Game
 	{
 		long startTime = System.currentTimeMillis();
 
-		LC_877_Stone_Game solution = new LC_877_Stone_Game();
+		xLC_877_Stone_Game solution = new xLC_877_Stone_Game();
 		System.out.println(solution.stoneGame(new int[]{5,3,4,5})); //true
 
 		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));

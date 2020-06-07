@@ -18,7 +18,7 @@ public class xGameCard24
 		public SubEvaluation(char op, String exp) {operator=op; expression=exp;}
 	}
 
-	public List<String> card24(int[] cards) {
+	public List<String> card24(int[] cards) { //Wrong
 		ArrayList<String> res = new ArrayList<>();
 		if (cards==null || cards.length==0) return res;
 		HashMap<Float, SubEvaluation> all = compute(cards, 0, cards.length);
@@ -36,6 +36,7 @@ public class xGameCard24
 			map.put((float)cards[lo], new SubEvaluation('#', String.valueOf(cards[lo])));
 			return map;
 		}
+		//TODO:only a permutation
 		for (int i=lo+1; i<hi; ++i) {
 			map.putAll(compute(compute(cards, lo, i), compute(cards, i, hi)));
 		}
@@ -204,6 +205,8 @@ public class xGameCard24
 		xGameCard24 solution = new xGameCard24();
 
 		System.out.println(solution.card24(new int[]{12,5,7,6}));
+		System.out.println(solution.card24(new int[]{1,10,6,3}));
+		System.out.println(solution.card24_old(new int[]{1,10,6,3}));
 		System.out.println(solution.card24(new int[]{12,5,7,6,11}));
 		System.out.println(solution.card24(new int[]{11,4,6,6}));
 	}
