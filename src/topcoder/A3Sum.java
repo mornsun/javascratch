@@ -21,7 +21,7 @@ Hide Similar Problems (M) Two Sum (M) 3Sum Closest (M) 4Sum (M) 3Sum Smaller
 public class A3Sum
 {
     public List<List<Integer>> threeSum(int[] nums) {
-    	List<List<Integer>> result = new LinkedList<List<Integer>>();
+    	List<List<Integer>> result = new LinkedList<>();
     	if (nums.length < 3)
     		return result;
     	Arrays.sort(nums);
@@ -33,7 +33,6 @@ public class A3Sum
 	    	int j = i+1;
 	    	int k = nums.length-1;
 	    	while (j < k) {
-	    		//System.out.println(nums[i]+":"+ nums[j] +":"+ nums[k]);
 	    		if (j != i+1 && nums[j]==nums[j-1]) {
 	    			++j;
 	    			continue;
@@ -47,14 +46,7 @@ public class A3Sum
 		    	} else if (nums[i] + nums[j] + nums[k] > target) {
 		    		--k;
 		    	} else {
-		    		int[] arr = {nums[i], nums[j], nums[k]};
-		    		List<Integer> list = new LinkedList<Integer>();
-		    		for (int n : arr) {
-		    			list.add(n);
-		    		}
-		    		result.add(list);
-		    		++j;
-		    		--k;
+		    		result.add(Arrays.asList(nums[i], nums[j++], nums[k--]));
 		    	}
 	    	}
     	}
