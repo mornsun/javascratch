@@ -49,6 +49,34 @@ public class xBinaryTreeZigzagLevelOrderTraversal
 	}
 
 	public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+		if (root==null)
+			return null;
+		LinkedList<List<Integer>> res = new LinkedList<>();
+		LinkedList<TreeNode> stack = new LinkedList<>();
+		stack.push(root);
+		boolean rightfirst = true;
+		while (!stack.isEmpty()) {
+			LinkedList<TreeNode> prev = stack;
+			stack = new LinkedList<>();
+			LinkedList<Integer> level = new LinkedList<>();
+			while (!prev.isEmpty()) {
+				TreeNode node = prev.pop();
+				level.push(node.val);
+				if (rightfirst) {
+					if (node.right!=null) stack.push(node.right);
+					if (node.left!=null) stack.push(node.left);
+				} else {
+					if (node.left!=null) stack.push(node.left);
+					if (node.right!=null) stack.push(node.right);
+				}
+			}
+			res.add(level);
+			rightfirst = !rightfirst;
+		}
+		return res;
+	}
+
+	public List<List<Integer>> zigzagLevelOrder2(TreeNode root) {
 		LinkedList<List<Integer>> res = new LinkedList<>();
 		if (root==null) return res;
 		LinkedList<TreeNode> q = new LinkedList<>();
@@ -74,7 +102,6 @@ public class xBinaryTreeZigzagLevelOrderTraversal
 			res.add(r);
 		}
 		return res;
-
 	}
 
     public List<List<Integer>> zigzagLevelOrder1(TreeNode root) {
@@ -134,18 +161,18 @@ public class xBinaryTreeZigzagLevelOrderTraversal
 	{
 		xBinaryTreeZigzagLevelOrderTraversal solution = new xBinaryTreeZigzagLevelOrderTraversal();
 		TreeNode root = new TreeNode(5);
+		root.right = new TreeNode(7);
 	    root.left = new TreeNode(3);
 	    root.left.left = new TreeNode(1);
+		root.left.right = new TreeNode(4);
+		root.left.left.right = new TreeNode(2);
 	    root.left.left.left = new TreeNode(0);
-	    root.left.left.right = new TreeNode(2);
-	    root.left.right = new TreeNode(4);
-	    root.right = new TreeNode(7);
 		//print_tree(root, 0);
 		System.out.println(solution.zigzagLevelOrder(root));
 		
 		root = new TreeNode(1);
+		root.right = new TreeNode(3);
 	    root.left = new TreeNode(2);
-	    root.right = new TreeNode(3);
 	    root.left.left = new TreeNode(4);
 	    root.right.right = new TreeNode(5);
 		System.out.println(solution.zigzagLevelOrder(root));

@@ -59,6 +59,23 @@ public class xBestTimetoBuyandSellStockIII
 {
     public static int maxProfit(int[] prices)
     {
+        if (prices.length < 2) return 0;
+        int n = prices.length;
+        int[][] hold = new int[2][n];
+        int[][] empty = new int[2][n];
+
+        for (int i=0; i<prices.length; ++i) {
+            hold[0][i] = Math.max(i>0 ? hold[0][i-1] : Integer.MIN_VALUE, -prices[i]);
+            empty[0][i] = Math.max(i>0 ? empty[0][i-1] : Integer.MIN_VALUE, hold[0][i]+prices[i]);
+            hold[1][i] = Math.max(i>0 ? hold[1][i-1] : Integer.MIN_VALUE, empty[0][i]-prices[i]);
+            empty[1][i] = Math.max(i>0 ? empty[1][i-1] : Integer.MIN_VALUE, hold[1][i]+prices[i]);
+        }
+
+        return empty[1][n-1];
+    }
+
+    public static int maxProfit1(int[] prices)
+    {
     	if (prices.length < 2) return 0;
     	int n = prices.length;
     	int[] f = new int[n];
