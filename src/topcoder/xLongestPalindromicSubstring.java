@@ -34,11 +34,39 @@ http://blog.csdn.net/hopeztm/article/details/7932245
 http://articles.leetcode.com/2011/11/longest-palindromic-substring-part-ii.html
 
  * @author Chauncey
- *
+ * Runtime: 23 ms, faster than 90.36% of Java online submissions for Longest Palindromic Substring.
+ * Memory Usage: 39.6 MB, less than 42.12% of Java online submissions for Longest Palindromic Substring.
  */
 public class xLongestPalindromicSubstring {
 
-    public static String longestPalindrome(String s) {
+	public static String longestPalindrome(String s) {
+		if (s==null) {
+			return "";
+		}
+		int n=s.length(), max = 0;
+		String res = "";
+		for (int i=0; i<n; ++i) {
+			int j;
+			// center at i
+			for (j=1; i-j>=0 && i+j<n && s.charAt(i-j)==s.charAt(i+j); ++j);
+			int len = 1 + (j-1<<1);
+			if (len > max) {
+				max = len;
+				res = s.substring(i-j+1, i+j);
+			}
+			//center at i+0.5
+			if (i==n-1 || s.charAt(i)!=s.charAt(i+1)) continue;
+			for (j=1; i-j>=0 && i+1+j<n && s.charAt(i-j)==s.charAt(i+1+j); ++j);
+			len = 2 + (j-1<<1);
+			if (len > max) {
+				max = len;
+				res = s.substring(i-j+1, i+1+j);
+			}
+		}
+		return res;
+	}
+
+    public static String longestPalindrome_DP(String s) {
     	if (s==null || "".equals(s)) return "";
     	final int slen = s.length();
         boolean[][] dp = new boolean[slen][slen];
@@ -80,6 +108,8 @@ public class xLongestPalindromicSubstring {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		System.out.println(longestPalindrome("babad")); //aba, bab
+		System.out.println(longestPalindrome("cbbd")); //bb
 		System.out.println(longestPalindrome("aaabcdcbcdha"));
 	}
 

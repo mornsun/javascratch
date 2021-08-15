@@ -31,11 +31,51 @@ Hide Similar Problems (H) Minimum Window Substring
  * Memory Usage: 37.3 MB, less than 100.00% of Java online submissions for Substring with Concatenation of All Words.
  * Runtime: 8 ms, faster than 92.91% of Java online submissions for Substring with Concatenation of All Words.
  * Memory Usage: 37.1 MB, less than 100.00% of Java online submissions for Substring with Concatenation of All Words.
+ * Runtime: 85 ms, faster than 77.20% of Java online submissions for Substring with Concatenation of All Words.
+ * Memory Usage: 39.6 MB, less than 58.07% of Java online submissions for Substring with Concatenation of All Words.
  *
  */
 public class xSubstringwithConcatenationofAllWords
 {
 	public static List<Integer> findSubstring(String s, String[] words) {
+		ArrayList<Integer> res = new ArrayList<>();
+		if (s==null || words==null || words.length==0)
+			return res;
+		int len = words[0].length(), n=s.length();
+		int window = len*words.length;
+		HashMap<String, Integer> dict = new HashMap<>();
+		for (String word : words) {
+			dict.put(word, dict.getOrDefault(word, 0)+1);
+		}
+		ArrayList<String> checked = new ArrayList<>(words.length);
+		for (int i=0; i<=n-window; ++i) {
+			for (int j=0; j<window; j+=len) {
+				String key = s.substring(i+j, i+j+len);
+				Integer cnt = dict.get(key);
+				//System.out.println(key + ":" + cnt);
+				if (cnt==null || cnt==0) {
+					resetDict(dict, checked);
+					break;
+				}
+				dict.put(key, cnt-1);
+				checked.add(key);
+			}
+			if (checked.size() == words.length) {
+				res.add(i);
+				resetDict(dict, checked);
+			}
+		}
+		return res;
+	}
+
+	private static void resetDict(HashMap<String, Integer> dict, ArrayList<String> checked) {
+		for (String key : checked) {
+			dict.put(key, dict.get(key)+1);
+		}
+		checked.clear();
+	}
+
+	public static List<Integer> findSubstring2(String s, String[] words) {
 		ArrayList<Integer> res = new ArrayList<>();
 		if (s==null || s.length()==0 || words==null || words.length==0) return res;
 		int len = words[0].length(), n = s.length();
@@ -162,9 +202,9 @@ public class xSubstringwithConcatenationofAllWords
 	public static void main(String[] args)
 	{
 		//"wordgoodgoodgoodbestword", ["word","good","best","good"]
-		//System.out.println(findSubstring("wordgoodgoodgoodbestwordword", new String[]{"word","good","best","good"}));
-		//System.out.println(findSubstring("barfoothefoobarman", new String[]{"foo","bar"}));
-		//System.out.println(findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", new String[]{"fooo","barr","wing","ding","wing"})); //[13]
+		System.out.println(findSubstring("wordgoodgoodgoodbestwordword", new String[]{"word","good","best","good"}));
+		System.out.println(findSubstring("barfoothefoobarman", new String[]{"foo","bar"}));
+		System.out.println(findSubstring("lingmindraboofooowingdingbarrwingmonkeypoundcake", new String[]{"fooo","barr","wing","ding","wing"})); //[13]
 		System.out.println(findSubstring("aaaaaa", new String[]{"aaa","aaa"}));
 	}
 

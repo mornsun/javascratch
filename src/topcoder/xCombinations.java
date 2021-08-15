@@ -29,11 +29,33 @@ Hide Similar Problems (M) Combination Sum (M) Permutations
 2. 用r组合 a1,...,a(k-1),(ak+1),(ak+2),...,(ak+r-k+1) 替换
 
  * @author Chauncey
- *
+ * Runtime: 7 ms, faster than 83.47% of Java online submissions for Combinations.
+ * Memory Usage: 53.6 MB, less than 5.42% of Java online submissions for Combinations.
  */
 public class xCombinations
 {
-	private final static boolean nextCombination(Integer[] nums, int n) {
+	public List<List<Integer>> combine(int n, int k) {
+		ArrayList<List<Integer>> res = new ArrayList<>();
+		if (k<1 || n<k)
+			return res;
+		LinkedList<Integer> path = new LinkedList<>();
+		helper(n, k, 1, res, path);
+		return res;
+	}
+
+	private void helper(int n, int k, int start, ArrayList<List<Integer>> res, LinkedList<Integer> path) {
+		if (k==0) {
+			res.add(new LinkedList<>(path));
+			return;
+		}
+		for (int i=start; i<=n-k+1; ++i) {
+			path.add(i);
+			helper(n, k-1, i+1, res, path);
+			path.removeLast();
+		}
+	}
+
+	private final boolean nextCombination(Integer[] nums, int n) {
 		/*for (int e: nums) {
 			System.out.print(e);
 		}
@@ -58,7 +80,7 @@ public class xCombinations
 		}
 		return true;
 	}
-    public static List<List<Integer>> combine(int n, int k) {
+    public List<List<Integer>> combine1(int n, int k) {
     	if (k<1 || n<k) return null;
         List<List<Integer>> res = new LinkedList<List<Integer>>();
         Integer[] comb = new Integer[k];
@@ -79,9 +101,13 @@ public class xCombinations
 	 */
 	public static void main(String[] args)
 	{
-		List<List<Integer>> list = combine(5,3);
-		System.out.println(list);
-		
+		long startTime = System.currentTimeMillis();
+
+		xCombinations solution = new xCombinations();
+		System.out.println(solution.combine(4,2));
+		System.out.println(solution.combine(5,3));
+
+		System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
 	}
 
 }

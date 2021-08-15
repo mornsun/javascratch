@@ -19,7 +19,7 @@ public class xUnionSet
         this.id = new int[N];
         this.size = new int[N];
 
-        for (int i = 0; i < this.count; i++) {
+        for (int i = 0; i < N; i++) {
             id[i] = i;
             size[i] = 1;
         }
@@ -35,19 +35,17 @@ public class xUnionSet
     }
 
     public void union(int p, int q) {
-        int pCom = this.find(p);
-        int qCom = this.find(q);
-
-        if (pCom == qCom) {
+        int pid = find(p);
+        int qid = find(q);
+        if (pid==qid)
             return;
-        }
         // 按秩进行合并
-        if (size[pCom] > size[qCom]) {
-            id[qCom] = pCom;
-            size[pCom] += size[qCom];
+        if (size[pid] > size[qid]) {
+            id[qid] = pid;
+            size[pid] += size[qid];
         } else {
-            id[pCom] = qCom;
-            size[qCom] += size[pCom];
+            id[pid] = qid;
+            size[qid] += size[pid];
         }
         // 每次合并之后，树的数量减1
         count--;

@@ -33,7 +33,40 @@ Hide Similar Problems (M) Course Schedule II (M) Graph Valid Tree
  */
 public class CourseSchedule
 {
-    public boolean canFinish(int numCourses, int[][] prerequisites) {
+	public boolean canFinish(int numCourses, int[][] prerequisites) {
+		if (numCourses<=0 || prerequisites==null)
+			return true;
+		int[] res = new int[numCourses];
+		ArrayList<List<Integer>> table = new ArrayList<>(numCourses);
+		for (int i=0; i<numCourses; ++i) {
+			table.add(new ArrayList<Integer>());
+		}
+		for (int[] prerequisite : prerequisites) {
+			table.get(prerequisite[1]).add(prerequisite[0]);
+		}
+		int[] visited = new int[numCourses];
+		for (int i=0; i<numCourses; ++i) {
+			if (helper(res, table, visited, i) == false)
+				return false;
+		}
+		return true;
+	}
+
+	private boolean helper(int[] res, ArrayList<List<Integer>> table, int[] visited, int i) {
+		if (visited[i]==1) //black
+			return true;
+		if (visited[i]==-1) //cyclic
+			return false;
+		visited[i] = -1; //grey
+		for (int next : table.get(i)) {
+			if (helper(res, table, visited, next) == false)
+				return false;
+		}
+		visited[i] = 1; //black
+		return true;
+	}
+
+    public boolean canFinish1(int numCourses, int[][] prerequisites) {
     	if (numCourses <= 0 || prerequisites == null || prerequisites.length == 0) return true;
     	int[] vertexs = new int[numCourses];
         HashMap<Integer, Set<Integer>> graph = new HashMap<Integer, Set<Integer>>();

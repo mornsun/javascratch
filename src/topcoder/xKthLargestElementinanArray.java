@@ -3,12 +3,6 @@
  */
 package topcoder;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-
 /**
  * Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
@@ -24,15 +18,62 @@ Special thanks to @mithmatt for adding this problem and creating all test cases.
 Hide Tags Divide and Conquer Heap
 
  * @author Chauncey
- *
+ * Runtime: 7 ms, faster than 28.07% of Java online submissions for Kth Largest Element in an Array.
+ * Memory Usage: 39.7 MB, less than 22.44% of Java online submissions for Kth Largest Element in an Array.
  */
 public class xKthLargestElementinanArray
 {
+    private int findKth(int[] nums, int k, int lo, int hi)
+    {
+        int v = nums[hi];
+        int l = lo, h = hi-1;
+        while (l<=h) {
+            while (nums[l] > v)
+                l++;
+            while (h >= 1 && nums[h] <= v)
+                h--;
+            if (l>=h)
+                break;
+            swap(nums, l++, h--);
+        }
+        if (l+1==k)
+            return nums[hi];
+        swap(nums, l, hi);
+        if (l+1<k) {
+            return findKth(nums, k, l+1, hi);
+        } else {
+            return findKth(nums, k, lo, l-1);
+        }
+    }
+
+    private int findKth3(int[] nums, int k, int lo, int hi)
+    {
+        int v = nums[hi];
+        int i = lo;
+        for (int j=lo; j<hi; ++j) {
+            if (nums[j]>v) {
+                swap(nums, i++, j);
+            }
+        }
+        if (i+1==k)
+            return nums[hi];
+        swap(nums, i, hi);
+        if (i+1<k) {
+            return findKth(nums, k, i+1, hi);
+        } else {
+            return findKth(nums, k, lo, i-1);
+        }
+    }
+
+    public int findKthLargest(int[] nums, int k) {
+        return findKth(nums, k, 0, nums.length-1);
+    }
+
     /**
      * Use analog of quick sort to find the Kth largest element
      * @param lo, ri: inclusive
      */
-    public static int findKth1(int[] nums, int k, int lo, int hi)
+    private int findKth1(int[] nums, int k, int lo, int hi)
     {
         int v = nums[hi];
         int l = lo, r=hi;
@@ -60,7 +101,8 @@ public class xKthLargestElementinanArray
         }
     }
 
-    public static void swap(int[] nums, int i, int j) {
+    private static void swap(int[] nums, int i, int j) {
+        if (i==j) return;
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
@@ -70,7 +112,7 @@ public class xKthLargestElementinanArray
      * reference to "Introduction to Algorithms"
      * @param lo, ri: inclusive
      */
-    public static int findKth(int[] nums, int k, int lo, int hi)
+    private int findKth2(int[] nums, int k, int lo, int hi)
     {
         int v = nums[hi];
         int i = lo-1;
@@ -91,23 +133,19 @@ public class xKthLargestElementinanArray
         }
     }
     
-    public static int findKthLargest(int[] nums, int k) {
-        return findKth(nums, k, 0, nums.length-1);
-    }
-    
     /**
      * @param args
      */
     public static void main(String[] args)
     {
-        // TODO Auto-generated method stub
-        int[] nums = new int[]{3,2,1,5,6,4};
-        int res = findKthLargest(nums, 4);
-        for (int num : nums) {
-            System.out.print(num+",");
-        }
-        System.out.println();
-        System.out.println(res);
+        long startTime = System.currentTimeMillis();
+
+        xKthLargestElementinanArray solution = new xKthLargestElementinanArray();
+        System.out.println(solution.findKthLargest(new int[]{3,2,1,5,6,4}, 2)); //5
+        System.out.println(solution.findKthLargest(new int[]{3,2,1,5,6,4}, 4)); //3
+        System.out.println(solution.findKthLargest(new int[]{3,2,3,1,2,4,5,5,6}, 4)); //4
+        System.out.println("elapsed:" + (System.currentTimeMillis() - startTime));
+
     }
 
 }

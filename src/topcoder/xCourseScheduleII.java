@@ -35,7 +35,44 @@ Hide Similar Problems (M) Course Schedule (M) Alien Dictionary
  */
 public class xCourseScheduleII
 {
-    public int[] findOrder(int numCourses, int[][] prerequisites) {
+	public int[] findOrder(int numCourses, int[][] prerequisites) {
+		if (numCourses<=0 || prerequisites==null)
+			return new int[0];
+		int[] res = new int[numCourses];
+		ArrayList<List<Integer>> table = new ArrayList<>(numCourses);
+		for (int i=0; i<numCourses; ++i) {
+			table.add(new ArrayList<Integer>());
+		}
+		for (int[] prerequisite : prerequisites) {
+			table.get(prerequisite[1]).add(prerequisite[0]);
+		}
+		int[] visited = new int[numCourses];
+		int res_i = numCourses - 1;
+		for (int i=0; i<numCourses; ++i) {
+			res_i = helper(res, table, visited, i, res_i);
+			if (res_i == -10)
+				return new int[0];
+		}
+		return res;
+	}
+
+	private int helper(int[] res, ArrayList<List<Integer>> table, int[] visited, int i, int res_i) {
+		if (visited[i]==1) //black
+			return res_i;
+		if (visited[i]==-1) //cyclic
+			return -10;
+		visited[i] = -1; //grey
+		for (int next : table.get(i)) {
+			res_i = helper(res, table, visited, next, res_i);
+			if (res_i == -10)
+				return -10;
+		}
+		visited[i] = 1; //black
+		res[res_i] = i;
+		return res_i - 1;
+	}
+
+    public int[] findOrder1(int numCourses, int[][] prerequisites) {
     	if (numCourses <= 0) return null;
     	int[] res = new int[numCourses];
         if (prerequisites == null || prerequisites.length == 0) {
@@ -94,10 +131,9 @@ public class xCourseScheduleII
 	public static void main(String[] args)
 	{
 		xCourseScheduleII solution = new xCourseScheduleII();
-		int[] nums = solution.findOrder(4, new int[][]{{1,0},{2,0},{3,1},{3,2}});
-//		System.out.println(nums.length);
-		for (int num : nums)
-			System.out.println(num);
+		System.out.println(Arrays.toString(solution.findOrder(2, new int[][]{{1,0}})));
+		System.out.println(Arrays.toString(solution.findOrder(4, new int[][]{{1,0},{2,0},{3,1},{3,2}})));
+		System.out.println(Arrays.toString(solution.findOrder1(4, new int[][]{{1,0},{2,0},{3,1},{3,2}})));
 	}
 
 }

@@ -51,7 +51,7 @@ public class xLC_470_Implement_Rand10_Using_Rand7
         while (true) {
             int a = rand7();
             int b = rand7();
-            //1-49, get 1-40
+            //0-48, get 0-39
             int ans = (a-1)*7+b-1;
             if (ans<=39)
                 return ans%10+1;
